@@ -1,0 +1,2 @@
+describe PagesHelper do
+end
