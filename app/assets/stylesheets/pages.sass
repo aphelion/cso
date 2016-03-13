@@ -12,6 +12,16 @@ section.home-section
   min-height: calc(100vh - #{$navbar-height})
   @include make-container()
 
+.navbar-toggler
+  &[aria-expanded=true]
+    background-color: $gray-lighter
+
+.collapse.in, .collapsing
+  clear: both
+  li.nav-item
+    float: none
+    margin-left: 0 !important
+
 #landing
   display: flex
   align-items: center
@@ -25,7 +35,7 @@ section.home-section
     left: 0
     right: 0
     background: image-url('cso.svg') no-repeat center center
-    background-size: 100% 125%
+    background-size: auto 125%
     opacity: 0.1
 
 #event-information

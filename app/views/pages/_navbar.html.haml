@@ -1,5 +1,7 @@
 %nav.navbar.navbar-fixed-top.navbar-light.bg-faded
   = link_to 'Collegiate Salsa Open', root_path, class: 'navbar-brand page-scroll'
-  %ul.nav.navbar-nav
-    %li.nav-item= link_to 'Event Information', root_path(anchor: 'event-information'), class: 'nav-link page-scroll'
-    %li.nav-item= link_to 'Registration', root_path, class: 'nav-link'
+  %button.navbar-toggler.hidden-md-up.pull-xs-right{data: {toggle: 'collapse', target: '#navbar-menu'}, role: 'button'} ☰
+  #navbar-menu.collapse.navbar-toggleable-sm
+    %ul.nav.navbar-nav
+      %li.nav-item= link_to 'Event Information', root_path(anchor: 'event-information'), class: 'nav-link page-scroll'
+      %li.nav-item= link_to 'Registration', root_path, class: 'nav-link'
