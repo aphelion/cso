@@ -12,8 +12,8 @@ describe 'pages/_navbar.html.haml' do
       expect(rendered).to have_link 'Event Information', href: '/#event-information'
     end
 
-    it 'links to the Registration page' do
-      expect(rendered).to have_link 'Registration'
+    it 'links to the Tickets page' do
+      expect(rendered).to have_link 'Tickets', href: tickets_status_path
     end
   end
 end

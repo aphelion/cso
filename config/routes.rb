@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+
+  get '/tickets', to: 'tickets#status', as: :tickets_status
+
+  get '/sessions/new', to: 'sessions#new', as: :sessions_new
+  match '/sessions/callback/:provider', to: 'sessions#callback', via: [:get, :post]
 end

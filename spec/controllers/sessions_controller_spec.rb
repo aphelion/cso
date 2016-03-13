@@ -1,5 +1,5 @@
 describe SessionsController do
-  describe '.create' do
+  describe '.callback' do
     context 'when there is no authenticated User' do
       context 'when a new Identity authenticates' do
         let(:auth_hash) { {uid: 'new-identity-uid', provider: 'facebook'} }
@@ -10,7 +10,7 @@ describe SessionsController do
 
         it 'saves a new user with the identity' do
           expect {
-            get :create, {provider: 'facebook'}
+            get :callback, {provider: 'facebook'}
           }.to change(User, :count).by(1)
 
           expect(User.last.identities.count).to eq(1)
@@ -18,7 +18,7 @@ describe SessionsController do
         end
 
         it 'sets the new User id in the session' do
-          get :create, {provider: 'facebook'}
+          get :callback, {provider: 'facebook'}
 
           expect(session[:user_id]).to eq(User.last.id)
         end
@@ -41,24 +41,24 @@ describe SessionsController do
 
           it 'does not create a new Identity' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(Identity, :count)
           end
 
           it 'does not create a new User' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(User, :count)
           end
 
           it 'does not re-save the Identity' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(existing_identity, :updated_at)
           end
 
           it 'sets the new User id in the session' do
-            get :create, {provider: 'facebook'}
+            get :callback, {provider: 'facebook'}
 
             expect(session[:user_id]).to eq(existing_user.id)
           end
@@ -67,13 +67,13 @@ describe SessionsController do
         context 'when that Identity is not associated with a User' do
           it 'does not create a new Identity' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(Identity, :count)
           end
 
           it 'creates a new User with the Identity' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to change(User, :count).by(1)
 
             expect(User.last.identities.count).to eq(1)
@@ -81,7 +81,7 @@ describe SessionsController do
           end
 
           it 'sets the new User id in the session' do
-            get :create, {provider: 'facebook'}
+            get :callback, {provider: 'facebook'}
 
             expect(session[:user_id]).to eq(User.last.id)
           end
@@ -103,7 +103,7 @@ describe SessionsController do
         end
 
         it 'saves the Identity with the User' do
-          get :create, {provider: 'facebook'}
+          get :callback, {provider: 'facebook'}
 
           expect(Identity.last.user.id).to eq(user.id)
         end
@@ -125,7 +125,7 @@ describe SessionsController do
 
           it 'does not create a new User' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(User, :count)
           end
         end
@@ -140,18 +140,18 @@ describe SessionsController do
 
           it 'does not create a new User' do
             expect {
-              get :create, {provider: 'facebook'}
+              get :callback, {provider: 'facebook'}
             }.to_not change(User, :count)
           end
 
           it 'does not change the User of the Identity' do
-            get :create, {provider: 'facebook'}
+            get :callback, {provider: 'facebook'}
 
             expect(existing_identity.user.id).to eq(other_user.id)
           end
 
           it 'sets the other User id in the session' do
-            get :create, {provider: 'facebook'}
+            get :callback, {provider: 'facebook'}
 
             expect(session[:user_id]).to eq(other_user.id)
           end
