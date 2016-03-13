@@ -1,9 +1,9 @@
 describe PagesController do
-  describe 'GET .index' do
+  describe 'GET .home' do
     it 'renders its template' do
-      get :index
+      get :home
 
-      expect(response).to render_template('pages/index')
+      expect(response).to render_template('pages/home')
     end
   end
 end

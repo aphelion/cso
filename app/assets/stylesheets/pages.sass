@@ -1,3 +1,32 @@
-// Place all the styles related to the pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+@import bootstrap/mixins
+@import bootstrap/variables
+
+html
+  height: 100vh
+
+$navbar-height: $navbar-padding-vertical * 2 + $font-size-lg * $line-height + 0.25rem * 2
+
+section.home-section
+  margin-top: $navbar-height
+  margin-bottom: -$navbar-height
+  min-height: calc(100vh - #{$navbar-height})
+  @include make-container()
+
+#landing
+  display: flex
+  align-items: center
+  justify-content: center
+  position: relative
+  &:before
+    content: ''
+    z-index: -1
+    position: absolute
+    height: 100%
+    left: 0
+    right: 0
+    background: url(cso.svg) no-repeat center center
+    background-size: 100% 125%
+    opacity: 0.1
+
+#event-information
+  background-color: aquamarine
