@@ -5,3 +5,5 @@
     %ul.nav.navbar-nav
       %li.nav-item= link_to 'Event Information', root_path(anchor: 'event-information'), class: 'nav-link page-scroll'
       %li.nav-item= link_to 'Tickets', tickets_status_path, class: 'nav-link'
+      - if logged_in?
+        %li.nav-item= link_to 'Logout', destroy_session_path, method: :delete, class: 'nav-link'

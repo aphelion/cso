@@ -4,7 +4,7 @@ describe TicketsController do
       it 'redirects to the login page' do
         get :status
 
-        expect(response).to redirect_to(sessions_new_path)
+        expect(response).to redirect_to(new_session_path)
       end
     end
 

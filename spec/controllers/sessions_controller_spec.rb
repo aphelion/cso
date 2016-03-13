@@ -159,4 +159,31 @@ describe SessionsController do
       end
     end
   end
+
+  describe '.new' do
+    it 'renders its template' do
+      get :new
+
+      expect(response).to render_template('sessions/new')
+    end
+  end
+
+  describe '.destroy' do
+    let!(:user) { User.create }
+    before do
+      session[:user_id] = user.id
+    end
+
+    it 'removes user_id from the session' do
+      delete :destroy
+
+      expect(session[:user_id]).to be_nil
+    end
+
+    it 'redirects to the homepage' do
+      delete :destroy
+
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end

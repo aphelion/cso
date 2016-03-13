@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get '/tickets', to: 'tickets#status', as: :tickets_status
 
-  get '/sessions/new', to: 'sessions#new', as: :sessions_new
-  match '/sessions/callback/:provider', to: 'sessions#callback', via: [:get, :post]
+  get '/sessions/new', to: 'sessions#new', as: :new_session
+  delete '/sessions/destroy', to: 'sessions#destroy', as: :destroy_session
+  match '/sessions/:provider/callback', to: 'sessions#callback', via: [:get, :post]
 end

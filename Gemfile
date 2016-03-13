@@ -7,7 +7,6 @@ gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'puma'
 
-gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
@@ -46,6 +45,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
+  gem 'dotenv-rails'
 end
 
 group :development do
