@@ -6,6 +6,11 @@ gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 gem 'puma'
+
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
