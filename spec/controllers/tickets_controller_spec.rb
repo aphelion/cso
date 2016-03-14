@@ -9,9 +9,8 @@ describe TicketsController do
     end
 
     context 'when there is an authenticated User' do
-      let!(:user) { User.create }
       before do
-        session[:user_id] = user.id
+        expect(controller).to receive(:logged_in?).and_return(true)
       end
 
       it 'renders its template' do
