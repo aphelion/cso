@@ -7,6 +7,10 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def log_in(user)
+    session[:user_id] = user.id if user and user.id
+  end
+
   def user_model
     User
   end

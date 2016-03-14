@@ -60,4 +60,42 @@ describe SessionsHelper do
       end
     end
   end
+
+  describe '.log_in' do
+    before do
+      session[:user_id] = 99
+    end
+
+    context 'when user is valid' do
+      it 'updates session[:user_id]' do
+        allow(user).to receive(:id).and_return(1)
+
+        helper.log_in(user)
+
+        expect(session[:user_id]).to eq(1)
+      end
+    end
+
+
+    context 'when user is nil' do
+      let(:user) { nil }
+
+      it 'does not update session[:user_id]' do
+
+        helper.log_in(user)
+
+        expect(session[:user_id]).to eq(99)
+      end
+    end
+
+    context 'when user.id is nil' do
+      it 'does not update session[:user_id]' do
+        allow(user).to receive(:id).and_return(nil)
+
+        helper.log_in(user)
+
+        expect(session[:user_id]).to eq(99)
+      end
+    end
+  end
 end

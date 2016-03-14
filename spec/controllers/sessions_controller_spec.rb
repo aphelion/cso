@@ -1,189 +1,65 @@
 describe SessionsController do
-  describe '.callback' do
-    context 'when there is no authenticated User' do
-      context 'when a new Identity authenticates' do
-        let(:auth_hash) { {uid: 'new-identity-uid', provider: 'facebook'} }
-
-        before do
-          @request.env['omniauth.auth'] = auth_hash
-        end
-
-        it 'saves a new user with the identity' do
-          expect {
-            get :callback, {provider: 'facebook'}
-          }.to change(User, :count).by(1)
-
-          expect(User.last.identities.count).to eq(1)
-          expect(User.last.identities.first.uid).to eq(auth_hash[:uid])
-        end
-
-        it 'sets the new User id in the session' do
-          get :callback, {provider: 'facebook'}
-
-          expect(session[:user_id]).to eq(User.last.id)
-        end
-      end
-
-      context 'when an existing Identity authenticates' do
-        let(:auth_hash) { {uid: 'existing-identity-uid', provider: 'facebook'} }
-        let!(:existing_identity) { Identity.create(auth_hash) }
-
-        before do
-          @request.env['omniauth.auth'] = auth_hash
-        end
-
-        context 'when that Identity is associated with a User' do
-          let!(:existing_user) do
-            user = User.create
-            existing_identity.update_attribute(:user, user)
-            user
-          end
-
-          it 'does not create a new Identity' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(Identity, :count)
-          end
-
-          it 'does not create a new User' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(User, :count)
-          end
-
-          it 'does not re-save the Identity' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(existing_identity, :updated_at)
-          end
-
-          it 'sets the new User id in the session' do
-            get :callback, {provider: 'facebook'}
-
-            expect(session[:user_id]).to eq(existing_user.id)
-          end
-        end
-
-        context 'when that Identity is not associated with a User' do
-          it 'does not create a new Identity' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(Identity, :count)
-          end
-
-          it 'creates a new User with the Identity' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to change(User, :count).by(1)
-
-            expect(User.last.identities.count).to eq(1)
-            expect(User.last.identities.first.uid).to eq(auth_hash[:uid])
-          end
-
-          it 'sets the new User id in the session' do
-            get :callback, {provider: 'facebook'}
-
-            expect(session[:user_id]).to eq(User.last.id)
-          end
-        end
-      end
-    end
-
-    context 'when there is an authenticated User' do
-      let!(:user) { User.create }
-      before do
-        session[:user_id] = user.id
-      end
-
-      context 'when a new Identity authenticates' do
-        let(:auth_hash) { {uid: 'new-identity-uid', provider: 'facebook'} }
-
-        before do
-          @request.env['omniauth.auth'] = auth_hash
-        end
-
-        it 'saves the Identity with the User' do
-          get :callback, {provider: 'facebook'}
-
-          expect(Identity.last.user.id).to eq(user.id)
-        end
-      end
-
-      context 'when an existing Identity authenticates' do
-        let(:auth_hash) { {uid: 'existing-identity-uid', provider: 'facebook'} }
-        let!(:existing_identity) { Identity.create(auth_hash) }
-
-        before do
-          @request.env['omniauth.auth'] = auth_hash
-        end
-
-        context 'when that Identity is associated with the User' do
-          before do
-            existing_identity.user = user
-            existing_identity.save
-          end
-
-          it 'does not create a new User' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(User, :count)
-          end
-        end
-
-        context 'when that Identity is not associated with the User' do
-          let!(:other_user) { User.create }
-
-          before do
-            existing_identity.user = other_user
-            existing_identity.save
-          end
-
-          it 'does not create a new User' do
-            expect {
-              get :callback, {provider: 'facebook'}
-            }.to_not change(User, :count)
-          end
-
-          it 'does not change the User of the Identity' do
-            get :callback, {provider: 'facebook'}
-
-            expect(existing_identity.user.id).to eq(other_user.id)
-          end
-
-          it 'sets the other User id in the session' do
-            get :callback, {provider: 'facebook'}
-
-            expect(session[:user_id]).to eq(other_user.id)
-          end
-        end
-      end
-    end
+  describe 'object seams' do
+    it { expect(subject.identities_service).to be_an_instance_of(IdentitiesService) }
+    it { expect(subject.users_service).to be_an_instance_of(UsersService) }
   end
 
-  describe '.new' do
-    it 'renders its template' do
-      get :new
+  describe 'methods' do
+    let(:identities_service) { double(:IdentitiesService) }
+    let(:users_service) { double(:UsersService) }
+    let(:auth_hash) { {uid: 'some-uid', provider: 'facebook'} }
+    let(:identity) { double(:identity) }
+    let(:user) { double(:user) }
 
-      expect(response).to render_template('sessions/new')
-    end
-  end
-
-  describe '.destroy' do
-    let!(:user) { User.create }
     before do
-      session[:user_id] = user.id
+      allow(controller).to receive(:identities_service).and_return(identities_service)
+      allow(controller).to receive(:users_service).and_return(users_service)
     end
 
-    it 'removes user_id from the session' do
-      delete :destroy
+    describe '.callback' do
+      before do
+        @request.env['omniauth.auth'] = auth_hash
+      end
 
-      expect(session[:user_id]).to be_nil
+      it 'logs the user in' do
+        expect(identities_service).to receive(:find_or_create_by_auth_hash).with(auth_hash).and_return(identity)
+        expect(users_service).to receive(:find_or_create_by_identity).with(identity).and_return(user)
+        expect(controller).to receive(:log_in).with(user)
+
+        get :callback, auth_hash
+      end
+
+      it 'redirects to the homepage' do
+        delete :destroy
+
+        expect(response).to redirect_to(root_path)
+      end
     end
 
-    it 'redirects to the homepage' do
-      delete :destroy
+    describe '.new' do
+      it 'renders its template' do
+        get :new
 
-      expect(response).to redirect_to(root_path)
+        expect(response).to render_template('sessions/new')
+      end
+    end
+
+    describe '.destroy' do
+      before do
+        session[:user_id] = 123
+      end
+
+      it 'removes user_id from the session' do
+        delete :destroy
+
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'redirects to the homepage' do
+        delete :destroy
+
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 end
