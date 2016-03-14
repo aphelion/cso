@@ -37,13 +37,31 @@ describe SessionsHelper do
       end
 
       context 'when a User is authenticated' do
-        before do
-          session[:user_id] = 1
-          expect(user_model).to receive(:find).with(1).and_return(user)
+        context 'when their User exists' do
+          before do
+            session[:user_id] = 1
+            expect(user_model).to receive(:find_by).with(id: 1).and_return(user)
+          end
+
+          it 'returns the user' do
+            expect(current_user).to be(user)
+          end
         end
 
-        it 'returns the user' do
-          expect(current_user).to be(user)
+        context 'when their User does not exist' do
+          before do
+            session[:user_id] = 1
+            expect(user_model).to receive(:find_by).with(id: 1).and_return(nil)
+          end
+
+          it 'returns nil' do
+            expect(current_user).to be_nil
+          end
+
+          it 'clears session[:user_id]' do
+            current_user
+            expect(session[:user_id]).to eq(nil)
+          end
         end
       end
     end
@@ -51,7 +69,7 @@ describe SessionsHelper do
     context 'when initialized' do
       before do
         session[:user_id] = 1
-        expect(user_model).to receive(:find).with(1).once.and_return(user)
+        expect(user_model).to receive(:find_by).with(id: 1).once.and_return(user)
         current_user
       end
 

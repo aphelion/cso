@@ -2,6 +2,10 @@ describe UsersService do
   let(:user_model) { double(:User) }
   let(:user) { double(:user) }
   let(:identity) { double(:identity) }
+  let(:auth_hash) { double(:auth_hash) }
+  let(:info_hash) {
+    {'email' => 'user@cso.dance', 'first_name' => 'Johnny', 'last_name' => 'Bachata'}
+  }
 
   describe 'object seams' do
     describe '.user_model' do
@@ -22,22 +26,45 @@ describe UsersService do
           it "returns the Identity's User" do
             allow(identity).to receive(:user).and_return(user)
 
-            returned_user = subject.find_or_create_by_identity(identity)
+            returned_user = subject.find_or_create_by_identity_and_auth_hash(identity, auth_hash)
 
             expect(returned_user).to be(user)
           end
         end
 
         context 'when the Identity does not have a User' do
-          it 'creates returns a new User and updates the Identity to reference it' do
-            allow(identity).to receive(:user).and_return(nil)
-            expect(user_model).to receive(:create).and_return(user)
-            expect(identity).to receive(:user=).with(user)
-            expect(identity).to receive(:save)
+          before do
+            allow(auth_hash).to receive(:[]).with('info').and_return(info_hash)
+          end
 
-            returned_user = subject.find_or_create_by_identity(identity)
+          context 'when no user with the same email address exists' do
+            it 'creates returns a new User and updates the Identity to reference it' do
+              allow(identity).to receive(:user).and_return(nil)
+              expect(user_model).to receive(:find_by).with(email: 'user@cso.dance').and_return(nil)
+              expect(user_model).to receive(:create).with(email: 'user@cso.dance',
+                                                          first_name: 'Johnny',
+                                                          last_name: 'Bachata')
+                                        .and_return(user)
+              expect(identity).to receive(:user=).with(user)
+              expect(identity).to receive(:save)
 
-            expect(returned_user).to be(user)
+              returned_user = subject.find_or_create_by_identity_and_auth_hash(identity, auth_hash)
+
+              expect(returned_user).to be(user)
+            end
+          end
+
+          context 'when a user with the same email address exists' do
+            it 'associates the Identity with the User and returns the User' do
+              allow(identity).to receive(:user).and_return(nil)
+              expect(user_model).to receive(:find_by).with(email: 'user@cso.dance').and_return(user)
+              expect(identity).to receive(:user=).with(user)
+              expect(identity).to receive(:save)
+
+              returned_user = subject.find_or_create_by_identity_and_auth_hash(identity, auth_hash)
+
+              expect(returned_user).to be(user)
+            end
           end
         end
       end

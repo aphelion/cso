@@ -10,7 +10,7 @@ describe IdentitiesService do
   describe '.find_or_create_by_auth_hash' do
     context 'when called with a valid auth hash' do
       before do
-        allow(identity_model).to receive(:find_by).with(uid: 'some-uid', provider: 'facebook').and_return(identity)
+        allow(identity_model).to receive(:find_or_create_by).with(uid: 'some-uid', provider: 'facebook').and_return(identity)
       end
 
       it 'returns the identity' do
