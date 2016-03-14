@@ -1,5 +1,13 @@
+include SessionsHelper
+
 class TicketsController < ApplicationController
+  before_action :logged_in_user
+
   def status
-    redirect_to new_session_path unless session[:user_id]
+  end
+
+  private
+  def logged_in_user
+    redirect_to new_session_path unless logged_in?
   end
 end
