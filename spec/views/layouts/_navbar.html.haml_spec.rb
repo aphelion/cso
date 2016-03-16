@@ -1,4 +1,4 @@
-describe 'pages/_navbar.html.haml' do
+describe 'layouts/_navbar.html.haml' do
   it 'links to the top' do
     render
     expect(rendered).to have_link 'Collegiate Salsa Open', href: '/'
