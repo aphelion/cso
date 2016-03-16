@@ -5,7 +5,7 @@ describe 'pages/_landing.html.haml' do
 
   describe 'navigation' do
     it 'links to the Event Information section' do
-      expect(rendered).to have_link 'Learn More', href: '/#event-information'
+      expect(rendered).to have_link "Let's Dance", href: '/#event-information'
     end
   end
 end
