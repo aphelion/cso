@@ -12,3 +12,9 @@ heroku config:add FACEBOOK_SECRET='YOUR_FACEBOOK_SECRET'
 heroku config:add GOOGLE_KEY='YOUR_GOOGLE_KEY'
 heroku config:add GOOGLE_SECRET='YOUR_GOOGLE_SECRET'
 ```
+
+Provision an admin
+
+```
+heroku pg:psql -c "UPDATE users SET admin = true WHERE email = 'EMAIL_ADDRESS'"
+```
