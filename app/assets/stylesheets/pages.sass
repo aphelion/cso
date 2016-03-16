@@ -1,10 +1,6 @@
-@import bootstrap/mixins
+@import bootstrap-custom-variables
 @import bootstrap/variables
-
-html
-  height: 100vh
-
-$navbar-height: $navbar-padding-vertical * 2 + $font-size-lg * $line-height + 0.25rem * 2
+@import bootstrap/mixins
 
 section.home-section
   margin-top: $navbar-height
@@ -12,20 +8,11 @@ section.home-section
   min-height: calc(100vh - #{$navbar-height})
   @include make-container()
 
-.navbar-toggler
-  &[aria-expanded=true]
-    background-color: $gray-lighter
-
-.collapse.in, .collapsing
-  clear: both
-  li.nav-item
-    float: none
-    margin-left: 0 !important
-
-#landing
   display: flex
   align-items: center
   justify-content: center
+
+#landing
   position: relative
   &:before
     content: ''
@@ -37,6 +24,14 @@ section.home-section
     background: image-url('cso.svg') no-repeat center center
     background-size: auto 125%
     opacity: 0.1
+  &:after
+    content: ''
+    z-index: -2
+    position: absolute
+    height: 100%
+    left: 0
+    right: 0
+    background-color: $gray-lightest
 
 #event-information
   background-color: aquamarine
