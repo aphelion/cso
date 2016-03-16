@@ -19,6 +19,10 @@ module SessionsHelper
     session[:user_id] = user.id if user and user.id
   end
 
+  def current_user_admin?
+    !current_user.nil? and current_user.admin
+  end
+
   def user_model
     User
   end

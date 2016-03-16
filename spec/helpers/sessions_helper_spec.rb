@@ -3,7 +3,7 @@ describe SessionsHelper do
   let(:user) { double(:user) }
 
   describe '.logged_in?' do
-    context 'when .current_user returns a user' do
+    context 'when a User is logged in' do
       before do
         expect(helper).to receive(:current_user).and_return(user)
       end
@@ -13,7 +13,7 @@ describe SessionsHelper do
       end
     end
 
-    context 'when .current_user returns nil' do
+    context 'when no User is logged in' do
       before do
         expect(helper).to receive(:current_user).and_return(nil)
       end
@@ -113,6 +113,44 @@ describe SessionsHelper do
         helper.log_in(user)
 
         expect(session[:user_id]).to eq(99)
+      end
+    end
+  end
+
+  describe '.current_user_admin?' do
+    context 'when a User is logged in' do
+      before do
+        allow(helper).to receive(:current_user).and_return(user)
+      end
+
+      context 'when the User is an admin' do
+        before do
+          expect(user).to receive(:admin).and_return(true)
+        end
+
+        it 'returns true' do
+          expect(helper.current_user_admin?).to eq(true)
+        end
+      end
+
+      context 'when the User is not an admin' do
+        before do
+          expect(user).to receive(:admin).and_return(false)
+        end
+
+        it 'returns false' do
+          expect(helper.current_user_admin?).to eq(false)
+        end
+      end
+    end
+
+    context 'when no User is logged in' do
+      before do
+        expect(helper).to receive(:current_user).and_return(nil)
+      end
+
+      it 'returns false' do
+        expect(helper.current_user_admin?).to eq(false)
       end
     end
   end

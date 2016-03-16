@@ -20,5 +20,4 @@ describe TicketsController do
       end
     end
   end
-
 end

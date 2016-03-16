@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
+  resources :events, only: [:index]
   get '/tickets', to: 'tickets#status', as: :tickets_status
 
   get '/sessions/new', to: 'sessions#new', as: :new_session
