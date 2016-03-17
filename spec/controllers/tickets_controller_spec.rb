@@ -6,8 +6,10 @@ describe TicketsController do
 
   describe 'actions' do
     let(:event_model) { double(:Event) }
+    let(:model) { double(:Ticket) }
     let(:event) { double(:event) }
     let(:tickets) { double(:tickets) }
+    let(:ticket) { double(:ticket) }
 
     describe '.index' do
       it 'provides all the Tickets for the Event to the view' do
@@ -20,6 +22,25 @@ describe TicketsController do
         expect(assigns(:event)).to be(event)
         expect(assigns(:tickets)).to be(tickets)
         expect(response).to render_template('tickets/index')
+      end
+    end
+
+    describe '.new' do
+      before do
+        allow(controller).to receive(:model).and_return(model)
+        allow(model).to receive(:new).and_return(ticket)
+      end
+
+      it 'renders its template' do
+        get :new, event_id: 1
+
+        expect(response).to render_template('tickets/new')
+      end
+
+      it 'provides a new Ticket to the view' do
+        get :new, event_id: 1
+
+        expect(assigns(:ticket)).to be(ticket)
       end
     end
   end

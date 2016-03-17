@@ -4,6 +4,10 @@ class TicketsController < ApplicationController
     @tickets = @event.tickets
   end
 
+  def new
+    @ticket = model.new
+  end
+
   def event_model
     Event
   end
