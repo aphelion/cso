@@ -1,2 +1,6 @@
 %section.page
   %h1 Events
+
+  %ul
+    - @events.each do |event|
+      %li= event.name
