@@ -1,0 +1,29 @@
+= form_for event do |f|
+  .form-group.row
+    = f.label :name, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+
+  .form-group.row
+    = f.label :event_start, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.datetime_local_field :event_start, class: 'form-control'
+
+  .form-group.row
+    = f.label :event_end, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.datetime_local_field :event_end, class: 'form-control'
+
+  .form-group.row
+    = f.label :sale_start, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.datetime_local_field :sale_start, class: 'form-control'
+
+  .form-group.row
+    = f.label :sale_end, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.datetime_local_field :sale_end, class: 'form-control'
+
+  .form-group.row
+    .col-sm-offset-2.col-sm-10
+      = f.submit nil, {class: 'btn btn-primary'}

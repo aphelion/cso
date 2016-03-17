@@ -32,6 +32,13 @@ describe EventsController do
   end
 
   context 'actions (as Admin)' do
+    let(:valid_attributes) { {
+        name: 'an event',
+        event_start: '2016-01-01T00:00',
+        event_end: '2016-01-02T00:00',
+        sale_start: '2015-12-01T00:00',
+        sale_end: '2015-12-31T00:00'
+    } }
     let(:model) { double(:Event) }
     let(:event) { double(:event) }
     let(:events) { double(:events) }
@@ -78,14 +85,6 @@ describe EventsController do
     end
 
     describe 'POST .create' do
-      let(:valid_attributes) { {
-          name: 'an event',
-          event_start: '2016-01-01T00:00',
-          event_end: '2016-01-02T00:00',
-          sale_start: '2015-12-01T00:00',
-          sale_end: '2015-12-31T00:00'
-      } }
-
       context 'with valid attributes' do
         it 'creates a Event, saves the Event, and redirects to the Events page' do
           expect(model).to receive(:new).with(valid_attributes).and_return(event)
@@ -106,6 +105,48 @@ describe EventsController do
 
           expect(response).to redirect_to(new_event_path)
           expect(assigns(:event)).to eq(event)
+        end
+      end
+    end
+
+    describe 'GET edit' do
+      before do
+        expect(model).to receive(:find).with('1').and_return(event)
+      end
+
+      it 'renders its template' do
+        get :edit, id: 1
+
+        expect(response).to render_template('events/edit')
+      end
+
+      it 'assigns the found Event as @event' do
+        get :edit, id: 1
+
+        expect(assigns(:event)).to eq(event)
+      end
+    end
+
+    describe 'PUT .update' do
+      context 'with valid attributes' do
+        it 'updates the Event, and redirects to the Events page' do
+          expect(model).to receive(:find).with('1').and_return(event)
+          expect(event).to receive(:update).with(valid_attributes).and_return(true)
+
+          put :update, {id: '1', event: valid_attributes}
+
+          expect(response).to redirect_to(events_path)
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'tried to update the Event, and redirects to the edit Event page' do
+          expect(model).to receive(:find).with('1').and_return(event)
+          expect(event).to receive(:update).with(valid_attributes).and_return(false)
+
+          put :update, {id: '1', event: valid_attributes}
+
+          expect(response).to redirect_to(edit_event_path('1'))
         end
       end
     end

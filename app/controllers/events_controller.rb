@@ -16,6 +16,15 @@ class EventsController < ApplicationController
     redirect_to @event.save ? events_path : new_event_path
   end
 
+  def edit
+    @event = model.find(params[:id])
+  end
+
+  def update
+    @event = model.find(params[:id])
+    redirect_to @event.update(event_params) ? events_path : edit_event_path(params[:id])
+  end
+
   def model
     Event
   end

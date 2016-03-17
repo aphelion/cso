@@ -3,4 +3,6 @@
 
   %ul
     - @events.each do |event|
-      %li= event.name
+      %li
+        = event.name
+        = link_to 'Edit', edit_event_path(event), class: 'btn btn-secondary'
