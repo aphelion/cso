@@ -9,6 +9,10 @@ class TicketsController < ApplicationController
     @ticket = model.new
   end
 
+  def edit
+    @ticket = model.find(params[:id])
+  end
+
   def create
     ticket = model.new(event_params)
     ticket.event_id = params[:event_id]
@@ -17,6 +21,16 @@ class TicketsController < ApplicationController
     else
       @ticket = ticket
       render :new
+    end
+  end
+
+  def update
+    ticket = model.find(params[:id])
+    if ticket.update(event_params)
+      redirect_to event_tickets_path(params[:event_id])
+    else
+      @ticket = ticket
+      render :edit
     end
   end
 

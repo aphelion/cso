@@ -19,6 +19,7 @@ describe TicketsController do
       allow(controller).to receive(:event_model).and_return(event_model)
       allow(controller).to receive(:model).and_return(model)
       allow(model).to receive(:new).and_return(ticket)
+      allow(model).to receive(:find).with('2').and_return(ticket)
       allow(event_model).to receive(:find).with('1').and_return(event)
     end
 
@@ -54,6 +55,20 @@ describe TicketsController do
       end
     end
 
+    describe '.edit' do
+      it 'renders its template' do
+        get :edit, event_id: 1, id: 2
+
+        expect(response).to render_template('tickets/edit')
+      end
+
+      it 'provides the Ticket to the view' do
+        get :edit, event_id: 1, id: 2
+
+        expect(assigns(:ticket)).to be(ticket)
+      end
+    end
+
     describe '.create' do
       context 'with valid attributes' do
         it 'creates a Ticket, saves the Ticket, and redirects to the Tickets page' do
@@ -76,6 +91,31 @@ describe TicketsController do
           post :create, event_id: '1', ticket: valid_attributes
 
           expect(response).to render_template('tickets/new')
+          expect(assigns(:ticket)).to eq(ticket)
+        end
+      end
+    end
+
+    describe '.update' do
+      context 'with valid attributes' do
+        it 'updates the Ticket, and redirects to the Tickets page' do
+          expect(model).to receive(:find).with('1').and_return(ticket)
+          expect(ticket).to receive(:update).with(valid_attributes).and_return(true)
+
+          put :update, {event_id: '1', id: '1', ticket: valid_attributes}
+
+          expect(response).to redirect_to(event_tickets_path('1'))
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'tried to update the Ticket, and redirects to the edit Ticket page' do
+          expect(model).to receive(:find).with('1').and_return(ticket)
+          expect(ticket).to receive(:update).with(valid_attributes).and_return(false)
+
+          put :update, {event_id: '1', id: '1', ticket: valid_attributes}
+
+          expect(response).to render_template('tickets/edit')
           expect(assigns(:ticket)).to eq(ticket)
         end
       end
