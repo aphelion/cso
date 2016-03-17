@@ -6,7 +6,7 @@ bachata_party:
   sale_end: 1999-07-31 00:00:00
 salsa_party:
   name: 'Youngshik Shimmy Salsa Party'
-  event_start: 2010-04-15 18:00:00
-  event_end: 2010-04-16 08:00:00
-  sale_start: 2010-04-01 00:00:00
-  sale_end: 2010-04-15 00:00:00
+  event_start: <%= (1.month).from_now.to_s(:db) %>
+  event_end: <%= (1.month + 1.day).from_now.to_s(:db) %>
+  sale_start: <%= (1.day).ago.to_s(:db) %>
+  sale_end: <%= (1.month - 1.day).from_now.to_s(:db) %>
