@@ -59,27 +59,19 @@ describe 'events/_form.html.haml' do
     it 'submits POST to events' do
       assert_select 'form[action=?][method=?]', events_path, 'post'
     end
-
-    it 'does not render a delete button' do
-      assert_select 'a', {text: 'Delete', count: 0}
-    end
   end
 
-  # context 'when Event already exists' do
-  #   let(:event) { events(:event_1) }
-  #
-  #   before do
-  #     render partial: 'events/form', locals: {event: event}
-  #   end
-  #
-  #   it 'submits POST to event' do
-  #     assert_select 'form[action=?][method=?]', event_path(event), 'post'
-  #   end
-  #
-  #   it 'renders a delete button' do
-  #     assert_select 'a[href=?][data-method=?]', event_path(event), 'delete', 'Delete'
-  #   end
-  # end
+  context 'when Event already exists' do
+    let(:event) { events(:bachata_party) }
+
+    before do
+      render partial: 'events/form', locals: {event: event}
+    end
+
+    it 'submits POST to event' do
+      assert_select 'form[action=?][method=?]', event_path(event), 'post'
+    end
+  end
 end
 
 def format_datetime_local(datetime)

@@ -1,0 +1,5 @@
+%table.table
+  = render 'events/table/header'
+  %tbody
+    - events.each do |event|
+      = render 'events/table/row', event: event

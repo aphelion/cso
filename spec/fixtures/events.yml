@@ -4,3 +4,9 @@ bachata_party:
   event_end: 1999-08-01 08:00:00
   sale_start: 1999-07-01 00:00:00
   sale_end: 1999-07-31 00:00:00
+salsa_party:
+  name: 'Youngshik Shimmy Salsa Party'
+  event_start: 2010-04-15 18:00:00
+  event_end: 2010-04-16 08:00:00
+  sale_start: 2010-04-01 00:00:00
+  sale_end: 2010-04-15 00:00:00
