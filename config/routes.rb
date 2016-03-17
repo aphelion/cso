@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  resources :events, only: [:index, :new, :create, :edit, :update]
+  resources :events, only: [:index, :new, :create, :edit, :update] do
+    resources :tickets, only: [:index, :new]
+  end
   get '/tickets', to: 'users#tickets', as: :user_tickets
 
   get '/sessions/new', to: 'sessions#new', as: :new_session

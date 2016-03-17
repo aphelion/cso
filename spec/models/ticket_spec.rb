@@ -1,0 +1,2 @@
+describe Ticket do
+end

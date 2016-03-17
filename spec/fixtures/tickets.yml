@@ -1,0 +1,6 @@
+bachata_party_full_pass:
+  name: Full Pass
+  event: bachata_party
+bachata_party_night_pass:
+  name: Night Pass
+  event: bachata_party

@@ -2,5 +2,6 @@
   %td.hidden-xs-down
     %h3= event.name
   %td.hidden-xs-down.text-nowrap
+    = link_to 'Show', event_path(event), class: 'btn btn-secondary'
     = link_to 'Edit', edit_event_path(event), class: 'btn btn-secondary'
-    = link_to 'Show', event_path(event), class: 'btn btn-primary'
+    = link_to 'Tickets', event_tickets_path(event), class: 'btn btn-secondary'
