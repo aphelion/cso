@@ -12,8 +12,13 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = model.new(event_params)
-    redirect_to @event.save ? events_path : new_event_path
+    event = model.new(event_params)
+    if event.save
+      redirect_to events_path
+    else
+      @event = event
+      render :new
+    end
   end
 
   def edit

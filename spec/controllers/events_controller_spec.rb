@@ -103,7 +103,7 @@ describe EventsController do
 
           post :create, event: valid_attributes
 
-          expect(response).to redirect_to(new_event_path)
+          expect(response).to render_template('events/new')
           expect(assigns(:event)).to eq(event)
         end
       end

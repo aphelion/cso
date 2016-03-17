@@ -11,10 +11,19 @@ describe TicketsController do
     let(:tickets) { double(:tickets) }
     let(:ticket) { double(:ticket) }
 
+    let(:valid_attributes) { {
+        name: 'Full Pass'
+    } }
+
+    before do
+      allow(controller).to receive(:event_model).and_return(event_model)
+      allow(controller).to receive(:model).and_return(model)
+      allow(model).to receive(:new).and_return(ticket)
+      allow(event_model).to receive(:find).with('1').and_return(event)
+    end
+
     describe '.index' do
       it 'provides all the Tickets for the Event to the view' do
-        expect(controller).to receive(:event_model).and_return(event_model)
-        expect(event_model).to receive(:find).with('1').and_return(event)
         expect(event).to receive(:tickets).and_return(tickets)
 
         get :index, event_id: 1
@@ -26,11 +35,6 @@ describe TicketsController do
     end
 
     describe '.new' do
-      before do
-        allow(controller).to receive(:model).and_return(model)
-        allow(model).to receive(:new).and_return(ticket)
-      end
-
       it 'renders its template' do
         get :new, event_id: 1
 
@@ -41,6 +45,39 @@ describe TicketsController do
         get :new, event_id: 1
 
         expect(assigns(:ticket)).to be(ticket)
+      end
+
+      it 'provides the Event to the view' do
+        get :new, event_id: 1
+
+        expect(assigns(:event)).to be(event)
+      end
+    end
+
+    describe '.create' do
+      context 'with valid attributes' do
+        it 'creates a Ticket, saves the Ticket, and redirects to the Tickets page' do
+          expect(model).to receive(:new).with(valid_attributes).and_return(ticket)
+          expect(ticket).to receive(:event_id=).with('1')
+          expect(ticket).to receive(:save).and_return(true)
+
+          post :create, event_id: '1', ticket: valid_attributes
+
+          expect(response).to redirect_to(event_tickets_path(1))
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'creates a Ticket, tries to save the Ticket, and redirects the Ticket to the new Ticket page' do
+          expect(model).to receive(:new).with(valid_attributes).and_return(ticket)
+          expect(ticket).to receive(:event_id=).with('1')
+          expect(ticket).to receive(:save).and_return(false)
+
+          post :create, event_id: '1', ticket: valid_attributes
+
+          expect(response).to render_template('tickets/new')
+          expect(assigns(:ticket)).to eq(ticket)
+        end
       end
     end
   end

@@ -5,7 +5,19 @@ class TicketsController < ApplicationController
   end
 
   def new
+    @event = event_model.find(params[:event_id])
     @ticket = model.new
+  end
+
+  def create
+    ticket = model.new(event_params)
+    ticket.event_id = params[:event_id]
+    if ticket.save
+      redirect_to event_tickets_path(params[:event_id])
+    else
+      @ticket = ticket
+      render :new
+    end
   end
 
   def event_model
@@ -14,5 +26,10 @@ class TicketsController < ApplicationController
 
   def model
     Ticket
+  end
+
+  private
+  def event_params
+    params.require(:ticket).permit(:name)
   end
 end
