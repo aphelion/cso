@@ -1,8 +1,8 @@
-describe TicketsController do
+describe UsersController do
   describe '.status' do
     context 'when there is not an authenticated User' do
       it 'redirects to the login page' do
-        get :status
+        get :tickets
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -14,9 +14,9 @@ describe TicketsController do
       end
 
       it 'renders its template' do
-        get :status
+        get :tickets
 
-        expect(response).to render_template('tickets/status')
+        expect(response).to render_template('users/tickets')
       end
     end
   end

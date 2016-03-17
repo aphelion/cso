@@ -12,7 +12,7 @@ describe 'layouts/_navbar.html.haml' do
   end
 
   it 'links to the Tickets page' do
-    expect(rendered).to have_link 'Tickets', href: tickets_status_path
+    expect(rendered).to have_link 'Tickets', href: user_tickets_path
   end
 
   it 'renders the Session links' do

@@ -9,7 +9,7 @@ describe 'pages/_event_information.html.haml' do
     end
 
     it 'links to the Tickets page' do
-      expect(rendered).to have_link 'Tickets', tickets_status_path
+      expect(rendered).to have_link 'Tickets', user_tickets_path
     end
   end
 end

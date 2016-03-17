@@ -1,4 +1,4 @@
-describe 'tickets/status.html.haml' do
+describe 'users/tickets.html.haml' do
   before do
     render
   end

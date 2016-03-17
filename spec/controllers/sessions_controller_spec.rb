@@ -27,12 +27,8 @@ describe SessionsController do
         expect(controller).to receive(:log_in).with(user)
 
         get :callback, auth_hash
-      end
 
-      it 'redirects to the homepage' do
-        delete :destroy
-
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(user_tickets_path)
       end
     end
 
