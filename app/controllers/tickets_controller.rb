@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   def index
     @event = event_model.find(params[:event_id])
-    @tickets = model.find_by(event_id: params[:event_id])
+    @tickets = @event.tickets
   end
 
   def event_model
