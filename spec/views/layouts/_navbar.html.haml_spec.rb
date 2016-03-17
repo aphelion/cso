@@ -36,4 +36,27 @@ describe 'layouts/_navbar.html.haml' do
       expect(rendered).not_to have_link 'Logout'
     end
   end
+
+  describe 'Admin menu' do
+    context 'when the user is an Admin' do
+      before do
+        expect(view).to receive(:current_user_admin?).and_return(true)
+        render
+      end
+
+      it 'has an Events link' do
+        expect(rendered).to have_link 'Events', href: events_path
+      end
+    end
+    context 'when the user is not an Admin' do
+      before do
+        expect(view).to receive(:current_user_admin?).and_return(false)
+        render
+      end
+
+      it 'has an Events link' do
+        expect(rendered).to_not have_link 'Events', href: events_path
+      end
+    end
+  end
 end
