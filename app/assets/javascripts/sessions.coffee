@@ -1,7 +1,10 @@
-$(document).ready ->
+ready = ->
+  # cleanup Facebook auth callback URL
   if window.location.hash == '#_=_'
-    if history.replaceState
-      cleanHref = window.location.href.split('#')[0]
-      history.replaceState null, null, cleanHref
-    else
-      window.location.hash = ''
+    App.removeLocationHash()
+  # cleanup Google auth callback URL
+  if window.location.hash == ''
+    App.removeLocationHash()
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
