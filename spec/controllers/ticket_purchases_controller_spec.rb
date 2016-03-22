@@ -63,5 +63,51 @@ describe TicketPurchasesController do
         expect(response).to redirect_to(confirmation_event_path(1))
       end
     end
+
+    describe 'GET .show' do
+      let(:hacker) { double(:user) }
+
+      before do
+        allow(model).to receive(:find).with('1').and_return(ticket_purchase)
+        allow(ticket_purchase).to receive(:user).and_return(user)
+        allow(ticket_purchase).to receive(:event).and_return(event)
+      end
+
+      context 'when the current User is the User of the Ticket Purchase' do
+        before do
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        it 'renders its template' do
+          get :show, id: '1'
+
+          expect(response).to render_template('ticket_purchases/show')
+        end
+
+        it 'provides the Event to the view' do
+          get :show, id: '1'
+
+          expect(assigns(:event)).to eq(event)
+        end
+
+        it 'provides the User to the view' do
+          get :show, id: '1'
+
+          expect(assigns(:user)).to eq(user)
+        end
+      end
+
+      context 'when the current User is not the User of the Ticket Purchase' do
+        before do
+          allow(controller).to receive(:current_user).and_return(hacker)
+        end
+
+        it 'does not show the user a confirmation screen' do
+          get :show, id: '1'
+
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
   end
 end

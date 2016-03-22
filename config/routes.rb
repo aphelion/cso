@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :ticket_purchases, only: [:new, :create]
     end
   end
+
+  resources :ticket_purchases, only: [:show]
+
   get '/tickets', to: 'users#tickets', as: :user_tickets
 
   get '/sessions/new', to: 'sessions#new', as: :new_session

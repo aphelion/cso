@@ -1,4 +1,4 @@
-describe 'pages routing' do
+describe 'Pages routing' do
   it 'routes pages#index' do
     expect(get: '/').to route_to('pages#home')
   end

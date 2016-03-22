@@ -15,6 +15,13 @@ class TicketPurchasesController < ApplicationController
     redirect_to confirmation_event_path(params[:event_id])
   end
 
+  def show
+    ticket_purchase = model.find(params[:id])
+    head :forbidden unless ticket_purchase.user == current_user
+    @event = ticket_purchase.event
+    @user = current_user
+  end
+
   def model
     TicketPurchase
   end

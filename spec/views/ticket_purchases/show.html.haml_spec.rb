@@ -1,4 +1,4 @@
-describe 'events/confirmation.html.haml' do
+describe 'ticket_purchases/show.html.haml' do
   fixtures(:events, :users)
   let(:event) { events(:salsa_party) }
   let(:user) { users(:crystal) }
