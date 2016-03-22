@@ -1,0 +1,2 @@
+describe TicketOption do
+end

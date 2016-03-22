@@ -20,10 +20,10 @@ describe 'users/tickets.html.haml' do
     end
   end
 
-  it 'links to the purchase page for each purchasable event Ticket Option' do
+  it 'links to the new Ticket page for each purchasable Event Ticket Option' do
     purchasable_events.each do |event|
       event.ticket_options.each do |ticket_option|
-        expect(rendered).to have_link 'Purchase', href: new_event_ticket_option_ticket_purchase_path(event, ticket_option)
+        expect(rendered).to have_link 'Purchase', href: new_event_ticket_option_ticket_path(event, ticket_option)
       end
     end
   end

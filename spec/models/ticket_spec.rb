@@ -1,2 +1,2 @@
-describe TicketOption do
+describe Ticket do
 end

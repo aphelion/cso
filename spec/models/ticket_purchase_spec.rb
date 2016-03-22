@@ -1,2 +1,0 @@
-describe TicketPurchase do
-end

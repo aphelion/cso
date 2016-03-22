@@ -8,4 +8,4 @@
           - event.ticket_options.each do |ticket_option|
             %li
               = ticket_option.name
-              = link_to 'Purchase', new_event_ticket_option_ticket_purchase_path(event, ticket_option), class: 'btn btn-secondary'
+              = link_to 'Purchase', new_event_ticket_option_ticket_path(event, ticket_option), class: 'btn btn-secondary'

@@ -4,5 +4,4 @@ describe 'Events routing' do
   it { expect(post: '/events').to route_to('events#create') }
   it { expect(put: '/events/1').to route_to('events#update', id: '1') }
   it { expect(get: '/events/1/edit').to route_to('events#edit', id: '1') }
-  it { expect(get: '/events/1/confirmation').to route_to('events#confirmation', id: '1') }
 end
