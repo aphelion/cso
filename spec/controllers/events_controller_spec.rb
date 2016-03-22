@@ -26,9 +26,8 @@ describe EventsController do
   end
 
   context 'object seams' do
-    it 'provides the model via #model' do
-      expect(controller.model).to eq(Event)
-    end
+    it { expect(controller.model).to eq(Event) }
+    it { expect(controller.ticket_purchase_model).to eq(TicketPurchase) }
   end
 
   context 'actions (as Admin)' do
@@ -115,13 +114,13 @@ describe EventsController do
       end
 
       it 'renders its template' do
-        get :edit, id: 1
+        get :edit, id: '1'
 
         expect(response).to render_template('events/edit')
       end
 
       it 'assigns the found Event as @event' do
-        get :edit, id: 1
+        get :edit, id: '1'
 
         expect(assigns(:event)).to eq(event)
       end
@@ -147,6 +146,54 @@ describe EventsController do
           put :update, {id: '1', event: valid_attributes}
 
           expect(response).to redirect_to(edit_event_path('1'))
+        end
+      end
+    end
+
+    describe 'GET .confirmation' do
+      let(:ticket_purchase_model) { double(:TicketPurchase) }
+      let(:user) { double(:user) }
+      let(:ticket_purchase) { double(:ticket_purchase) }
+
+      before do
+        allow(controller).to receive(:ticket_purchase_model).and_return(ticket_purchase_model)
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(model).to receive(:find).with('1').and_return(event)
+      end
+
+      context 'when the user has a Ticket Purchase for the event' do
+        before do
+          allow(ticket_purchase_model).to receive(:find_by).with(event: event, user: user).and_return(ticket_purchase)
+        end
+
+        it 'renders its template' do
+          get :confirmation, id: '1'
+
+          expect(response).to render_template('events/confirmation')
+        end
+
+        it 'provides the Event to the view' do
+          get :confirmation, id: '1'
+
+          expect(assigns(:event)).to eq(event)
+        end
+
+        it 'provides the User to the view' do
+          get :confirmation, id: '1'
+
+          expect(assigns(:user)).to eq(user)
+        end
+      end
+
+      context 'when the user does not have a Ticket Purchase for the event' do
+        before do
+          allow(ticket_purchase_model).to receive(:find_by).with(event: event, user: user).and_return(nil)
+        end
+
+        it 'does not show the user a confirmation screen' do
+          get :confirmation, id: '1'
+
+          expect(response).to have_http_status(:not_found)
         end
       end
     end

@@ -30,8 +30,20 @@ class EventsController < ApplicationController
     redirect_to @event.update(event_params) ? events_path : edit_event_path(params[:id])
   end
 
+  def confirmation
+    @event = model.find(params[:id])
+    @user = current_user
+    ticket_purchase = ticket_purchase_model.find_by(event: @event, user: @user)
+
+    head :not_found unless ticket_purchase
+  end
+
   def model
     Event
+  end
+
+  def ticket_purchase_model
+    TicketPurchase
   end
 
   private

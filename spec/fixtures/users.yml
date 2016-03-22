@@ -1,0 +1,20 @@
+young:
+  first_name: Youngshik
+  last_name: Salsaking
+  email: young@cso.dance
+  admin: false
+mike:
+  first_name: Mike
+  last_name: Photoman
+  email: mike@cso.dance
+  admin: false
+crystal:
+  first_name: Crystal
+  last_name: Salsatycoon
+  email: crystal@cso.dance
+  admin: false
+leonhardt:
+  first_name: Leonhardt
+  last_name: Berliner
+  email: leonhardt@cso.dance
+  admin: true

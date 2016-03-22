@@ -1,0 +1,2 @@
+describe TicketPurchase do
+end
