@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:index, :new, :create, :edit, :update] do
     get 'confirmation', on: :member
-    resources :tickets, only: [:index, :new, :create, :edit, :update] do
+    resources :ticket_options, only: [:index, :new, :create, :edit, :update] do
       resources :ticket_purchases, only: [:new, :create]
     end
   end

@@ -1,0 +1,5 @@
+%section.page
+  %h1 #{@event.name} Ticket Options
+  %p
+    = link_to 'New Ticket Option', new_event_ticket_option_path(@event), class: 'btn btn-secondary'
+  = render partial: 'ticket_options/table', locals: {ticket_options: @ticket_options}

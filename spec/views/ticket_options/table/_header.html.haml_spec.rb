@@ -1,4 +1,4 @@
-describe 'tickets/table/_header.html.haml' do
+describe 'ticket_options/table/_header.html.haml' do
   before do
     render
   end

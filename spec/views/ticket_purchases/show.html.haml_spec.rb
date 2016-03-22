@@ -9,7 +9,7 @@ describe 'ticket_purchases/show.html.haml' do
     render
   end
 
-  it 'tells the user they have a ticket' do
+  it 'tells the user they have a Ticket Purchase' do
     expect(rendered).to have_text(event.name)
     expect(rendered).to have_text(user.first_name)
   end

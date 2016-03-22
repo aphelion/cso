@@ -1,3 +1,3 @@
 class Event < ActiveRecord::Base
-  has_many :tickets
+  has_many :ticket_options
 end

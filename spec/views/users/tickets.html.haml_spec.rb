@@ -14,16 +14,16 @@ describe 'users/tickets.html.haml' do
 
   it 'lists the purchasable event tickets' do
     purchasable_events.each do |event|
-      event.tickets.each do |ticket|
-        expect(rendered).to have_text(ticket.name)
+      event.ticket_options.each do |ticket_option|
+        expect(rendered).to have_text(ticket_option.name)
       end
     end
   end
 
-  it 'links to the purchase page for each purchasable event ticket' do
+  it 'links to the purchase page for each purchasable event Ticket Option' do
     purchasable_events.each do |event|
-      event.tickets.each do |ticket|
-        expect(rendered).to have_link 'Purchase', href: new_event_ticket_ticket_purchase_path(event, ticket)
+      event.ticket_options.each do |ticket_option|
+        expect(rendered).to have_link 'Purchase', href: new_event_ticket_option_ticket_purchase_path(event, ticket_option)
       end
     end
   end

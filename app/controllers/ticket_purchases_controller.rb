@@ -2,14 +2,14 @@ class TicketPurchasesController < ApplicationController
 
   def new
     @event = event_model.find(params[:event_id])
-    @ticket = ticket_model.find(params[:ticket_id])
+    @ticket_option = ticket_option_model.find(params[:ticket_option_id])
     @ticket_purchase = model.new
   end
 
   def create
     ticket_purchase = model.new
     ticket_purchase.event_id = params[:event_id]
-    ticket_purchase.ticket_id = params[:ticket_id]
+    ticket_purchase.ticket_option_id = params[:ticket_option_id]
     ticket_purchase.user = current_user
     ticket_purchase.save
     redirect_to confirmation_event_path(params[:event_id])
@@ -30,7 +30,7 @@ class TicketPurchasesController < ApplicationController
     Event
   end
 
-  def ticket_model
-    Ticket
+  def ticket_option_model
+    TicketOption
   end
 end

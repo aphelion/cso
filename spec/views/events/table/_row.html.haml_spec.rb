@@ -18,7 +18,7 @@ describe 'events/table/_row.html.haml' do
     assert_select 'tr td:nth-child(2) a[href=?]', event_path(event), 'Show'
   end
 
-  it 'renders a link to the Event Tickets index page' do
-    assert_select 'tr td:nth-child(2) a[href=?]', event_tickets_path(event), 'Tickets'
+  it 'renders a link to the Event Ticket Options index page' do
+    assert_select 'tr td:nth-child(2) a[href=?]', event_ticket_options_path(event), 'Ticket Options'
   end
 end

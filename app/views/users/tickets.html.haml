@@ -5,7 +5,7 @@
       %li
         %h2= event.name
         %ul
-          - event.tickets.each do |ticket|
+          - event.ticket_options.each do |ticket_option|
             %li
-              = ticket.name
-              = link_to 'Purchase', new_event_ticket_ticket_purchase_path(event, ticket), class: 'btn btn-secondary'
+              = ticket_option.name
+              = link_to 'Purchase', new_event_ticket_option_ticket_purchase_path(event, ticket_option), class: 'btn btn-secondary'
