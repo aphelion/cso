@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :events, only: [:index, :new, :create, :edit, :update] do
-    resources :tickets, only: [:index, :new, :create, :edit, :update]
+    resources :tickets, only: [:index, :new, :create, :edit, :update] do
+      get 'purchase', on: :member, as: :purchase
+    end
   end
   get '/tickets', to: 'users#tickets', as: :user_tickets
 

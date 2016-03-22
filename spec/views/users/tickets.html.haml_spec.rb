@@ -12,7 +12,19 @@ describe 'users/tickets.html.haml' do
     expect(rendered).to have_text('Ticket')
   end
 
-  it 'lists the purchasable events' do
-    expect(rendered).to have_text(salsa_party.name)
+  it 'lists the purchasable event tickets' do
+    purchasable_events.each do |event|
+      event.tickets.each do |ticket|
+        expect(rendered).to have_text(ticket.name)
+      end
+    end
+  end
+
+  it 'links to the purchase page for each purchasable event ticket' do
+    purchasable_events.each do |event|
+      event.tickets.each do |ticket|
+        expect(rendered).to have_link 'Purchase', href: purchase_event_ticket_path(event, ticket)
+      end
+    end
   end
 end
