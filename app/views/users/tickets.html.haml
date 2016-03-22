@@ -1,2 +1,5 @@
 %section.page
   %h1 Tickets
+  %ul
+    - @purchasable_events.each do |event|
+      %li= event.name
