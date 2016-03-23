@@ -51,17 +51,32 @@ describe TicketsController do
     end
 
     describe '.create' do
-      it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
+      before do
         expect(model).to receive(:new).and_return(ticket)
-        expect(ticket).to receive(:event_id=).with('1')
         expect(ticket).to receive(:ticket_option_id=).with('2')
         expect(ticket).to receive(:user=).with(user)
-        expect(ticket).to receive(:save).and_return(true)
-        expect(ticket).to receive(:id).and_return(1)
+      end
 
-        post :create, event_id: '1', ticket_option_id: '2'
+      context 'when the Ticket is valid' do
+        it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
+          expect(ticket).to receive(:save).and_return(true)
+          expect(ticket).to receive(:id).and_return(1)
 
-        expect(response).to redirect_to(ticket_path(1))
+          post :create, event_id: '1', ticket_option_id: '2'
+
+          expect(response).to redirect_to(ticket_path(1))
+        end
+      end
+
+      context 'when the Ticket is not valid' do
+        it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
+          @request.env['HTTP_REFERER'] = root_url
+          expect(ticket).to receive(:save).and_return(false)
+
+          post :create, event_id: '1', ticket_option_id: '2'
+
+          expect(response).to redirect_to :back
+        end
       end
     end
 

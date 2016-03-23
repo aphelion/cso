@@ -10,11 +10,13 @@ class TicketsController < ApplicationController
 
   def create
     ticket = model.new
-    ticket.event_id = params[:event_id]
     ticket.ticket_option_id = params[:ticket_option_id]
     ticket.user = current_user
-    ticket.save
-    redirect_to ticket_path(ticket.id)
+    if ticket.save
+      redirect_to ticket_path(ticket.id)
+    else
+      redirect_to :back
+    end
   end
 
   def show
