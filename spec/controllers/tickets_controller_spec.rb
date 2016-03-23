@@ -13,6 +13,7 @@ describe TicketsController do
     let(:ticket_option) { double(:ticket_option) }
     let(:ticket) { double(:ticket) }
     let(:user) { double(:user) }
+    let(:errors) { double(:errors) }
 
     before do
       allow(controller).to receive(:model).and_return(model)
@@ -69,12 +70,15 @@ describe TicketsController do
       end
 
       context 'when the Ticket is not valid' do
-        it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
+        it 'creates a Ticket, tries to save it, flashes the errors, and redirects to the Event confirmation page' do
           @request.env['HTTP_REFERER'] = root_url
           expect(ticket).to receive(:save).and_return(false)
+          expect(ticket).to receive(:errors).and_return(errors)
+          expect(errors).to receive(:full_messages).and_return(['some error'])
 
           post :create, event_id: '1', ticket_option_id: '2'
 
+          expect(flash[:error]).to eq('some error')
           expect(response).to redirect_to :back
         end
       end

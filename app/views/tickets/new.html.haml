@@ -1,3 +1,4 @@
-%section.page
+.content
+  %h1 Purchase #{@ticket_option.name} for #{@event.name}
   = form_for ([@event, @ticket_option, @ticket]) do |f|
     = f.submit 'Purchase', {class: 'btn btn-primary'}

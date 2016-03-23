@@ -6,7 +6,7 @@ class Ticket < ActiveRecord::Base
   validate :one_ticket_per_user_per_event
 
   def one_ticket_per_user_per_event
-    errors.add(:base, 'You may only have one ticket for each event.') if user.reload.tickets.any? do |ticket|
+    errors.add(:base, 'You may only have one ticket for an event.') if user.reload.tickets.any? do |ticket|
       ticket.event == ticket_option.event
     end
   end

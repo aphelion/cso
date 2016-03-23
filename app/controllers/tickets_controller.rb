@@ -15,6 +15,7 @@ class TicketsController < ApplicationController
     if ticket.save
       redirect_to ticket_path(ticket.id)
     else
+      flash[:error] = ticket.errors.full_messages.join(' ')
       redirect_to :back
     end
   end
