@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  resources :events, only: [:index, :new, :create, :edit, :update] do
+  resources :events, only: [:index, :new, :create, :show, :edit, :update] do
     resources :ticket_options, only: [:index, :new, :create, :edit, :update] do
       resources :tickets, only: [:new, :create]
     end

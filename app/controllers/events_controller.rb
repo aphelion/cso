@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   include SessionsConcern
 
-  before_action :must_be_admin
+  before_action :must_be_admin, except: [:show]
+  before_action :must_be_authenticated, only: [:show]
 
   def index
     @events = model.all
@@ -19,6 +20,10 @@ class EventsController < ApplicationController
       @event = event
       render :new
     end
+  end
+
+  def show
+    @event = model.find(params[:id])
   end
 
   def edit

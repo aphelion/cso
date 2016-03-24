@@ -6,7 +6,7 @@ module UsersService
       identity.user
     else
 
-      user = user_model.find_by(email: auth_hash['info']['email']) || _create_new_user(auth_hash)
+      user = user_model.find_by(email: auth_hash['info']['email']) || create_new_user(auth_hash)
 
       identity.user = user
       identity.save
@@ -14,15 +14,16 @@ module UsersService
     end
   end
 
-  def _create_new_user(auth_hash)
+  def user_model
+    User
+  end
+
+  private
+  def create_new_user(auth_hash)
     user_model.create(
         email: auth_hash['info']['email'],
         first_name: auth_hash['info']['first_name'],
         last_name: auth_hash['info']['last_name']
     )
-  end
-
-  def user_model
-    User
   end
 end
