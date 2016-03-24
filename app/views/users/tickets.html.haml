@@ -1,11 +1,21 @@
 .content
   %h1 Tickets
-  %ul
-    - @purchasable_events.each do |event|
-      %li
-        %h2= event.name
-        %ul
-          - event.ticket_options.each do |ticket_option|
-            %li
-              = ticket_option.name
-              = link_to 'Purchase', new_event_ticket_option_ticket_path(event, ticket_option), class: 'btn btn-secondary'
+  - unless @upcoming_purchased_tickets.empty?
+    %h2 Your Upcoming Tickets
+    %ul
+      - @upcoming_purchased_tickets.each do |ticket|
+        %li
+          = ticket.event.event_start.strftime('%A, %B %-d, %Y')
+          #{ticket.event.name} (#{ticket.ticket_option.name})
+          = link_to 'View Ticket', ticket_path(ticket), class: 'btn btn-secondary'
+  - unless @purchasable_events.empty?
+    %h2 Tickets For Sale
+    %ul
+      - @purchasable_events.each do |event|
+        %li
+          %h2= event.name
+          %ul
+            - event.ticket_options.each do |ticket_option|
+              %li
+                = ticket_option.name
+                = link_to 'Purchase', new_event_ticket_option_ticket_path(event, ticket_option), class: 'btn btn-secondary'

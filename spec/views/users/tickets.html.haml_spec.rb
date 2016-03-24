@@ -1,9 +1,13 @@
 describe 'users/tickets.html.haml' do
   fixtures(:events)
+  fixtures(:tickets)
   let(:salsa_party) { events(:salsa_party) }
+  let(:crystals_ticket) { tickets(:crystals_ticket) }
   let(:purchasable_events) { [salsa_party] }
+  let(:upcoming_purchased_tickets) { [crystals_ticket] }
 
   before do
+    assign(:upcoming_purchased_tickets, upcoming_purchased_tickets)
     assign(:purchasable_events, purchasable_events)
     render
   end
@@ -12,7 +16,14 @@ describe 'users/tickets.html.haml' do
     expect(rendered).to have_text('Ticket')
   end
 
-  it 'lists the purchasable event tickets' do
+  it 'lists the upcoming purchased Event Tickets' do
+    upcoming_purchased_tickets.each do |ticket|
+      expect(rendered).to have_text(ticket.event.name)
+      expect(rendered).to have_text(ticket.ticket_option.name)
+    end
+  end
+
+  it 'lists the purchasable Event Tickets' do
     purchasable_events.each do |event|
       event.ticket_options.each do |ticket_option|
         expect(rendered).to have_text(ticket_option.name)
