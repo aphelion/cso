@@ -8,6 +8,6 @@ class UsersController < ApplicationController
   end
 
   def events_service
-    EventsService.new
+    EventsService
   end
 end

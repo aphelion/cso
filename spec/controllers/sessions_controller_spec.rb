@@ -1,7 +1,7 @@
 describe SessionsController do
   describe 'object seams' do
-    it { expect(subject.identities_service).to be_an_instance_of(IdentitiesService) }
-    it { expect(subject.users_service).to be_an_instance_of(UsersService) }
+    it { expect(subject.identities_service).to be(IdentitiesService) }
+    it { expect(subject.users_service).to be(UsersService) }
   end
 
   describe 'methods' do

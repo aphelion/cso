@@ -18,10 +18,10 @@ class SessionsController < ApplicationController
   end
 
   def identities_service
-    IdentitiesService.new
+    IdentitiesService
   end
 
   def users_service
-    UsersService.new
+    UsersService
   end
 end

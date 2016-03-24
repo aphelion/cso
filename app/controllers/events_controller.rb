@@ -1,6 +1,6 @@
-include SessionsConcern
-
 class EventsController < ApplicationController
+  include SessionsConcern
+
   before_action :admin_user
 
   def index

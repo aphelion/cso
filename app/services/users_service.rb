@@ -1,4 +1,5 @@
-class UsersService
+module UsersService
+  extend self
 
   def find_or_create_by_identity_and_auth_hash(identity, auth_hash)
     if identity.user

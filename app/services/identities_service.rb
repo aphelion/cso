@@ -1,4 +1,6 @@
-class IdentitiesService
+module IdentitiesService
+  extend self
+
   def identity_model
     Identity
   end

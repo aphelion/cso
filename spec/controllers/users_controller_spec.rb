@@ -3,7 +3,7 @@ describe UsersController do
   let(:events) { double(:events) }
 
   describe 'object seams' do
-    it { expect(controller.events_service).to be_an_instance_of(EventsService) }
+    it { expect(controller.events_service).to be(EventsService) }
   end
 
   describe '.status' do

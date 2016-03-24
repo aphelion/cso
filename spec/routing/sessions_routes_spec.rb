@@ -9,6 +9,6 @@ describe 'sessions routing' do
   end
 
   it 'routes sessions#destroy' do
-    expect(delete: '/sessions/destroy').to route_to('sessions#destroy')
+    expect(delete: '/sessions').to route_to('sessions#destroy')
   end
 end
