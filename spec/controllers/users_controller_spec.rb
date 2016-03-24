@@ -17,7 +17,7 @@ describe UsersController do
 
     context 'when there is an authenticated User' do
       before do
-        expect(controller).to receive(:logged_in_user)
+        expect(controller).to receive(:must_be_authenticated)
         allow(controller).to receive(:events_service).and_return(events_service)
         allow(events_service).to receive(:purchasable_events).and_return(events)
       end

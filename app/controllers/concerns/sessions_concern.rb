@@ -1,19 +1,19 @@
 module SessionsConcern
   extend ActiveSupport::Concern
 
-  def logged_in_user
-    redirect_to new_session_path unless logged_in?
+  def must_be_authenticated
+    redirect_to new_session_path unless authenticated?
   end
 
-  def admin_user
-    head :forbidden unless current_user_admin?
+  def must_be_admin
+    head :forbidden unless admin?
   end
 
-  def logged_in?
+  def authenticated?
     !current_user.nil?
   end
 
-  def current_user_admin?
+  def admin?
     !current_user.nil? and current_user.admin
   end
 
@@ -29,7 +29,7 @@ module SessionsConcern
     end
   end
 
-  def log_in(user)
+  def authenticate(user)
     session[:user_id] = user.id if user and user.id
   end
 

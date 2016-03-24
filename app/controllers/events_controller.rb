@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   include SessionsConcern
 
-  before_action :admin_user
+  before_action :must_be_admin
 
   def index
     @events = model.all

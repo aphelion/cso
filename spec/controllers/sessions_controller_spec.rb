@@ -24,7 +24,7 @@ describe SessionsController do
       it 'logs the user in' do
         expect(identities_service).to receive(:find_or_create_by_auth_hash).with(auth_hash).and_return(identity)
         expect(users_service).to receive(:find_or_create_by_identity_and_auth_hash).with(identity, auth_hash).and_return(user)
-        expect(controller).to receive(:log_in).with(user)
+        expect(controller).to receive(:authenticate).with(user)
 
         get :callback, auth_hash
 

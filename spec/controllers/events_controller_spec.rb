@@ -2,7 +2,7 @@ describe EventsController do
   describe 'authorization' do
     context 'when User is not an admin' do
       before do
-        expect(controller).to receive(:current_user_admin?).and_return(false)
+        expect(controller).to receive(:admin?).and_return(false)
       end
 
       it 'blocks the user from entry' do
@@ -14,7 +14,7 @@ describe EventsController do
 
     context 'when User is an admin' do
       before do
-        expect(controller).to receive(:current_user_admin?).and_return(true)
+        expect(controller).to receive(:admin?).and_return(true)
       end
 
       it 'does not block the user from entry' do
@@ -42,7 +42,7 @@ describe EventsController do
     let(:events) { double(:events) }
 
     before do
-      expect(controller).to receive(:current_user_admin?).and_return(true)
+      expect(controller).to receive(:admin?).and_return(true)
       allow(controller).to receive(:model).and_return(model)
     end
 

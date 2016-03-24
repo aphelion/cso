@@ -1,7 +1,7 @@
 include SessionsConcern
 
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:tickets]
+  before_action :must_be_authenticated, only: [:tickets]
 
   def tickets
     @purchasable_events = events_service.purchasable_events

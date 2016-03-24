@@ -15,7 +15,7 @@ describe SessionsConcern, type: :controller do
 
       controller(ApplicationController) do
         include SessionsConcern
-        before_action :logged_in_user
+        before_action :must_be_authenticated
 
         def action
           head :ok
@@ -26,7 +26,7 @@ describe SessionsConcern, type: :controller do
 
       context 'when no User is logged in' do
         before do
-          expect(controller).to receive(:logged_in?).and_return(false)
+          expect(controller).to receive(:authenticated?).and_return(false)
         end
 
         it 'redirects the user to start a session' do
@@ -37,7 +37,7 @@ describe SessionsConcern, type: :controller do
 
       context 'when a User is logged in' do
         before do
-          expect(controller).to receive(:logged_in?).and_return(true)
+          expect(controller).to receive(:authenticated?).and_return(true)
         end
 
         it 'does not redirect the user to start a session' do
@@ -47,11 +47,11 @@ describe SessionsConcern, type: :controller do
       end
     end
 
-    describe '.admin_user' do
+    describe '.must_be_admin' do
 
       controller(ApplicationController) do
         include SessionsConcern
-        before_action :admin_user
+        before_action :must_be_admin
 
         def action
           head :ok
@@ -62,7 +62,7 @@ describe SessionsConcern, type: :controller do
 
       context 'when User is an admin' do
         before do
-          expect(controller).to receive(:current_user_admin?).and_return(true)
+          expect(controller).to receive(:admin?).and_return(true)
         end
 
         it 'does not block the user from entry' do
@@ -73,7 +73,7 @@ describe SessionsConcern, type: :controller do
 
       context 'when User is not an admin' do
         before do
-          expect(controller).to receive(:current_user_admin?).and_return(false)
+          expect(controller).to receive(:admin?).and_return(false)
         end
 
         it 'blocks the user from entry' do
@@ -89,14 +89,14 @@ describe SessionsConcern, type: :controller do
       include SessionsConcern
     end
 
-    describe '#logged_in?' do
+    describe '#authenticated?' do
       context 'when a User is logged in' do
         before do
           expect(controller).to receive(:current_user).and_return(user)
         end
 
         it 'returns true' do
-          expect(controller.logged_in?).to eq(true)
+          expect(controller.authenticated?).to eq(true)
         end
       end
 
@@ -106,7 +106,7 @@ describe SessionsConcern, type: :controller do
         end
 
         it 'returns true' do
-          expect(controller.logged_in?).to eq(false)
+          expect(controller.authenticated?).to eq(false)
         end
       end
     end
@@ -166,7 +166,7 @@ describe SessionsConcern, type: :controller do
       end
     end
 
-    describe '#current_user_admin?' do
+    describe '#admin?' do
       context 'when a User is logged in' do
         before do
           allow(controller).to receive(:current_user).and_return(user)
@@ -178,7 +178,7 @@ describe SessionsConcern, type: :controller do
           end
 
           it 'returns true' do
-            expect(controller.current_user_admin?).to eq(true)
+            expect(controller.admin?).to eq(true)
           end
         end
 
@@ -188,7 +188,7 @@ describe SessionsConcern, type: :controller do
           end
 
           it 'returns false' do
-            expect(controller.current_user_admin?).to eq(false)
+            expect(controller.admin?).to eq(false)
           end
         end
       end
@@ -199,12 +199,12 @@ describe SessionsConcern, type: :controller do
         end
 
         it 'returns false' do
-          expect(controller.current_user_admin?).to eq(false)
+          expect(controller.admin?).to eq(false)
         end
       end
     end
 
-    describe '#log_in' do
+    describe '#authenticate' do
       before do
         session[:user_id] = 99
       end
@@ -213,7 +213,7 @@ describe SessionsConcern, type: :controller do
         it 'updates session[:user_id]' do
           allow(user).to receive(:id).and_return(1)
 
-          controller.log_in(user)
+          controller.authenticate(user)
 
           expect(session[:user_id]).to eq(1)
         end
@@ -225,7 +225,7 @@ describe SessionsConcern, type: :controller do
 
         it 'does not update session[:user_id]' do
 
-          controller.log_in(user)
+          controller.authenticate(user)
 
           expect(session[:user_id]).to eq(99)
         end
@@ -235,7 +235,7 @@ describe SessionsConcern, type: :controller do
         it 'does not update session[:user_id]' do
           allow(user).to receive(:id).and_return(nil)
 
-          controller.log_in(user)
+          controller.authenticate(user)
 
           expect(session[:user_id]).to eq(99)
         end

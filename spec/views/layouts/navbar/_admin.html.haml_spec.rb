@@ -1,7 +1,7 @@
 describe 'layouts/navbar/_admin.html.haml' do
   context 'when a User is an Admin' do
     before do
-      expect(view).to receive(:current_user_admin?).and_return(true)
+      expect(view).to receive(:admin?).and_return(true)
       render
     end
 
@@ -12,7 +12,7 @@ describe 'layouts/navbar/_admin.html.haml' do
 
   context 'when a User is not an Admin' do
     before do
-      expect(view).to receive(:current_user_admin?).and_return(false)
+      expect(view).to receive(:admin?).and_return(false)
       render
     end
 

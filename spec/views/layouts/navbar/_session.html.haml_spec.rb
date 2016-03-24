@@ -1,7 +1,7 @@
 describe 'layouts/navbar/_session.html.haml' do
   context 'when a User is authenticated' do
     before do
-      expect(view).to receive(:logged_in?).and_return(true)
+      expect(view).to receive(:authenticated?).and_return(true)
       render
     end
 
@@ -13,7 +13,7 @@ describe 'layouts/navbar/_session.html.haml' do
 
   context 'when there is no User authenticated' do
     before do
-      expect(view).to receive(:logged_in?).and_return(false)
+      expect(view).to receive(:authenticated?).and_return(false)
       render
     end
 
