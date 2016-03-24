@@ -10,7 +10,7 @@ module EventsService
   end
 
   def purchasable_events(user)
-    upcoming_events.joins(:ticket_options).where.not(id: user.tickets.map(&:event).map(&:id))
+    upcoming_events.joins(:ticket_options).distinct.where.not(id: user.tickets.map(&:event).map(&:id))
   end
 
   def model
