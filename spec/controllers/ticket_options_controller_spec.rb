@@ -12,7 +12,8 @@ describe TicketOptionsController do
     let(:ticket_option) { double(:ticket_option) }
 
     let(:valid_attributes) { {
-        name: 'Full Pass'
+        name: 'Full Pass',
+        price: '29.99'
     } }
 
     before do

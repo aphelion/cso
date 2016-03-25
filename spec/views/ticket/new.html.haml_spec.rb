@@ -1,3 +1,5 @@
+include MoneyRails::ActionViewExtension
+
 describe 'tickets/new.html.haml' do
   fixtures(:events)
   fixtures(:ticket_options)
@@ -16,6 +18,10 @@ describe 'tickets/new.html.haml' do
 
     it 'submits POST to Tickets' do
       assert_select 'form[action=?][method=?]', event_ticket_option_tickets_path(event, ticket_option), 'post'
+    end
+
+    it 'shows the price' do
+      expect(rendered).to have_text humanized_money_with_symbol(ticket_option.price)
     end
 
     it 'renders a submit button' do

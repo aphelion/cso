@@ -30,7 +30,7 @@ class TicketsController < ApplicationController
     head :forbidden and return unless ticket.user == current_user
 
     ticket.destroy
-    flash[:success] = 'Your ticket has been refunded.'
+    flash[:success] = 'Your ticket was refunded.'
     redirect_to user_tickets_path
   end
 

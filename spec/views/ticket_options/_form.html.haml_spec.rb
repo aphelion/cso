@@ -13,6 +13,10 @@ describe 'ticket_options/_form.html.haml' do
       assert_select 'input#ticket_option_name[value=?]', ticket_option.name
     end
 
+    it 'renders a pre-populated input for price' do
+      assert_select 'input#ticket_option_price[value=?]', ticket_option.price.to_s
+    end
+
     it 'renders a submit button' do
       assert_select 'input[type=?]', 'submit'
     end

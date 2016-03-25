@@ -155,7 +155,7 @@ describe TicketsController do
 
           delete :destroy, id: '1'
 
-          expect(flash[:success]).to eq('Your ticket has been refunded.')
+          expect(flash[:success]).to eq('Your ticket was refunded.')
         end
       end
 

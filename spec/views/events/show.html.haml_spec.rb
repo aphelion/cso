@@ -1,3 +1,5 @@
+include MoneyRails::ActionViewExtension
+
 describe 'events/show.html.haml' do
   fixtures(:tickets)
   let(:ticket) { tickets(:crystals_ticket) }
@@ -33,6 +35,7 @@ describe 'events/show.html.haml' do
     it 'displays a purchase link for each Ticket Option' do
       event.ticket_options.each do |ticket_option|
         expect(rendered).to have_text ticket_option.name
+        expect(rendered).to have_text humanized_money_with_symbol(ticket_option.price)
         expect(rendered).to have_link 'Purchase', href: new_event_ticket_option_ticket_path(event, ticket_option)
       end
     end

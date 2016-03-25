@@ -1,4 +1,5 @@
 .content
   %h1 #{@ticket.event.name} Confirmation
   %p Thanks #{@ticket.user.first_name}, you have a #{@ticket.ticket_option.name}!
+  %p Amount paid: #{humanized_money_with_symbol @ticket.ticket_option.price}
   %p= link_to 'Refund Ticket', ticket_path(@ticket), method: :delete, class: 'btn btn-secondary'

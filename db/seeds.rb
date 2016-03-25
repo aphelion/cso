@@ -1,3 +1,4 @@
+Ticket.destroy_all
 TicketOption.destroy_all
 Event.destroy_all
 
@@ -11,17 +12,20 @@ cso_2016 = Event.create(
 
 TicketOption.create(
     event: cso_2016,
-    name: 'Full Pass'
+    name: 'Full Pass',
+    price_cents: 3000
 )
 
 TicketOption.create(
     event: cso_2016,
-    name: 'Spectator Pass'
+    name: 'Spectator Pass',
+    price_cents: 1000
 )
 
 TicketOption.create(
     event: cso_2016,
-    name: 'Evening Pass'
+    name: 'Evening Pass',
+    price_cents: 2000
 )
 
 cso_2015 = Event.create(

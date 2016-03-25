@@ -1,3 +1,5 @@
+include MoneyRails::ActionViewExtension
+
 describe 'tickets/show.html.haml' do
   fixtures(:tickets)
   let(:ticket) { tickets(:crystals_ticket) }
@@ -10,6 +12,7 @@ describe 'tickets/show.html.haml' do
   it 'tells the user they have a Ticket' do
     expect(rendered).to have_text(ticket.event.name)
     expect(rendered).to have_text(ticket.ticket_option.name)
+    expect(rendered).to have_text(humanized_money_with_symbol(ticket.ticket_option.price))
     expect(rendered).to have_text(ticket.user.first_name)
   end
 
