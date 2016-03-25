@@ -9,6 +9,9 @@
             %h4.card-title= ticket.event.name
             .lead.card-subtitle.text-muted= ticket.event.event_start.strftime('%A, %B %e, %Y')
             %p.card-text The best event ever.
+            %p.card-text
+              .fa.fa-ticket
+              #{ticket.ticket_option.name} for #{ticket.user.first_name}
             .text-xs-center
               = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary-outline'
   - unless @purchasable_events.empty?
