@@ -7,7 +7,7 @@ describe 'layouts/navbar/_session.html.haml' do
 
     it 'provides a logout link' do
       expect(rendered).to have_link 'Logout', href: destroy_session_path
-      assert_select 'a[href=?][data-method=?]', destroy_session_path, 'delete', 'Logout'
+      assert_select 'a[href=?][data-method=?]', destroy_session_path, 'delete', text: 'Logout'
     end
   end
 

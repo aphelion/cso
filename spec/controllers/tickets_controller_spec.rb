@@ -115,8 +115,57 @@ describe TicketsController do
           allow(controller).to receive(:current_user).and_return(hacker)
         end
 
-        it 'does not show the user a confirmation screen' do
+        it 'throws the request in their FACE' do
           get :show, id: '1'
+
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    describe 'DELETE .destroy' do
+      let(:hacker) { double(:user) }
+
+      before do
+        allow(ticket).to receive(:user).and_return(user)
+        allow(model).to receive(:find).with('1').and_return(ticket)
+      end
+
+      context 'when the current User is the User of the Ticket' do
+        before do
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        it 'deletes the ticket' do
+          expect(ticket).to receive(:destroy)
+
+          delete :destroy, id: '1'
+        end
+
+        it 'redirects to the User Tickets page' do
+          allow(ticket).to receive(:destroy)
+
+          delete :destroy, id: '1'
+
+          expect(response).to redirect_to(user_tickets_path)
+        end
+
+        it 'flashes a confirmation message' do
+          allow(ticket).to receive(:destroy)
+
+          delete :destroy, id: '1'
+
+          expect(flash[:success]).to eq('Your ticket has been refunded.')
+        end
+      end
+
+      context 'when the current User is not the User of the Ticket' do
+        before do
+          allow(controller).to receive(:current_user).and_return(hacker)
+        end
+
+        it 'throws the request in their FACE' do
+          delete :destroy, id: '1'
 
           expect(response).to have_http_status(:forbidden)
         end

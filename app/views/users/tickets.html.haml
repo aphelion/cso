@@ -7,7 +7,7 @@
         %li
           = ticket.event.event_start.strftime('%A, %B %-d, %Y')
           #{ticket.event.name} (#{ticket.ticket_option.name})
-          = link_to 'View Ticket', ticket_path(ticket), class: 'btn btn-secondary'
+          = link_to 'View Confirmation', ticket_path(ticket), class: 'btn btn-secondary'
   - unless @purchasable_events.empty?
     %h2 Tickets For Sale
     %ul

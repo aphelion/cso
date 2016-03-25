@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tickets, only: [:show]
+  resources :tickets, only: [:show, :destroy]
 
   get '/tickets', to: 'users#tickets', as: :user_tickets
 

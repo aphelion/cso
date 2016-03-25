@@ -25,6 +25,15 @@ class TicketsController < ApplicationController
     head :forbidden unless @ticket.user == current_user
   end
 
+  def destroy
+    ticket = model.find(params[:id])
+    head :forbidden and return unless ticket.user == current_user
+
+    ticket.destroy
+    flash[:success] = 'Your ticket has been refunded.'
+    redirect_to user_tickets_path
+  end
+
   def model
     Ticket
   end

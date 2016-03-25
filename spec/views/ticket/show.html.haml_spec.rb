@@ -12,4 +12,8 @@ describe 'tickets/show.html.haml' do
     expect(rendered).to have_text(ticket.ticket_option.name)
     expect(rendered).to have_text(ticket.user.first_name)
   end
+
+  it 'renders a link to refund the Ticket' do
+    assert_select 'a[href=?][data-method=?]', ticket_path(ticket), 'delete', text: 'Refund Ticket'
+  end
 end
