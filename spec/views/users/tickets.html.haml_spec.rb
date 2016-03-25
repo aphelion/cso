@@ -27,6 +27,7 @@ describe 'users/tickets.html.haml' do
   it 'lists the purchasable Events' do
     purchasable_events.each do |event|
       expect(rendered).to have_text(event.name)
+      expect(rendered).to have_text(event.event_start.strftime('%A, %B %e, %Y'))
     end
   end
 
