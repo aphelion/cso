@@ -2,4 +2,11 @@
   %h1 Purchase #{@ticket_option.name} for #{@event.name}
   = humanized_money_with_symbol @ticket_option.price
   = form_for ([@event, @ticket_option, @ticket]) do |f|
-    = f.submit 'Purchase', {class: 'btn btn-primary'}
+    %script{src: 'https://checkout.stripe.com/checkout.js', class: 'stripe-button',
+      data: {email: @user.email,
+             allow_remember_me: 'false',
+             name: @event.name,
+             key: Rails.configuration.stripe[:publishable_key],
+             description: @ticket_option.name,
+             amount: @ticket_option.price_cents,
+             locale: 'auto'}}

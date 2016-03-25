@@ -32,6 +32,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'money-rails'
+gem 'stripe'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
