@@ -8,6 +8,7 @@ describe 'users/_event.html.haml' do
 
     describe 'basic layout' do
       before do
+        expect(view).to receive(:ticket_for_event_for_current_user).and_return(nil)
         render partial: 'users/event', locals: {event: event}
       end
 
@@ -26,7 +27,8 @@ describe 'users/_event.html.haml' do
 
     describe 'when given an event with a ticket' do
       before do
-        render partial: 'users/event', locals: {event: event, ticket: ticket}
+        expect(view).to receive(:ticket_for_event_for_current_user).and_return(ticket)
+        render partial: 'users/event', locals: {event: event}
       end
 
       it 'renders the purchased Ticket Option' do
@@ -42,8 +44,9 @@ describe 'users/_event.html.haml' do
       end
     end
 
-    describe 'when given an event without a ticket' do
+    describe 'when the current User does not have a Ticket for the given Event' do
       before do
+        expect(view).to receive(:ticket_for_event_for_current_user).and_return(nil)
         render partial: 'users/event', locals: {event: event}
       end
 

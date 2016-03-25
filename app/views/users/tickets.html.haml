@@ -1,11 +1,7 @@
 .content
   %h1 Tickets
-  .row
-    - unless @upcoming_purchased_tickets.empty?
-      - @upcoming_purchased_tickets.each do |ticket|
-        .col-md-6.col-lg-4
-          = render 'users/event', event: ticket.event, ticket: ticket
-    - unless @purchasable_events.empty?
-      - @purchasable_events.each do |event|
+  - unless @upcoming_events.empty?
+    .row
+      - @upcoming_events.each do |event|
         .col-sm-6.col-md-4
           = render 'users/event', event: event
