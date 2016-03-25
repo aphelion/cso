@@ -2,12 +2,15 @@
   %h1 Tickets
   - unless @upcoming_purchased_tickets.empty?
     %h2 Your Upcoming Tickets
-    %ul
+    .row
       - @upcoming_purchased_tickets.each do |ticket|
-        %li
-          = ticket.event.event_start.strftime('%A, %B %e, %Y')
-          #{ticket.event.name} (#{ticket.ticket_option.name})
-          = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary'
+        .col-sm-6.col-md-4
+          .card.card-block
+            %h4.card-title= ticket.event.name
+            .lead.card-subtitle.text-muted= ticket.event.event_start.strftime('%A, %B %e, %Y')
+            %p.card-text The best event ever.
+            .text-xs-center
+              = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary-outline'
   - unless @purchasable_events.empty?
     %h2 Tickets For Sale
     .row
