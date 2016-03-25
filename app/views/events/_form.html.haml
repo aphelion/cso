@@ -4,6 +4,10 @@
     .col-sm-10
       = f.text_field :name, class: 'form-control'
   .form-group.row
+    = f.label :description, class: 'col-sm-2 form-control-label'
+    .col-sm-10
+      = f.text_area :description, class: 'form-control'
+  .form-group.row
     = f.label :event_start, class: 'col-sm-2 form-control-label'
     .col-sm-10
       = f.datetime_local_field :event_start, class: 'form-control'

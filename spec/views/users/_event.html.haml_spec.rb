@@ -15,6 +15,10 @@ describe 'users/_event.html.haml' do
         expect(rendered).to have_text(event.name)
       end
 
+      it 'renders the Event description' do
+        expect(rendered).to have_text(event.description)
+      end
+
       it 'renders the Event start date (formatted)' do
         expect(rendered).to have_text(event.event_start.strftime('%A, %B %e, %Y'))
       end

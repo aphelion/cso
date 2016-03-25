@@ -32,6 +32,7 @@ describe EventsController do
   describe 'actions' do
     let(:valid_attributes) { {
         name: 'an event',
+        description: 'an event!!!',
         event_start: '2016-01-01T00:00',
         event_end: '2016-01-02T00:00',
         sale_start: '2015-12-01T00:00',

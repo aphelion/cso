@@ -2,6 +2,7 @@
   .card-block
     %h4.card-title= event.name
     .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
+    %p.card-text= event.description
   %ul.list-group.list-group-flush
     - if defined? ticket
       %li.list-group-item

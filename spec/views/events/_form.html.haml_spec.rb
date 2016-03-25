@@ -11,6 +11,11 @@ describe 'events/_form.html.haml' do
       assert_select 'input#event_name[value=?]', event.name
     end
 
+    it 'renders a pre-populated input for description' do
+      puts rendered
+      assert_select 'textarea#event_description', event.description
+    end
+
     it 'renders a pre-populated input for event_start' do
       assert_select 'input#event_event_start[value=?]', format_datetime_local(event.event_start)
     end
