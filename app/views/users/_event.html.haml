@@ -1,0 +1,14 @@
+.card
+  .card-block
+    %h4.card-title= event.name
+    .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
+  - if defined? ticket
+    %ul.list-group.list-group-flush
+      %li.list-group-item
+        .fa.fa-ticket
+        #{ticket.ticket_option.name} for #{ticket.user.first_name} #{ticket.user.last_name}
+    .card-footer.text-xs-center
+      = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary-outline'
+  - else
+    .card-footer.text-xs-center
+      = link_to 'Buy Ticket', event_path(event), class: 'btn btn-primary-outline'

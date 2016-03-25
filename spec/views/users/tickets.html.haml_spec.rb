@@ -1,9 +1,9 @@
 describe 'users/tickets.html.haml' do
   fixtures(:events)
   fixtures(:tickets)
-  let(:salsa_party) { events(:salsa_party) }
+  let(:bachata_party) { events(:bachata_party) }
   let(:crystals_ticket) { tickets(:crystals_ticket) }
-  let(:purchasable_events) { [salsa_party] }
+  let(:purchasable_events) { [bachata_party] }
   let(:upcoming_purchased_tickets) { [crystals_ticket] }
 
   before do
@@ -16,24 +16,15 @@ describe 'users/tickets.html.haml' do
     expect(rendered).to have_text('Ticket')
   end
 
-  it 'lists the upcoming purchased Event Tickets' do
+  it 'renders the upcoming purchased Event Tickets' do
     upcoming_purchased_tickets.each do |ticket|
-      expect(rendered).to have_text(ticket.event.name)
-      expect(rendered).to have_text(ticket.ticket_option.name)
-      expect(rendered).to have_link('Details', ticket_path(ticket))
+      expect(view).to have_rendered(partial: 'users/_event', locals: {event: ticket.event, ticket: ticket})
     end
   end
 
-  it 'lists the purchasable Events' do
+  it 'renders the purchasable Events' do
     purchasable_events.each do |event|
-      expect(rendered).to have_text(event.name)
-      expect(rendered).to have_text(event.event_start.strftime('%A, %B %e, %Y'))
-    end
-  end
-
-  it 'links to the Event page for each purchasable Event' do
-    purchasable_events.each do |event|
-      expect(rendered).to have_link 'Buy Ticket', href: event_path(event)
+      expect(view).to have_rendered(partial: 'users/_event', locals: {event: event})
     end
   end
 end
