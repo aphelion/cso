@@ -25,7 +25,10 @@ class TicketsController < ApplicationController
         description: "#{event.name} #{ticket_option.name} for #{current_user.first_name} #{current_user.last_name}",
         currency: 'USD'
     )
-    charge = charge_model.create(charge_id: stripe_charge.id, processor: 'stripe')
+    charge = charge_model.create(
+        charge_id: stripe_charge.id,
+        processor: 'stripe'
+    )
     ticket = model.new
     ticket.user = current_user
     ticket.charge = charge
@@ -50,6 +53,11 @@ class TicketsController < ApplicationController
     ticket = model.find(params[:id])
     head :forbidden and return unless ticket.user == current_user
 
+    charge = ticket.charge
+    refund_service.create(
+        charge: charge.charge_id,
+        reason: 'requested_by_customer'
+    )
     ticket.destroy
     flash[:success] = 'Your ticket was refunded.'
     redirect_to user_tickets_path
@@ -76,6 +84,10 @@ class TicketsController < ApplicationController
 
   def charge_service
     Stripe::Charge
+  end
+
+  def refund_service
+    Stripe::Refund
   end
 
   def charge_model

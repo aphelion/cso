@@ -6,11 +6,13 @@ describe TicketsController do
     it { expect(controller.ticket_option_model).to eq(TicketOption) }
     it { expect(controller.customer_service).to eq(Stripe::Customer) }
     it { expect(controller.charge_service).to eq(Stripe::Charge) }
+    it { expect(controller.refund_service).to eq(Stripe::Refund) }
   end
 
   describe 'actions' do
     let(:customer_service) { double(:CustomerService) }
     let(:charge_service) { double(:ChargeService) }
+    let(:refund_service) { double(:RefundService) }
     let(:event_model) { double(:Event) }
     let(:charge_model) { double(:Charge) }
     let(:ticket_option_model) { double(:TicketOption) }
@@ -25,6 +27,7 @@ describe TicketsController do
       allow(controller).to receive(:model).and_return(model)
       allow(controller).to receive(:customer_service).and_return(customer_service)
       allow(controller).to receive(:charge_service).and_return(charge_service)
+      allow(controller).to receive(:refund_service).and_return(refund_service)
       allow(controller).to receive(:event_model).and_return(event_model)
       allow(controller).to receive(:charge_model).and_return(charge_model)
       allow(controller).to receive(:ticket_option_model).and_return(ticket_option_model)
@@ -168,6 +171,7 @@ describe TicketsController do
 
     describe 'DELETE .destroy' do
       let(:hacker) { double(:user) }
+      let(:charge) { double(:charge) }
 
       before do
         allow(ticket).to receive(:user).and_return(user)
@@ -177,25 +181,23 @@ describe TicketsController do
       context 'when the current User is the User of the Ticket' do
         before do
           allow(controller).to receive(:current_user).and_return(user)
+          expect(ticket).to receive(:charge).and_return(charge)
+          expect(charge).to receive(:charge_id).and_return('CHARGE_ID')
+          expect(refund_service).to receive(:create).with(charge: 'CHARGE_ID', reason: 'requested_by_customer')
+          expect(ticket).to receive(:destroy)
         end
 
         it 'deletes the ticket' do
-          expect(ticket).to receive(:destroy)
-
           delete :destroy, id: '1'
         end
 
         it 'redirects to the User Tickets page' do
-          allow(ticket).to receive(:destroy)
-
           delete :destroy, id: '1'
 
           expect(response).to redirect_to(user_tickets_path)
         end
 
         it 'flashes a confirmation message' do
-          allow(ticket).to receive(:destroy)
-
           delete :destroy, id: '1'
 
           expect(flash[:success]).to eq('Your ticket was refunded.')
