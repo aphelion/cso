@@ -4,24 +4,27 @@
     %h2 Your Upcoming Tickets
     .row
       - @upcoming_purchased_tickets.each do |ticket|
-        .col-sm-6.col-md-4
-          .card.card-block
-            %h4.card-title= ticket.event.name
-            .lead.card-subtitle.text-muted= ticket.event.event_start.strftime('%A, %B %e, %Y')
-            %p.card-text The best event ever.
-            %p.card-text
-              .fa.fa-ticket
-              #{ticket.ticket_option.name} for #{ticket.user.first_name}
-            .text-xs-center
+        .col-md-6.col-lg-4
+          .card
+            .card-block
+              %h4.card-title= ticket.event.name
+              .lead.card-subtitle.text-muted= ticket.event.event_start.strftime('%A, %B %e, %Y')
+              %p.card-text The best event ever.
+            %ul.list-group.list-group-flush
+              %li.list-group-item
+                .fa.fa-ticket
+                #{ticket.ticket_option.name} for #{ticket.user.first_name} #{ticket.user.last_name}
+            .card-footer.text-xs-center
               = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary-outline'
   - unless @purchasable_events.empty?
     %h2 Tickets For Sale
     .row
       - @purchasable_events.each do |event|
         .col-sm-6.col-md-4
-          .card.card-block
-            %h4.card-title= event.name
-            .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
-            %p.card-text The best event ever.
-            .text-xs-center
-              = link_to 'Purchase', event_path(event), class: 'btn btn-primary-outline'
+          .card
+            .card-block
+              %h4.card-title= event.name
+              .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
+              %p.card-text The best event ever.
+            .card-footer.text-xs-center
+              = link_to 'Buy Ticket', event_path(event), class: 'btn btn-primary-outline'

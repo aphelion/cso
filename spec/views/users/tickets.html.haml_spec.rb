@@ -33,7 +33,7 @@ describe 'users/tickets.html.haml' do
 
   it 'links to the Event page for each purchasable Event' do
     purchasable_events.each do |event|
-      expect(rendered).to have_link 'Purchase', href: event_path(event)
+      expect(rendered).to have_link 'Buy Ticket', href: event_path(event)
     end
   end
 end
