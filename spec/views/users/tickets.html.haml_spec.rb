@@ -20,6 +20,7 @@ describe 'users/tickets.html.haml' do
     upcoming_purchased_tickets.each do |ticket|
       expect(rendered).to have_text(ticket.event.name)
       expect(rendered).to have_text(ticket.ticket_option.name)
+      expect(rendered).to have_link('Details', ticket_path(ticket))
     end
   end
 

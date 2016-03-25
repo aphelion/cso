@@ -209,7 +209,7 @@ describe TicketsController do
         it 'flashes a confirmation message' do
           delete :destroy, id: '1'
 
-          expect(flash[:success]).to eq('Your ticket was refunded.')
+          expect(flash[:success]).to eq("Your ticket was refunded. Sorry you can't make it!")
         end
       end
 
