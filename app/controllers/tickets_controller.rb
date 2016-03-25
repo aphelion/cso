@@ -18,14 +18,17 @@ class TicketsController < ApplicationController
         email: current_user.email,
         source: params[:stripeToken]
     )
-    charge = charge_service.create(
+
+    stripe_charge = charge_service.create(
         customer: customer.id,
         amount: ticket_option.price_cents,
         description: "#{event.name} #{ticket_option.name} for #{current_user.first_name} #{current_user.last_name}",
         currency: 'USD'
     )
+    charge = charge_model.create(charge_id: stripe_charge.id, processor: 'stripe')
     ticket = model.new
     ticket.user = current_user
+    ticket.charge = charge
     ticket.ticket_option_id = params[:ticket_option_id]
     if ticket.save
       redirect_to ticket_path(ticket.id)
@@ -50,6 +53,9 @@ class TicketsController < ApplicationController
     ticket.destroy
     flash[:success] = 'Your ticket was refunded.'
     redirect_to user_tickets_path
+  rescue Stripe::StripeError => e
+    flash[:error] = e.message
+    redirect_to :back
   end
 
   def model
@@ -70,5 +76,9 @@ class TicketsController < ApplicationController
 
   def charge_service
     Stripe::Charge
+  end
+
+  def charge_model
+    Charge
   end
 end

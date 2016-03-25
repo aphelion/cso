@@ -2,6 +2,7 @@ describe TicketsController do
   describe 'object seams' do
     it { expect(controller.model).to eq(Ticket) }
     it { expect(controller.event_model).to eq(Event) }
+    it { expect(controller.charge_model).to eq(Charge) }
     it { expect(controller.ticket_option_model).to eq(TicketOption) }
     it { expect(controller.customer_service).to eq(Stripe::Customer) }
     it { expect(controller.charge_service).to eq(Stripe::Charge) }
@@ -11,6 +12,7 @@ describe TicketsController do
     let(:customer_service) { double(:CustomerService) }
     let(:charge_service) { double(:ChargeService) }
     let(:event_model) { double(:Event) }
+    let(:charge_model) { double(:Charge) }
     let(:ticket_option_model) { double(:TicketOption) }
     let(:model) { double(:Ticket) }
     let(:event) { double(:event) }
@@ -24,6 +26,7 @@ describe TicketsController do
       allow(controller).to receive(:customer_service).and_return(customer_service)
       allow(controller).to receive(:charge_service).and_return(charge_service)
       allow(controller).to receive(:event_model).and_return(event_model)
+      allow(controller).to receive(:charge_model).and_return(charge_model)
       allow(controller).to receive(:ticket_option_model).and_return(ticket_option_model)
       allow(controller).to receive(:current_user).and_return(user)
       allow(model).to receive(:new).and_return(ticket)
@@ -65,6 +68,7 @@ describe TicketsController do
 
     describe '.create' do
       let(:customer) { double(:customer) }
+      let(:stripe_charge) { double(:stripe_charge) }
       let(:charge) { double(:charge) }
 
       before do
@@ -72,6 +76,7 @@ describe TicketsController do
 
         expect(ticket).to receive(:ticket_option_id=).with('2')
         expect(ticket).to receive(:user=).with(user)
+        expect(ticket).to receive(:charge=).with(charge)
 
         allow(event).to receive(:name).and_return('EVENT')
 
@@ -83,15 +88,18 @@ describe TicketsController do
         allow(user).to receive(:last_name).and_return('Hwang')
 
         allow(customer).to receive(:id).and_return('customer id')
+        allow(stripe_charge).to receive(:id).and_return('charge id')
 
         allow(customer_service).to receive(:create).and_return(customer)
-        allow(charge_service).to receive(:create).and_return(charge)
+        allow(charge_service).to receive(:create).and_return(stripe_charge)
+        allow(charge_model).to receive(:create).and_return(charge)
       end
 
       context 'when the Charge succeeds' do
         before do
           expect(customer_service).to receive(:create).with(description: 'Youngshik Hwang', email: 'EMAIL', source: 'STRIPE_TOKEN').and_return(customer)
-          expect(charge_service).to receive(:create).with(customer: 'customer id', amount: 2000, description: 'EVENT TICKET_OPTION for Youngshik Hwang', currency: 'USD').and_return(charge)
+          expect(charge_service).to receive(:create).with(customer: 'customer id', amount: 2000, description: 'EVENT TICKET_OPTION for Youngshik Hwang', currency: 'USD').and_return(stripe_charge)
+          expect(charge_model).to receive(:create).with(charge_id: 'charge id', processor: 'stripe').and_return(charge)
         end
 
         it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
