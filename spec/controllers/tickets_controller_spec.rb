@@ -103,15 +103,24 @@ describe TicketsController do
           expect(customer_service).to receive(:create).with(description: 'Youngshik Hwang', email: 'EMAIL', source: 'STRIPE_TOKEN').and_return(customer)
           expect(charge_service).to receive(:create).with(customer: 'customer id', amount: 2000, description: 'EVENT TICKET_OPTION for Youngshik Hwang', currency: 'USD').and_return(stripe_charge)
           expect(charge_model).to receive(:create).with(charge_id: 'charge id', processor: 'stripe').and_return(charge)
+          expect(ticket).to receive(:save).and_return(true)
         end
 
-        it 'creates a Ticket, saves it, and redirects to the Event confirmation page' do
-          expect(ticket).to receive(:save).and_return(true)
-          expect(ticket).to receive(:id).and_return(1)
+        it 'creates a Ticket, saves it' do
+          post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
+        end
 
+        it 'redirects to the Tickets page' do
           post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
 
-          expect(response).to redirect_to(ticket_path(1))
+          expect(response).to redirect_to(user_tickets_path)
+        end
+
+        it 'flashes a success message' do
+          post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
+
+          expect(flash[:success]).to_not be_nil
+          expect(flash[:success]).to include(event.name)
         end
       end
 

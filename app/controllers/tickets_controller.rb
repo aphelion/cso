@@ -34,7 +34,8 @@ class TicketsController < ApplicationController
     ticket.charge = charge
     ticket.ticket_option_id = params[:ticket_option_id]
     if ticket.save
-      redirect_to ticket_path(ticket.id)
+      flash[:success] = "Thanks for buying a ticket! See you at the #{event.name}!"
+      redirect_to user_tickets_path
     else
       flash[:error] = ticket.errors.full_messages.join(' ')
       redirect_to :back
