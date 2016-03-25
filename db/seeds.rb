@@ -13,19 +13,34 @@ cso_2016 = Event.create(
 TicketOption.create(
     event: cso_2016,
     name: 'Full Pass',
-    price_cents: 3000
+    price_cents: 2900
 )
 
 TicketOption.create(
     event: cso_2016,
     name: 'Spectator Pass',
-    price_cents: 1000
+    price_cents: 800
 )
 
 TicketOption.create(
     event: cso_2016,
     name: 'Evening Pass',
-    price_cents: 2000
+    price_cents: 2200
+)
+
+
+summer_2016 = Event.create(
+    name: 'Summer 2016 LDA Party',
+    event_start: DateTime.new(2016, 7, 30, 21),
+    event_end: DateTime.new(2016, 7, 31, 2),
+    sale_start: DateTime.new(2016, 3, 1),
+    sale_end: DateTime.new(2016, 7, 30)
+)
+
+TicketOption.create(
+    event: summer_2016,
+    name: 'Full Pass',
+    price_cents: 1600
 )
 
 cso_2015 = Event.create(
@@ -38,5 +53,6 @@ cso_2015 = Event.create(
 
 TicketOption.create(
     event: cso_2015,
-    name: 'Full Pass'
+    name: 'Full Pass',
+    price_cents: 2800
 )
