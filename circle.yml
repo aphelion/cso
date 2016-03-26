@@ -7,7 +7,7 @@ deployment:
     branch: master
     commands:
       - heroku maintenance:on -a aphelion-cso-staging
-      - git push git@heroku.com:aphelion-cso-staging.git $CIRCLE_SHA1:master
+      - git push git@heroku.com:aphelion-cso-staging.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate -a aphelion-cso-staging
       - heroku restart -a aphelion-cso-staging
       - heroku maintenance:off -a aphelion-cso-staging
