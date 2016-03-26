@@ -3,13 +3,14 @@
 
 section.home-section
   @include make-container()
-  min-height: calc(100vh - #{$navbar-height})
 
+@mixin center-page
   display: flex
   align-items: center
   justify-content: center
 
-#landing
+@mixin image-background($image-url, $opacity: 0.33)
+  min-height: calc(100vh - #{$navbar-height})
   position: relative
   &:before
     content: ''
@@ -18,9 +19,15 @@ section.home-section
     height: 100%
     left: 0
     right: 0
-    background: image-url('cso.svg') no-repeat center center
+    background: $image-url no-repeat center center
+    background-size: cover
+    opacity: $opacity
+
+#landing
+  @include center-page
+  @include image-background(image-url('cso.svg'), 0.1)
+  &:before
     background-size: auto 125%
-    opacity: 0.1
   &:after
     content: ''
     z-index: -2
@@ -31,4 +38,16 @@ section.home-section
     background-color: $gray-lightest
 
 #event-information
-  background-color: aquamarine
+  @include center-page
+  @include image-background(image-url('cso-2015/sjsu-split.jpg'))
+
+#cso-2015
+  @include center-page
+  @include image-background(image-url('cso-2015/csulb.jpg'))
+
+#about
+  @include center-page
+  @include image-background(image-url('cso-2015/social-dancing.jpg'))
+
+#tickets
+  @include image-background(image-url('cso-2015/workshop.jpg'))

@@ -11,6 +11,14 @@ describe 'layouts/_navbar.html.haml' do
     expect(rendered).to have_link 'Event Information', href: '/#event-information'
   end
 
+  it 'links to the CSO 2015 section' do
+    expect(rendered).to have_link 'CSO 2015', href: '/#cso-2015'
+  end
+
+  it 'links to the About section' do
+    expect(rendered).to have_link 'About', href: '/#about'
+  end
+
   it 'links to the Tickets page' do
     expect(rendered).to have_link 'Tickets', href: user_tickets_path
   end
