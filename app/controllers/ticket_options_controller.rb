@@ -14,7 +14,7 @@ class TicketOptionsController < ApplicationController
   end
 
   def create
-    ticket_option = model.new(event_params)
+    ticket_option = model.new(ticket_option_params)
     ticket_option.event_id = params[:event_id]
     if ticket_option.save
       redirect_to event_ticket_options_path(params[:event_id])
@@ -26,7 +26,7 @@ class TicketOptionsController < ApplicationController
 
   def update
     ticket_option = model.find(params[:id])
-    if ticket_option.update(event_params)
+    if ticket_option.update(ticket_option_params)
       redirect_to event_ticket_options_path(params[:event_id])
     else
       @ticket_option = ticket_option
@@ -43,7 +43,7 @@ class TicketOptionsController < ApplicationController
   end
 
   private
-  def event_params
+  def ticket_option_params
     params.require(:ticket_option).permit(:name, :price)
   end
 end

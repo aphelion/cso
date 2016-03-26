@@ -12,7 +12,6 @@ describe 'events/_form.html.haml' do
     end
 
     it 'renders a pre-populated input for description' do
-      puts rendered
       assert_select 'textarea#event_description', event.description
     end
 

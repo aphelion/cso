@@ -4,14 +4,13 @@ class TicketsController < ApplicationController
 
   def new
     @event = event_model.find(params[:event_id])
-    @ticket_option = ticket_option_model.find(params[:ticket_option_id])
     @user = current_user
     @ticket = model.new
   end
 
   def create
     event = event_model.find(params[:event_id])
-    ticket_option = ticket_option_model.find(params[:ticket_option_id])
+    ticket_option = ticket_option_model.find(ticket_params[:ticket_option_id])
 
     customer = customer_service.create(
         description: "#{current_user.first_name} #{current_user.last_name}",
@@ -32,7 +31,7 @@ class TicketsController < ApplicationController
     ticket = model.new
     ticket.user = current_user
     ticket.charge = charge
-    ticket.ticket_option_id = params[:ticket_option_id]
+    ticket.ticket_option_id = ticket_params[:ticket_option_id]
     if ticket.save
       flash[:success] = "Thanks for buying a ticket! See you at the #{event.name}!"
       redirect_to user_tickets_path
@@ -93,5 +92,10 @@ class TicketsController < ApplicationController
 
   def charge_model
     Charge
+  end
+
+  private
+  def ticket_params
+    params.require(:ticket).permit(:ticket_option_id)
   end
 end

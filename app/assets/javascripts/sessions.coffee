@@ -1,4 +1,6 @@
-ready = ->
+@App ||= {}
+
+App.cleanupLocationHash = ->
   # cleanup Facebook auth callback URL
   if window.location.hash == '#_=_'
     App.removeLocationHash()
@@ -6,5 +8,5 @@ ready = ->
 #  if window.location.hash == ''
 #    App.removeLocationHash()
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).ready(App.cleanupLocationHash)
+$(document).on('page:load', App.cleanupLocationHash)

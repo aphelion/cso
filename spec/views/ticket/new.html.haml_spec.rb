@@ -20,16 +20,13 @@ describe 'tickets/new.html.haml' do
     end
 
     it 'submits POST to Tickets' do
-      assert_select 'form[action=?][method=?]', event_ticket_option_tickets_path(event, ticket_option), 'post'
+      assert_select 'form[action=?][method=?]', event_tickets_path(event), 'post'
     end
 
-    it 'shows the price' do
-      expect(rendered).to have_text humanized_money_with_symbol(ticket_option.price)
-    end
-
-    it 'renders a Stripe Checkout button' do
-      assert_select 'script[src=?]', 'https://checkout.stripe.com/checkout.js'
-      assert_select 'script[data-amount=?]', ticket_option.price_cents.to_s
+    it 'renders a Stripe Checkout button for each Ticket Option' do
+      event.ticket_options.each do |ticket_option|
+        assert_select 'script[src=?][data-amount=?]', 'https://checkout.stripe.com/checkout.js', ticket_option.price_cents.to_s
+      end
     end
   end
 end

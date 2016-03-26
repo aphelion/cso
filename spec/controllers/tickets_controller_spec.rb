@@ -23,6 +23,10 @@ describe TicketsController do
     let(:user) { double(:user) }
     let(:errors) { double(:errors) }
 
+    let(:valid_attributes) { {
+        ticket_option_id: '2'
+    } }
+
     before do
       allow(controller).to receive(:model).and_return(model)
       allow(controller).to receive(:customer_service).and_return(customer_service)
@@ -39,31 +43,25 @@ describe TicketsController do
 
     describe '.new' do
       it 'renders its template' do
-        get :new, event_id: 1, ticket_option_id: 2
+        get :new, event_id: 1
 
         expect(response).to render_template('tickets/new')
       end
 
       it 'provides a new Event to the view' do
-        get :new, event_id: 1, ticket_option_id: 2
+        get :new, event_id: 1
 
         expect(assigns(:event)).to be(event)
       end
 
-      it 'provides a new Ticket Option to the view' do
-        get :new, event_id: 1, ticket_option_id: 2
-
-        expect(assigns(:ticket_option)).to be(ticket_option)
-      end
-
       it 'provides a new Ticket to the view' do
-        get :new, event_id: 1, ticket_option_id: 2
+        get :new, event_id: 1
 
         expect(assigns(:ticket)).to be(ticket)
       end
 
       it 'provides a the current User to the view' do
-        get :new, event_id: 1, ticket_option_id: 2
+        get :new, event_id: 1
 
         expect(assigns(:user)).to be(user)
       end
@@ -107,17 +105,17 @@ describe TicketsController do
         end
 
         it 'creates a Ticket, saves it' do
-          post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
+          post :create, event_id: '1', ticket: valid_attributes, stripeToken: 'STRIPE_TOKEN'
         end
 
         it 'redirects to the Tickets page' do
-          post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
+          post :create, event_id: '1', ticket: valid_attributes, stripeToken: 'STRIPE_TOKEN'
 
           expect(response).to redirect_to(user_tickets_path)
         end
 
         it 'flashes a success message' do
-          post :create, event_id: '1', ticket_option_id: '2', stripeToken: 'STRIPE_TOKEN'
+          post :create, event_id: '1', ticket: valid_attributes, stripeToken: 'STRIPE_TOKEN'
 
           expect(flash[:success]).to_not be_nil
           expect(flash[:success]).to include(event.name)
@@ -131,7 +129,7 @@ describe TicketsController do
           expect(ticket).to receive(:errors).and_return(errors)
           expect(errors).to receive(:full_messages).and_return(['some error'])
 
-          post :create, event_id: '1', ticket_option_id: '2'
+          post :create, event_id: '1', ticket: valid_attributes, stripeToken: 'STRIPE_TOKEN'
 
           expect(flash[:error]).to eq('some error')
           expect(response).to redirect_to :back

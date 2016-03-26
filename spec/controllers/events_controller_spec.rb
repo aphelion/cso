@@ -154,29 +154,5 @@ describe EventsController do
         end
       end
     end
-
-    context 'as a User' do
-      before do
-        expect(controller).to receive(:authenticated?).and_return(true)
-      end
-
-      describe 'GET .show' do
-        before do
-          expect(model).to receive(:find).with('1').and_return(event)
-        end
-
-        it 'renders its template' do
-          get :show, id: '1'
-
-          expect(response).to render_template('events/show')
-        end
-
-        it 'assigns the Event as @event' do
-          get :show, id: '1'
-
-          expect(assigns(:event)).to be(event)
-        end
-      end
-    end
   end
 end

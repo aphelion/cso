@@ -1,12 +1,16 @@
 .content
-  %h1 Purchase #{@ticket_option.name} for #{@event.name}
-  = humanized_money_with_symbol @ticket_option.price
-  = form_for ([@event, @ticket_option, @ticket]) do |f|
-    %script{src: 'https://checkout.stripe.com/checkout.js', class: 'stripe-button',
-      data: {email: @user.email,
-             allow_remember_me: 'false',
-             name: @event.name,
-             key: Rails.configuration.stripe[:publishable_key],
-             description: @ticket_option.name,
-             amount: @ticket_option.price_cents,
-             locale: 'auto'}}
+  %h1 Purchase a Ticket for #{@event.name}
+  - @event.ticket_options.each do |ticket_option|
+    = form_for [@event, @ticket], html: {'data-ticket-form': ''} do |f|
+      = f.hidden_field :ticket_option_id, value: ticket_option.id
+      %label
+        = ticket_option.name
+        = humanized_money_with_symbol ticket_option.price
+        %script{src: 'https://checkout.stripe.com/checkout.js', class: 'stripe-button',
+          data: {email: @user.email,
+                 allow_remember_me: 'false',
+                 name: @event.name,
+                 key: Rails.configuration.stripe[:publishable_key],
+                 description: ticket_option.name,
+                 amount: ticket_option.price_cents,
+                 locale: 'auto'}}

@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  resources :events, only: [:index, :new, :create, :show, :edit, :update] do
-    resources :ticket_options, only: [:index, :new, :create, :edit, :update] do
-      resources :tickets, only: [:new, :create]
-    end
+  resources :events, only: [:index, :new, :create, :edit, :update] do
+    resources :ticket_options, only: [:index, :new, :create, :edit, :update]
+    resources :tickets, shallow: true, only: [:new, :create, :show, :destroy]
   end
-
-  resources :tickets, only: [:show, :destroy]
 
   get '/tickets', to: 'users#tickets', as: :user_tickets
 

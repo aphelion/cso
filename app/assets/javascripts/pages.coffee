@@ -1,4 +1,4 @@
-ready = ->
+App.setupHomepageScroll = ->
   # scroll to sections only on homepage
   if window.location.pathname == '/'
     $('a.page-scroll').bind 'click', (event) ->
@@ -15,5 +15,5 @@ ready = ->
     if $(e.target).is('a')
       $(e.target).closest('.navbar').find('.collapse.in').collapse 'hide'
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).ready(App.setupHomepageScroll)
+$(document).on('page:load', App.setupHomepageScroll)
