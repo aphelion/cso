@@ -13,4 +13,4 @@ deployment:
       - heroku maintenance:off -a aphelion-cso-staging
 notify:
   webhooks:
-    - http://mcc.aphelioncreative.com/builds/29/hook/circle
+    - url: http://mcc.aphelioncreative.com/builds/29/hook/circle
