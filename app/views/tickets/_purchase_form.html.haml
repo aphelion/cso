@@ -5,6 +5,6 @@
         = f.radio_button :ticket_option_id, ticket_option.id
         = ticket_option.name
         \- #{humanized_money_with_symbol ticket_option.price}
-  = render partial: 'tickets/ticket_price_breakdown', locals: {event: event, ticket: ticket}
   - unless ticket.ticket_option.nil?
+    = render partial: 'tickets/ticket_price_breakdown', locals: {event: event, ticket: ticket}
     = render partial: 'tickets/checkout_button', locals: {email: user.email, name: event.name, description: ticket.ticket_option.name, amount: ticket_total_price(ticket).cents}

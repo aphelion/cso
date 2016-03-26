@@ -12,10 +12,6 @@ describe 'tickets/_purchase_form.html.haml' do
       render partial: 'tickets/purchase_form.html.haml', locals: {event: event, ticket: ticket, user: user}
     end
 
-    it 'renders the Ticket price breakdown' do
-      expect(view).to have_rendered(partial: 'tickets/_ticket_price_breakdown', locals: {event: event, ticket: ticket})
-    end
-
     it 'renders a list of Ticket Options to choose from' do
       event.ticket_options.each do |ticket_option|
         assert_select 'label', text: /#{ticket_option.name}/
@@ -34,6 +30,10 @@ describe 'tickets/_purchase_form.html.haml' do
       render partial: 'tickets/purchase_form.html.haml', locals: {event: event, ticket: ticket, user: user}
     end
 
+    it 'renders the Ticket price breakdown' do
+      expect(view).to have_rendered(partial: 'tickets/_ticket_price_breakdown', locals: {event: event, ticket: ticket})
+    end
+
     it 'renders a Stripe Checkout button' do
       expect(view).to have_rendered(partial: 'tickets/_checkout_button', locals: {
           email: user.email,
@@ -47,6 +47,10 @@ describe 'tickets/_purchase_form.html.haml' do
   context 'when a Ticket Option has not been selected' do
     before do
       render partial: 'tickets/purchase_form.html.haml', locals: {event: event, ticket: ticket, user: user}
+    end
+
+    it 'does not render the Ticket price breakdown' do
+      expect(view).to_not have_rendered(partial: 'tickets/_ticket_price_breakdown')
     end
 
     it 'does not render a Stripe Checkout button' do
