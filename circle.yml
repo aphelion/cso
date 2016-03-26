@@ -11,3 +11,6 @@ deployment:
       - heroku run rake db:migrate -a aphelion-cso-staging
       - heroku restart -a aphelion-cso-staging
       - heroku maintenance:off -a aphelion-cso-staging
+notify:
+  webhooks:
+    - http://mcc.aphelioncreative.com/builds/29/hook/circle
