@@ -15,8 +15,3 @@ notify:
   webhooks:
     - url: http://mcc.aphelioncreative.com/builds/29/hook/circle # MCC staging
     - url: http://mcc.aphelion.io/builds/2/hook/circle # MCC production
-experimental:
-  notify:
-    branches:
-      only:
-        - master
