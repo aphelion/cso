@@ -12,6 +12,10 @@ class TicketsController < ApplicationController
     event = event_model.find(params[:event_id])
     ticket_option = ticket_option_model.find(ticket_params[:ticket_option_id])
 
+    ticket = model.new
+    ticket.user = current_user
+    ticket.ticket_option_id = ticket_params[:ticket_option_id]
+
     customer = customer_service.create(
         description: "#{current_user.first_name} #{current_user.last_name}",
         email: current_user.email,
@@ -20,7 +24,7 @@ class TicketsController < ApplicationController
 
     stripe_charge = charge_service.create(
         customer: customer.id,
-        amount: ticket_option.price_cents,
+        amount: ticket_service.ticket_total_price(ticket).cents,
         description: "#{event.name} #{ticket_option.name} for #{current_user.first_name} #{current_user.last_name}",
         currency: 'USD'
     )
@@ -28,10 +32,8 @@ class TicketsController < ApplicationController
         charge_id: stripe_charge.id,
         processor: 'stripe'
     )
-    ticket = model.new
-    ticket.user = current_user
+
     ticket.charge = charge
-    ticket.ticket_option_id = ticket_params[:ticket_option_id]
     if ticket.save
       flash[:success] = "Thanks for buying a ticket! See you at the #{event.name}!"
       redirect_to user_tickets_path
@@ -82,6 +84,10 @@ class TicketsController < ApplicationController
 
   def ticket_option_model
     TicketOption
+  end
+
+  def ticket_service
+    TicketsService
   end
 
   def customer_service
