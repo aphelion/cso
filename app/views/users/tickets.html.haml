@@ -1,8 +1,7 @@
-#tickets
-  .content
-    %h1 Tickets
-    - unless @upcoming_events.empty?
-      .row
-        - @upcoming_events.each do |event|
-          .col-sm-6.col-md-4
-            = render 'users/event', event: event
+.content
+  %h1 Tickets
+  - unless @upcoming_events.empty?
+    .row
+      - @upcoming_events.each do |event|
+        .col-sm-6.col-md-4
+          = render 'users/event', event: event

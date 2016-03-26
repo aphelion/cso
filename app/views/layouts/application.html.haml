@@ -9,5 +9,6 @@
   %body
     = render partial: 'layouts/navbar'
     .page
-      = render partial: 'layouts/flash'
-      = yield
+      %div{id: "#{controller_name}-#{action_name}"}
+        = render partial: 'layouts/flash'
+        = yield
