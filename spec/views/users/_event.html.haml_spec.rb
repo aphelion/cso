@@ -31,12 +31,8 @@ describe 'users/_event.html.haml' do
         render partial: 'users/event', locals: {event: event}
       end
 
-      it 'renders the purchased Ticket Option' do
-        expect(rendered).to have_text(ticket.ticket_option.name)
-      end
-
-      it 'renders the name of the User for the purchased Ticket' do
-        expect(rendered).to have_text("#{ticket.user.first_name} #{ticket.user.last_name}")
+      it 'renders the Ticket partial' do
+        expect(view).to have_rendered(partial: 'tickets/_ticket', locals: {ticket: ticket})
       end
 
       it 'renders a link the Ticket details' do

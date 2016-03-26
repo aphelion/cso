@@ -1,0 +1,5 @@
+@App ||= {}
+
+App.configuration =
+  stripe:
+    publishable_key: '<%= Rails.configuration.stripe[:publishable_key] %>'

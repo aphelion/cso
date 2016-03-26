@@ -41,7 +41,7 @@ describe TicketsController do
       allow(ticket_option_model).to receive(:find).with('2').and_return(ticket_option)
     end
 
-    describe '.new' do
+    describe 'GET .new' do
       it 'renders its template' do
         get :new, event_id: 1
 
@@ -67,7 +67,15 @@ describe TicketsController do
       end
     end
 
-    describe '.create' do
+    describe 'POST .calculate' do
+      it 'renders its template' do
+        post :calculate, event_id: '1', ticket: valid_attributes
+
+        expect(response).to render_template('tickets/calculate')
+      end
+    end
+
+    describe 'POST .create' do
       let(:customer) { double(:customer) }
       let(:stripe_charge) { double(:stripe_charge) }
       let(:charge) { double(:charge) }

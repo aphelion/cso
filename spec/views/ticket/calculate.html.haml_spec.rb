@@ -1,4 +1,4 @@
-describe 'tickets/new.html.haml' do
+describe 'tickets/calculate.html.haml' do
   fixtures(:events)
   fixtures(:users)
 
@@ -7,15 +7,13 @@ describe 'tickets/new.html.haml' do
   let(:user) { users(:young) }
 
   before do
+    ticket.ticket_option = event.ticket_options.first
+
     assign(:event, event)
     assign(:ticket, ticket)
     assign(:user, user)
 
-    render template: 'tickets/new'
-  end
-
-  it 'renders a page title' do
-    expect(rendered).to have_text "Purchase a Ticket for #{event.name}"
+    render template: 'tickets/calculate'
   end
 
   it 'renders a Ticket purchase form' do

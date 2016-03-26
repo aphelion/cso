@@ -1,0 +1,8 @@
+%script{src: 'https://checkout.stripe.com/checkout.js', class: 'stripe-button',
+  data: {email: email,
+    allow_remember_me: 'false',
+    name: name,
+    key: Rails.configuration.stripe[:publishable_key],
+    description: description,
+    amount: amount,
+    locale: 'auto'}}

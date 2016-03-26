@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :events, only: [:index, :new, :create, :edit, :update] do
     resources :ticket_options, only: [:index, :new, :create, :edit, :update]
     resources :tickets, shallow: true, only: [:new, :create, :show, :destroy]
+    post 'tickets/calculate'
   end
 
   get '/tickets', to: 'users#tickets', as: :user_tickets

@@ -4,8 +4,8 @@ class TicketsController < ApplicationController
 
   def new
     @event = event_model.find(params[:event_id])
-    @user = current_user
     @ticket = model.new
+    @user = current_user
   end
 
   def create
@@ -64,6 +64,12 @@ class TicketsController < ApplicationController
   rescue Stripe::StripeError => e
     flash[:error] = e.message
     redirect_to :back
+  end
+
+  def calculate
+    @event = event_model.find(params[:event_id])
+    @ticket = model.new(ticket_params)
+    @user = current_user
   end
 
   def model
