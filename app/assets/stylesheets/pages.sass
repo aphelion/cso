@@ -4,10 +4,13 @@
 section.home-section
   @include make-container()
 
-@mixin center-page
+@mixin center-flex
   display: flex
   align-items: center
   justify-content: center
+
+.center-flex
+  @include center-flex
 
 @mixin image-background($image-url, $opacity: 0.33)
   min-height: calc(100vh - #{$navbar-height})
@@ -24,7 +27,7 @@ section.home-section
     opacity: $opacity
 
 #landing
-  @include center-page
+  @include center-flex
   @include image-background(image-url('cso.svg'), 0.1)
   &:before
     background-size: auto 125%
@@ -38,15 +41,15 @@ section.home-section
     background-color: $gray-lightest
 
 #event-information
-  @include center-page
+  @include center-flex
   @include image-background(image-url('cso-2015/sjsu-split.jpg'))
 
 #cso-2015
-  @include center-page
+  @include center-flex
   @include image-background(image-url('cso-2015/csulb.jpg'))
 
 #about
-  @include center-page
+  @include center-flex
   @include image-background(image-url('cso-2015/social-dancing.jpg'))
 
 #users-tickets

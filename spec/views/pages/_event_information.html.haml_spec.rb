@@ -11,5 +11,13 @@ describe 'pages/_event_information.html.haml' do
     it 'links to the Tickets page' do
       expect(rendered).to have_link 'Tickets', user_tickets_path
     end
+
+    it 'links to the CSO 2015 section' do
+      expect(rendered).to have_link 'Last Year', href: '/#cso-2015'
+    end
+
+    it 'links to the About section' do
+      expect(rendered).to have_link 'About', href: '/#about'
+    end
   end
 end
