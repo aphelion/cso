@@ -6,7 +6,7 @@
     %p= render partial: 'tickets/ticket_price_breakdown', locals: {event: @ticket.event, ticket: @ticket}
     %p
       = link_to 'Back', user_tickets_path, class: 'btn btn-primary-outline'
-      %button.btn.btn-secondary-outline{type: 'button', 'data-toggle': 'modal', 'data-target': '#refund-modal'} Refund Ticket
+      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'modal', 'data-target': '#refund-modal'} Refund Ticket
 
 #refund-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
   .modal-dialog{role: 'document'}
