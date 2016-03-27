@@ -61,7 +61,7 @@ class TicketsController < ApplicationController
         reason: 'requested_by_customer'
     )
     ticket.destroy
-    flash[:success] = "Your ticket was refunded. Sorry you can't make it!"
+    flash[:success] = "Your ticket was refunded. Sorry you can't make it! You will see this refund reflected on your card in 5-10 business days."
     redirect_to user_tickets_path
   rescue Stripe::StripeError => e
     flash[:error] = e.message
