@@ -1,10 +1,10 @@
 = form_for [event, ticket], html: {'data-ticket-form': ''} do |f|
   - event.ticket_options.each do |ticket_option|
-    .radio
-      %label
+    .c-inputs-stacked
+      %label.c-input.c-radio
         = f.radio_button :ticket_option_id, ticket_option.id
-        = ticket_option.name
-        \- #{humanized_money_with_symbol ticket_option.price}
+        %span.c-indicator
+        #{ticket_option.name} - #{humanized_money_with_symbol ticket_option.price}
   - unless ticket.ticket_option.nil?
     = render partial: 'tickets/ticket_price_breakdown', locals: {event: event, ticket: ticket}
     = render partial: 'tickets/checkout_button', locals: {email: user.email, name: event.name, description: ticket.ticket_option.name, amount: ticket_total_price(ticket).cents}
