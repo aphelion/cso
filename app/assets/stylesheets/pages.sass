@@ -3,6 +3,10 @@
 
 section.home-section
   @include make-container()
+  > :first-child
+    margin-top: 2rem
+  > :last-child
+    margin-bottom: 2rem
 
 @mixin center-flex
   display: flex
@@ -26,6 +30,12 @@ section.home-section
     background-size: cover
     opacity: $opacity
 
+@mixin frosted-image-background($radius: 8px)
+  overflow: hidden
+  &:before
+    filter: blur($radius)
+    background-clip: content-box
+
 #landing
   @include center-flex
   @include image-background(image-url('cso.svg'), 0.1)
@@ -43,14 +53,17 @@ section.home-section
 #event-information
   @include center-flex
   @include image-background(image-url('cso-2015/sjsu-split.jpg'))
+  @include frosted-image-background
 
 #cso-2015
   @include center-flex
   @include image-background(image-url('cso-2015/csulb.jpg'))
+  @include frosted-image-background
 
 #about
   @include center-flex
   @include image-background(image-url('cso-2015/social-dancing.jpg'))
+  @include frosted-image-background
 
 #users-tickets
   @include image-background(image-url('cso-2015/workshop.jpg'))
