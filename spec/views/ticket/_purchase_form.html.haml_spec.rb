@@ -26,6 +26,7 @@ describe 'tickets/_purchase_form.html.haml' do
 
   context 'when a Ticket Option has been selected' do
     before do
+      allow(view).to receive(:ticket_total_price).with(ticket).and_return(Money.new(500))
       ticket.ticket_option = event.ticket_options.first
       render partial: 'tickets/purchase_form.html.haml', locals: {event: event, ticket: ticket, user: user}
     end
@@ -39,7 +40,7 @@ describe 'tickets/_purchase_form.html.haml' do
           email: user.email,
           name: event.name,
           description: ticket.ticket_option.name,
-          amount: ticket_total_price(ticket).cents
+          amount: 500
       })
     end
   end

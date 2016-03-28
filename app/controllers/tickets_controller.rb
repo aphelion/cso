@@ -24,7 +24,7 @@ class TicketsController < ApplicationController
 
     stripe_charge = charge_service.create(
         customer: customer.id,
-        amount: ticket_service.ticket_total_price(ticket).cents,
+        amount: ticket_price_service.ticket_total_price(ticket).cents,
         description: "#{event.name} #{ticket_option.name} for #{current_user.first_name} #{current_user.last_name}",
         currency: 'USD'
     )
@@ -86,8 +86,12 @@ class TicketsController < ApplicationController
     TicketOption
   end
 
-  def ticket_service
+  def tickets_service
     TicketsService
+  end
+
+  def ticket_price_service
+    TicketPriceService
   end
 
   def customer_service

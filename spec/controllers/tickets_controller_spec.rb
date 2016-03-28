@@ -4,7 +4,8 @@ describe TicketsController do
     it { expect(controller.event_model).to eq(Event) }
     it { expect(controller.charge_model).to eq(Charge) }
     it { expect(controller.ticket_option_model).to eq(TicketOption) }
-    it { expect(controller.ticket_service).to eq(TicketsService) }
+    it { expect(controller.tickets_service).to eq(TicketsService) }
+    it { expect(controller.ticket_price_service).to eq(TicketPriceService) }
     it { expect(controller.customer_service).to eq(Stripe::Customer) }
     it { expect(controller.charge_service).to eq(Stripe::Charge) }
     it { expect(controller.refund_service).to eq(Stripe::Refund) }
@@ -17,7 +18,8 @@ describe TicketsController do
     let(:event_model) { double(:Event) }
     let(:charge_model) { double(:Charge) }
     let(:ticket_option_model) { double(:TicketOption) }
-    let(:ticket_service) { double(:TicketsService) }
+    let(:tickets_service) { double(:TicketsService) }
+    let(:ticket_price_service) { double(:TicketPriceService) }
     let(:model) { double(:Ticket) }
     let(:event) { double(:event) }
     let(:ticket_option) { double(:ticket_option) }
@@ -37,7 +39,8 @@ describe TicketsController do
       allow(controller).to receive(:event_model).and_return(event_model)
       allow(controller).to receive(:charge_model).and_return(charge_model)
       allow(controller).to receive(:ticket_option_model).and_return(ticket_option_model)
-      allow(controller).to receive(:ticket_service).and_return(ticket_service)
+      allow(controller).to receive(:tickets_service).and_return(tickets_service)
+      allow(controller).to receive(:ticket_price_service).and_return(ticket_price_service)
       allow(controller).to receive(:current_user).and_return(user)
       allow(model).to receive(:new).and_return(ticket)
       allow(event_model).to receive(:find).with('1').and_return(event)
@@ -96,7 +99,7 @@ describe TicketsController do
         allow(ticket_option).to receive(:price).and_return(price)
         allow(ticket_option).to receive(:name).and_return('TICKET_OPTION')
 
-        allow(ticket_service).to receive(:ticket_total_price).with(ticket).and_return(Money.new(2000))
+        allow(ticket_price_service).to receive(:ticket_total_price).with(ticket).and_return(Money.new(2000))
 
         allow(user).to receive(:email).and_return('EMAIL')
         allow(user).to receive(:first_name).and_return('Youngshik')
