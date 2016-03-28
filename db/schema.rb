@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328223028) do
+ActiveRecord::Schema.define(version: 20160328233056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,12 +35,13 @@ ActiveRecord::Schema.define(version: 20160328223028) do
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "name",        null: false
+    t.string   "name",                                               null: false
     t.datetime "event_start"
     t.datetime "event_end"
     t.datetime "sale_start"
     t.datetime "sale_end"
     t.text     "description"
+    t.string   "time_zone",   default: "Pacific Time (US & Canada)"
   end
 
   create_table "identities", force: :cascade do |t|
