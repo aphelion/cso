@@ -9,31 +9,21 @@ class TicketsController < ApplicationController
   end
 
   def create
-    event = event_model.find(params[:event_id])
+    user = current_user
     ticket_option = ticket_option_model.find(ticket_params[:ticket_option_id])
+    event = ticket_option.event
 
     ticket = model.new
-    ticket.user = current_user
-    ticket.ticket_option_id = ticket_params[:ticket_option_id]
+    ticket.user = user
+    ticket.ticket_option = ticket_option
 
-    customer = customer_service.create(
-        description: "#{current_user.first_name} #{current_user.last_name}",
-        email: current_user.email,
-        source: params[:stripeToken]
-    )
-
-    stripe_charge = charge_service.create(
-        customer: customer.id,
-        amount: ticket_price_service.ticket_total_price(ticket).cents,
-        description: "#{event.name} #{ticket_option.name} for #{current_user.first_name} #{current_user.last_name}",
-        currency: 'USD'
-    )
-    charge = charge_model.create(
-        charge_id: stripe_charge.id,
-        processor: 'stripe'
-    )
+    price = ticket_price_service.ticket_total_price(ticket)
+    customer = users_service.find_or_create_customer(user, params[:stripeToken])
+    description = "#{event.name} #{ticket_option.name} for #{user.first_name} #{user.last_name}"
+    charge = charges_service.charge_customer(customer, price.cents, description)
 
     ticket.charge = charge
+
     if ticket.save
       flash[:success] = "Thanks for buying a ticket! See you at the #{event.name}!"
       redirect_to user_tickets_path
@@ -82,6 +72,14 @@ class TicketsController < ApplicationController
     Event
   end
 
+  def users_service
+    UsersService
+  end
+
+  def charges_service
+    ChargesService
+  end
+
   def ticket_option_model
     TicketOption
   end
@@ -92,14 +90,6 @@ class TicketsController < ApplicationController
 
   def ticket_price_service
     TicketPriceService
-  end
-
-  def customer_service
-    Stripe::Customer
-  end
-
-  def charge_service
-    Stripe::Charge
   end
 
   def refund_service

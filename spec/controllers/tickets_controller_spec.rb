@@ -6,17 +6,17 @@ describe TicketsController do
     it { expect(controller.ticket_option_model).to eq(TicketOption) }
     it { expect(controller.tickets_service).to eq(TicketsService) }
     it { expect(controller.ticket_price_service).to eq(TicketPriceService) }
-    it { expect(controller.customer_service).to eq(Stripe::Customer) }
-    it { expect(controller.charge_service).to eq(Stripe::Charge) }
     it { expect(controller.refund_service).to eq(Stripe::Refund) }
+    it { expect(controller.users_service).to eq(UsersService) }
+    it { expect(controller.charges_service).to eq(ChargesService) }
   end
 
   describe 'actions' do
-    let(:customer_service) { double(:CustomerService) }
-    let(:charge_service) { double(:ChargeService) }
     let(:refund_service) { double(:RefundService) }
     let(:event_model) { double(:Event) }
     let(:charge_model) { double(:Charge) }
+    let(:charges_service) { double(:ChargesService) }
+    let(:users_service) { double(:UsersService) }
     let(:ticket_option_model) { double(:TicketOption) }
     let(:tickets_service) { double(:TicketsService) }
     let(:ticket_price_service) { double(:TicketPriceService) }
@@ -33,11 +33,11 @@ describe TicketsController do
 
     before do
       allow(controller).to receive(:model).and_return(model)
-      allow(controller).to receive(:customer_service).and_return(customer_service)
-      allow(controller).to receive(:charge_service).and_return(charge_service)
       allow(controller).to receive(:refund_service).and_return(refund_service)
       allow(controller).to receive(:event_model).and_return(event_model)
       allow(controller).to receive(:charge_model).and_return(charge_model)
+      allow(controller).to receive(:charges_service).and_return(charges_service)
+      allow(controller).to receive(:users_service).and_return(users_service)
       allow(controller).to receive(:ticket_option_model).and_return(ticket_option_model)
       allow(controller).to receive(:tickets_service).and_return(tickets_service)
       allow(controller).to receive(:ticket_price_service).and_return(ticket_price_service)
@@ -83,41 +83,26 @@ describe TicketsController do
 
     describe 'POST .create' do
       let(:customer) { double(:customer) }
-      let(:stripe_charge) { double(:stripe_charge) }
       let(:charge) { double(:charge) }
-      let(:price) { double(:price) }
 
       before do
-        expect(model).to receive(:new).and_return(ticket)
-
-        expect(ticket).to receive(:ticket_option_id=).with('2')
-        expect(ticket).to receive(:user=).with(user)
-        expect(ticket).to receive(:charge=).with(charge)
-
-        allow(event).to receive(:name).and_return('EVENT')
-
-        allow(ticket_option).to receive(:price).and_return(price)
-        allow(ticket_option).to receive(:name).and_return('TICKET_OPTION')
-
-        allow(ticket_price_service).to receive(:ticket_total_price).with(ticket).and_return(Money.new(2000))
-
-        allow(user).to receive(:email).and_return('EMAIL')
         allow(user).to receive(:first_name).and_return('Youngshik')
         allow(user).to receive(:last_name).and_return('Hwang')
+        allow(event).to receive(:name).and_return('EVENT')
+        allow(ticket_option).to receive(:name).and_return('TICKET_OPTION')
+        allow(ticket_option).to receive(:event).and_return(event)
 
-        allow(customer).to receive(:id).and_return('customer id')
-        allow(stripe_charge).to receive(:id).and_return('charge id')
+        allow(ticket_price_service).to receive(:ticket_total_price).with(ticket).and_return(Money.new(500))
+        allow(users_service).to receive(:find_or_create_customer).with(user, 'STRIPE_TOKEN').and_return(customer)
+        allow(charges_service).to receive(:charge_customer).with(customer, 500, 'EVENT TICKET_OPTION for Youngshik Hwang').and_return(charge)
 
-        allow(customer_service).to receive(:create).and_return(customer)
-        allow(charge_service).to receive(:create).and_return(stripe_charge)
-        allow(charge_model).to receive(:create).and_return(charge)
+        expect(ticket).to receive(:user=).with(user)
+        expect(ticket).to receive(:ticket_option=).with(ticket_option)
+        expect(ticket).to receive(:charge=).with(charge)
       end
 
       context 'when the Charge succeeds' do
         before do
-          expect(customer_service).to receive(:create).with(description: 'Youngshik Hwang', email: 'EMAIL', source: 'STRIPE_TOKEN').and_return(customer)
-          expect(charge_service).to receive(:create).with(customer: 'customer id', amount: 2000, description: 'EVENT TICKET_OPTION for Youngshik Hwang', currency: 'USD').and_return(stripe_charge)
-          expect(charge_model).to receive(:create).with(charge_id: 'charge id', processor: 'stripe').and_return(charge)
           expect(ticket).to receive(:save).and_return(true)
         end
 
@@ -139,7 +124,7 @@ describe TicketsController do
         end
       end
 
-      context 'when the Ticket is not valid' do
+      context 'when the Ticket.save does not succeed' do
         it 'creates a Ticket, tries to save it, flashes the errors, and redirects to the Event confirmation page' do
           @request.env['HTTP_REFERER'] = root_url
           expect(ticket).to receive(:save).and_return(false)

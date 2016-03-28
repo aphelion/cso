@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325224631) do
+ActiveRecord::Schema.define(version: 20160328223028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(version: 20160325224631) do
     t.string "charge_id"
     t.string "processor"
   end
+
+  add_index "charges", ["charge_id"], name: "index_charges_on_charge_id", unique: true, using: :btree
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "customer_id"
+    t.string   "processor"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id",     null: false
+  end
+
+  add_index "customers", ["customer_id"], name: "index_customers_on_customer_id", unique: true, using: :btree
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name",        null: false
@@ -74,6 +87,7 @@ ActiveRecord::Schema.define(version: 20160325224631) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "customers", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "ticket_options", "events"
   add_foreign_key "tickets", "charges"
