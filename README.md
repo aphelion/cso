@@ -15,6 +15,12 @@ heroku config:add STRIPE_PUBLISHABLE_KEY='YOUR_STRIPE_PUBLISHABLE_KEY'
 heroku config:add STRIPE_SECRET_KEY='YOUR_STRIPE_SECRET_KEY'
 ```
 
+Add optional config vars
+
+```
+heroku config:add FORCE_SSL='true'
+```
+
 Provision an admin
 
 ```
