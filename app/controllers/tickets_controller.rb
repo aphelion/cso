@@ -1,6 +1,7 @@
 include SessionsConcern
 
 class TicketsController < ApplicationController
+  before_action :must_be_authenticated
 
   def new
     @event = event_model.find(params[:event_id])
