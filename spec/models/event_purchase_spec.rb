@@ -1,2 +1,0 @@
-describe EventPurchase do
-end

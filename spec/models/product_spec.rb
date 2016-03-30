@@ -1,2 +1,0 @@
-describe Product do
-end

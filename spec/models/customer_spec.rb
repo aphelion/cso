@@ -1,2 +1,0 @@
-describe Customer do
-end

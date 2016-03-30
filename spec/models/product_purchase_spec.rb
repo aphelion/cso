@@ -1,2 +1,0 @@
-describe ProductPurchase do
-end
