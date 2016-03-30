@@ -1,0 +1,2 @@
+describe ProductPurchase do
+end

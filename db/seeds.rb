@@ -1,5 +1,5 @@
-Ticket.destroy_all
-TicketOption.destroy_all
+EventPurchase.destroy_all
+Product.destroy_all
 Event.destroy_all
 
 cso_2016 = Event.create(
@@ -12,20 +12,17 @@ cso_2016 = Event.create(
     sale_end: DateTime.new(2016, 5, 7)
 )
 
-TicketOption.create(
-    event: cso_2016,
+cso_2016.tickets << Product.create(
     name: 'Full Pass',
     price_cents: 2900
 )
 
-TicketOption.create(
-    event: cso_2016,
+cso_2016.tickets << Product.create(
     name: 'Spectator Pass',
     price_cents: 800
 )
 
-TicketOption.create(
-    event: cso_2016,
+cso_2016.tickets << Product.create(
     name: 'Evening Pass',
     price_cents: 2200
 )
@@ -41,8 +38,7 @@ summer_2016 = Event.create(
     sale_end: DateTime.new(2016, 7, 30)
 )
 
-TicketOption.create(
-    event: summer_2016,
+summer_2016.tickets << Product.create(
     name: 'Full Pass',
     price_cents: 1600
 )
@@ -57,8 +53,7 @@ cso_2015 = Event.create(
     sale_end: DateTime.new(2015, 4, 25)
 )
 
-TicketOption.create(
-    event: cso_2015,
+cso_2015.tickets << Product.create(
     name: 'Full Pass',
     price_cents: 2800
 )

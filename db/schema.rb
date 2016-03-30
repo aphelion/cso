@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328233056) do
+ActiveRecord::Schema.define(version: 20160330201139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,25 @@ ActiveRecord::Schema.define(version: 20160328233056) do
   add_index "customers", ["customer_id"], name: "index_customers_on_customer_id", unique: true, using: :btree
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", unique: true, using: :btree
 
+  create_table "event_purchases", force: :cascade do |t|
+    t.integer  "event_id",           null: false
+    t.integer  "user_id",            null: false
+    t.integer  "ticket_purchase_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "event_purchases", ["event_id"], name: "index_event_purchases_on_event_id", using: :btree
+  add_index "event_purchases", ["ticket_purchase_id"], name: "index_event_purchases_on_ticket_purchase_id", using: :btree
+  add_index "event_purchases", ["user_id"], name: "index_event_purchases_on_user_id", using: :btree
+
+  create_table "event_purchases_addon_purchases", id: false, force: :cascade do |t|
+    t.integer "event_purchase_id",   null: false
+    t.integer "product_purchase_id", null: false
+  end
+
+  add_index "event_purchases_addon_purchases", ["event_purchase_id", "product_purchase_id"], name: "index_event_purchases_addon_purchases", unique: true, using: :btree
+
   create_table "events", force: :cascade do |t|
     t.string   "name",                                               null: false
     t.datetime "event_start"
@@ -43,6 +62,20 @@ ActiveRecord::Schema.define(version: 20160328233056) do
     t.text     "description"
     t.string   "time_zone",   default: "Pacific Time (US & Canada)"
   end
+
+  create_table "events_addons", id: false, force: :cascade do |t|
+    t.integer "event_id",   null: false
+    t.integer "product_id", null: false
+  end
+
+  add_index "events_addons", ["event_id", "product_id"], name: "index_events_addons_on_event_id_and_product_id", unique: true, using: :btree
+
+  create_table "events_tickets", id: false, force: :cascade do |t|
+    t.integer "event_id",   null: false
+    t.integer "product_id", null: false
+  end
+
+  add_index "events_tickets", ["event_id", "product_id"], name: "index_events_tickets_on_event_id_and_product_id", unique: true, using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.string   "uid"
@@ -54,28 +87,23 @@ ActiveRecord::Schema.define(version: 20160328233056) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
-  create_table "ticket_options", force: :cascade do |t|
+  create_table "product_purchases", force: :cascade do |t|
+    t.integer  "charge_id",  null: false
+    t.integer  "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "product_purchases", ["charge_id"], name: "index_product_purchases_on_charge_id", using: :btree
+  add_index "product_purchases", ["product_id"], name: "index_product_purchases_on_product_id", using: :btree
+
+  create_table "products", force: :cascade do |t|
     t.string   "name",                           null: false
-    t.integer  "event_id",                       null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
     t.integer  "price_cents",    default: 0,     null: false
     t.string   "price_currency", default: "USD", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
-
-  add_index "ticket_options", ["event_id"], name: "index_ticket_options_on_event_id", using: :btree
-
-  create_table "tickets", force: :cascade do |t|
-    t.integer  "ticket_option_id", null: false
-    t.integer  "user_id",          null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "charge_id"
-  end
-
-  add_index "tickets", ["charge_id"], name: "index_tickets_on_charge_id", using: :btree
-  add_index "tickets", ["ticket_option_id"], name: "index_tickets_on_ticket_option_id", using: :btree
-  add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -89,9 +117,9 @@ ActiveRecord::Schema.define(version: 20160328233056) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "customers", "users"
+  add_foreign_key "event_purchases", "events"
+  add_foreign_key "event_purchases", "users"
   add_foreign_key "identities", "users"
-  add_foreign_key "ticket_options", "events"
-  add_foreign_key "tickets", "charges"
-  add_foreign_key "tickets", "ticket_options"
-  add_foreign_key "tickets", "users"
+  add_foreign_key "product_purchases", "charges"
+  add_foreign_key "product_purchases", "products"
 end

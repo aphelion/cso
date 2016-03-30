@@ -1,0 +1,2 @@
+describe Product do
+end
