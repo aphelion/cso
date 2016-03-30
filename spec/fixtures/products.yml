@@ -1,20 +1,15 @@
 bachata_party_full_pass:
   name: Full Pass
-  event: bachata_party
   price_cents: 3000
 bachata_party_night_pass:
   name: Night Pass
-  event: bachata_party
   price_cents: 3000
 salsa_party_full_pass:
   name: Full Pass
-  event: salsa_party
   price_cents: 3000
 salsa_party_vip_pass:
   name: VIP Pass
-  event: salsa_party
   price_cents: 3000
 salsa_party_performer_pass:
   name: Performer Pass
-  event: salsa_party
   price_cents: 3000

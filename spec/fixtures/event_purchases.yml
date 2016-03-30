@@ -1,0 +1,4 @@
+crystals_event_purchase:
+  event: salsa_party
+  user: crystal
+  ticket_purchase: crystals_ticket_purchase

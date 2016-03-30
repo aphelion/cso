@@ -1,0 +1,3 @@
+crystals_ticket_purchase:
+  charge: crystals_event_purchase_charge
+  product: salsa_party_vip_pass
