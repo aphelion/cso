@@ -28,7 +28,7 @@ describe SessionsController do
 
         get :callback, auth_hash
 
-        expect(response).to redirect_to(user_tickets_path)
+        expect(response).to redirect_to(my_tickets_path)
       end
     end
 

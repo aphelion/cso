@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     post 'tickets/calculate'
   end
 
-  get '/tickets', to: 'users#tickets', as: :user_tickets
+  get '/tickets', to: 'tickets#my', as: :my_tickets
 
   get '/sessions/new', to: 'sessions#new', as: :new_session
   delete '/sessions', to: 'sessions#destroy', as: :destroy_session

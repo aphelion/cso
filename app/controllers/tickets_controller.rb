@@ -1,9 +1,9 @@
 include SessionsConcern
 
-class UsersController < ApplicationController
+class TicketsController < ApplicationController
   before_action :must_be_authenticated
 
-  def tickets
+  def my
     @upcoming_events = events_service.upcoming_events
   end
 

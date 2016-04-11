@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     identity = identities_service.find_or_create_by_auth_hash(auth_hash)
     user = users_service.find_or_create_by_identity_and_auth_hash(identity, auth_hash)
     authenticate user
-    redirect_to user_tickets_path
+    redirect_to my_tickets_path
   end
 
   def new

@@ -1,4 +1,4 @@
-describe 'users/tickets.html.haml' do
+describe 'tickets/my.html.haml' do
   fixtures(:events)
   let(:upcoming_events) { [events(:bachata_party), events(:salsa_party)] }
 
@@ -13,7 +13,7 @@ describe 'users/tickets.html.haml' do
 
   it 'renders the upcoming Events' do
     upcoming_events.each do |event|
-      expect(view).to have_rendered(partial: 'users/_event', locals: {event: event})
+      expect(view).to have_rendered(partial: 'tickets/_event', locals: {event: event})
     end
   end
 end
