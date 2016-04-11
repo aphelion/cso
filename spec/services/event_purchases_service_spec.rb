@@ -1,0 +1,29 @@
+describe EventPurchasesService do
+
+  describe 'object seams' do
+    it { expect(subject.model).to eq(EventPurchase) }
+  end
+
+  describe 'actions' do
+    let(:model) { double(:EventPurchase) }
+    let(:event) { double(:event) }
+    let(:user) { double(:user) }
+    let(:event_purchase) { double(:event_purchase) }
+
+    before do
+      allow(subject).to receive(:model).and_return(model)
+    end
+
+    describe '.find_by_event_and_user' do
+      before do
+        allow(model).to receive(:find_by).with(event: event, user: user).and_return(event_purchase)
+      end
+
+      it 'retrieves the purchasable events from the model' do
+        returned_event_purchase = subject.find_by_event_and_user(event, user)
+
+        expect(returned_event_purchase).to be(event_purchase)
+      end
+    end
+  end
+end

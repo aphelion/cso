@@ -9,7 +9,7 @@ describe UsersController do
   describe '.status' do
     context 'when there is not an authenticated User' do
       it 'redirects to the login page' do
-        get :tickets
+        get :event_purchases
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -23,13 +23,13 @@ describe UsersController do
       end
 
       it 'renders its template' do
-        get :tickets
+        get :event_purchases
 
         expect(response).to render_template('users/tickets')
       end
 
       it 'provides a list of upcoming Events to the view' do
-        get :tickets
+        get :event_purchases
 
         expect(assigns(:upcoming_events)).to be(upcoming_events)
       end

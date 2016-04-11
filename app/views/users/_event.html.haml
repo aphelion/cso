@@ -1,15 +1,15 @@
-- ticket = ticket_for_event_for_current_user(event)
+- event_purchase = event_purchase_for_event_for_current_user(event)
 .card
   .card-block
     %h4.card-title= event.name
     .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
     %p.card-text= event.description
   %ul.list-group.list-group-flush
-    - unless ticket.nil?
+    - unless event_purchase.nil?
       %li.list-group-item
-        = render 'tickets/ticket', ticket: ticket
+        = render 'event_purchases/event_purchase', event_purchase: event_purchase
   .card-footer.text-xs-center
-    - unless ticket.nil?
-      = link_to 'Details', ticket_path(ticket), class: 'btn btn-secondary'
+    - unless event_purchase.nil?
+      = link_to 'Details', ticket_path(event_purchase), class: 'btn btn-secondary'
     - else
       = link_to 'Buy Ticket', new_event_ticket_path(event), class: 'btn btn-primary-outline'

@@ -1,14 +1,14 @@
 describe 'users/_event.html.haml' do
   fixtures(:events)
-  fixtures(:tickets)
+  fixtures(:event_purchases)
 
   describe 'basic form composition' do
     let(:event) { events(:salsa_party) }
-    let(:ticket) { tickets(:crystals_ticket) }
+    let(:event_purchase) { event_purchases(:crystals_event_purchase) }
 
     describe 'basic layout' do
       before do
-        expect(view).to receive(:ticket_for_event_for_current_user).and_return(nil)
+        expect(view).to receive(:event_purchase_for_event_for_current_user).and_return(nil)
         render partial: 'users/event', locals: {event: event}
       end
 
@@ -27,22 +27,22 @@ describe 'users/_event.html.haml' do
 
     describe 'when given an event with a ticket' do
       before do
-        expect(view).to receive(:ticket_for_event_for_current_user).and_return(ticket)
+        expect(view).to receive(:event_purchase_for_event_for_current_user).and_return(event_purchase)
         render partial: 'users/event', locals: {event: event}
       end
 
-      it 'renders the Ticket partial' do
-        expect(view).to have_rendered(partial: 'tickets/_ticket', locals: {ticket: ticket})
+      it 'renders the Event Purchase partial' do
+        expect(view).to have_rendered(partial: 'event_purchases/_event_purchase', locals: {event_purchase: event_purchase})
       end
 
       it 'renders a link the Ticket details' do
-        expect(rendered).to have_link 'Details', ticket_path(ticket)
+        expect(rendered).to have_link 'Details', ticket_path(event_purchase)
       end
     end
 
     describe 'when the current User does not have a Ticket for the given Event' do
       before do
-        expect(view).to receive(:ticket_for_event_for_current_user).and_return(nil)
+        expect(view).to receive(:event_purchase_for_event_for_current_user).and_return(nil)
         render partial: 'users/event', locals: {event: event}
       end
 
