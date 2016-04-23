@@ -2,6 +2,7 @@ bachata_party:
   name: 'Beach Bachata Party 1999'
   description: 'Bodyrolls all summer long.'
   tickets: salsa_party_full_pass, salsa_party_vip_pass, salsa_party_performer_pass
+  addons: private_lapdance, water_bottle
   event_start: 1999-07-31 18:00:00
   event_end: 1999-08-01 08:00:00
   sale_start: 1999-07-01 00:00:00
@@ -10,6 +11,7 @@ salsa_party:
   name: 'Youngshik Shimmy Salsa Party'
   description: 'The shimmy showdown is here! Shimmy to all your salsa favorites with Youngshik on the 1s and 2s.'
   tickets: bachata_party_full_pass, bachata_party_night_pass
+  addons: private_lapdance, water_bottle
   event_start: <%= (1.month).from_now.to_s(:db) %>
   event_end: <%= (1.month + 1.day).from_now.to_s(:db) %>
   sale_start: <%= (1.day).ago.to_s(:db) %>

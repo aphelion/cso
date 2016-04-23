@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  resources :events, only: [:index, :new, :create, :edit, :update] do
-    resources :ticket_options, only: [:index, :new, :create, :edit, :update]
-    resources :tickets, shallow: true, only: [:new, :create, :show, :destroy]
-    post 'tickets/calculate'
+  resources :events, only: [] do
+    resources :purchases, shallow: true, only: [:new, :create, :show], as: 'event_purchases', controller: 'event_purchases'
   end
 
   get '/tickets', to: 'tickets#my', as: :my_tickets

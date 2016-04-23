@@ -13,3 +13,9 @@ salsa_party_vip_pass:
 salsa_party_performer_pass:
   name: Performer Pass
   price_cents: 3000
+private_lapdance:
+  name: Lapdance
+  price_cents: 10000
+water_bottle:
+  name: CSO Hydration Bottle
+  price_cents: 700

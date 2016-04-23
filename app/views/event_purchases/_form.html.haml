@@ -1,0 +1,21 @@
+= form_for [event_purchase.event, event_purchase] do |f|
+  = f.fields_for :ticket_purchase do |ticket_purchase_form|
+    %h4 Choose a Ticket Option
+    .form-group
+      .c-inputs-stacked
+        = ticket_purchase_form.collection_radio_buttons(:product, event_purchase.event.tickets, :id, :name) do |b|
+          = b.label(class: 'c-input c-radio') do
+            = b.radio_button
+            %span.c-indicator
+            #{b.text} #{humanized_money_with_symbol b.object.price}
+  = f.fields_for :addon_purchases do |addon_purchases_form|
+    %h4 Choose Extras
+    .form-group
+      .c-inputs-stacked
+        = addon_purchases_form.collection_check_boxes(:product, event_purchase.event.addons, :id, :name) do |b|
+          = b.label(class: 'c-input c-checkbox') do
+            = b.check_box
+            %span.c-indicator
+            #{b.text} #{humanized_money_with_symbol b.object.price}
+  .form-group
+    = f.submit 'Purchase', {class: 'btn btn-primary'}

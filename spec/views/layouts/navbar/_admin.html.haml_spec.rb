@@ -6,7 +6,7 @@ describe 'layouts/navbar/_admin.html.haml' do
     end
 
     it 'provides an Events link' do
-      expect(rendered).to have_link 'Events', href: events_path
+      expect(rendered).to have_link 'Events', href: '/admin'
     end
   end
 
@@ -17,7 +17,7 @@ describe 'layouts/navbar/_admin.html.haml' do
     end
 
     it 'does not provide an Events link' do
-      expect(rendered).not_to have_link 'Events', href: events_path
+      expect(rendered).not_to have_link 'Events', href: '/admin'
     end
   end
 end

@@ -1,37 +1,43 @@
 describe TicketsController do
   let(:events_service) { double(:EventsService) }
   let(:upcoming_events) { double(:upcoming_events) }
+  let(:event) { double(:event) }
 
   describe 'object seams' do
     it { expect(controller.events_service).to be(EventsService) }
   end
 
-  describe '.my' do
-    context 'when there is not an authenticated User' do
-      it 'redirects to the login page' do
-        get :my
-
-        expect(response).to redirect_to(new_session_path)
-      end
+  describe 'actions' do
+    before do
+      allow(controller).to receive(:events_service).and_return(events_service)
     end
 
-    context 'when there is an authenticated User' do
-      before do
-        expect(controller).to receive(:must_be_authenticated)
-        allow(controller).to receive(:events_service).and_return(events_service)
-        allow(events_service).to receive(:upcoming_events).and_return(upcoming_events)
+    describe '.my' do
+      context 'when there is not an authenticated User' do
+        it 'redirects to the login page' do
+          get :my
+
+          expect(response).to redirect_to(new_session_path)
+        end
       end
 
-      it 'renders its template' do
-        get :my
+      context 'when there is an authenticated User' do
+        before do
+          allow(controller).to receive(:must_be_authenticated)
+          allow(events_service).to receive(:upcoming_events).and_return(upcoming_events)
+        end
 
-        expect(response).to render_template('tickets/my')
-      end
+        it 'renders its template' do
+          get :my
 
-      it 'provides a list of upcoming Events to the view' do
-        get :my
+          expect(response).to render_template('tickets/my')
+        end
 
-        expect(assigns(:upcoming_events)).to be(upcoming_events)
+        it 'provides a list of upcoming Events to the view' do
+          get :my
+
+          expect(assigns(:upcoming_events)).to be(upcoming_events)
+        end
       end
     end
   end

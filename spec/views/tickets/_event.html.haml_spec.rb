@@ -36,7 +36,7 @@ describe 'users/_event.html.haml' do
       end
 
       it 'renders a link the Ticket details' do
-        expect(rendered).to have_link 'Details', ticket_path(event_purchase)
+        expect(rendered).to have_link 'Details', event_purchase_path(event_purchase)
       end
     end
 
@@ -47,7 +47,7 @@ describe 'users/_event.html.haml' do
       end
 
       it 'renders a link to buy a Ticket' do
-        expect(rendered).to have_link 'Buy Ticket', href: new_event_ticket_path(event)
+        expect(rendered).to have_link 'Buy Ticket', href: new_event_event_purchase_path(event)
       end
     end
   end

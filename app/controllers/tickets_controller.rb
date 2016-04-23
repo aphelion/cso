@@ -1,6 +1,5 @@
-include SessionsConcern
-
 class TicketsController < ApplicationController
+  include SessionsConcern
   before_action :must_be_authenticated
 
   def my
