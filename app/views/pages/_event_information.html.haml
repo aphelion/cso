@@ -2,22 +2,58 @@
   %div
     %h2.hidden-md-up Event Information
     .row
-      .col-md-offset-1.col-md-5.center-flex
-        %p.lead
-          The Collegiate Salsa Open is the premiere salsa summit where dancers from colleges and communities all over
-          California come together to celebrate our unique salsa scene through competitions, performances, and all-night
-          social dancing. The CSO is organized by the college dance community for the college dance community.
-      .col-md-4.center-flex
+      .col-lg-offset-1.col-lg-5.center-flex
+        %div
+          %p.lead
+            The Collegiate Salsa Open is the premiere salsa summit where dancers from colleges and communities all over
+            California come together to celebrate our unique salsa scene through competitions, performances, and all-night
+            social dancing. The CSO is organized by the college dance community for the college dance community.
+          %p.text-xs-center
+            = link_to 'Tickets', my_tickets_path, class: 'btn btn-lg btn-primary-outline'
+            = link_to 'Last Year', root_path(anchor: 'cso-2015'), class: 'btn btn-lg btn-primary-outline page-scroll'
+            = link_to 'About Us', root_path(anchor: 'about'), class: 'btn btn-lg btn-primary-outline page-scroll'
+      .col-lg-6.center-flex
         %div
           %h2 Schedule
           %p
-            %div The 2016 CSO will be held on
-            %div Saturday, May 7th, 2016
-            %div in downtown Los Angeles.
-          %p
             %div
               %strong Workshops:
-              4:30pm, 5:30pm, 6:30pm
+            %table.table.table-no-border
+              %tr
+                %td 4:30pm
+                %td
+                  %div
+                    %strong Hip Hop Fusion
+                  %div Zweli Barton
+                %td
+                  %div
+                    %strong Sensual Bachata
+                  %div Leilani Davis and Robert Sanchez
+              %tr
+                %td 5:30pm
+                %td
+                  %div
+                    %strong Cha Cha Cha
+                  %div William Carpenter and Eden Hayes
+                %td
+                  %div
+                    %strong Beginning Zouk
+                  %div Stephany Estrin
+              %tr
+                %td 6:30pm
+                %td
+                  %div
+                    %strong Salsa on2 Footwork and Styling
+                  %div Eder Avila and Valerie Ann Olivas
+                %td
+                  %div
+                    %strong Salsa on1 Patterns
+                  %div Alex Montilla and Victoria M
+              %tr
+                %td 7:30pm
+                %td{colspan: 2}
+                  %div
+                    %strong Q&A with all instructors
             %div
               %strong Performances:
               7:30pm - 8:30pm
@@ -27,7 +63,15 @@
             %div
               %strong Social Dancing:
               9:30pm - 3:00am
-    %p.text-xs-center
-      = link_to 'Tickets', my_tickets_path, class: 'btn btn-lg btn-primary-outline'
-      = link_to 'Last Year', root_path(anchor: 'cso-2015'), class: 'btn btn-lg btn-primary-outline page-scroll'
-      = link_to 'About Us', root_path(anchor: 'about'), class: 'btn btn-lg btn-primary-outline page-scroll'
+          %hr
+          %h2 Location
+          %p
+            %div The 2016 CSO will be held on
+            %div Saturday, May 7th, 2016
+            %div in downtown Los Angeles.
+          %p
+            %address
+              = link_to '1024 Santee St 3rd Floor, Los Angeles, CA', 'https://goo.gl/maps/GEmGybWYgmH2', target: '_blank'
+          %hr
+          %h2 Rules
+          %p= link_to '2016 Competition and Performance Rules', asset_url('/documents/2016CompetitionAndPerformanceTeamRules.pdf'), target: '_blank'
