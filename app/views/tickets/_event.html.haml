@@ -4,10 +4,8 @@
     %h4.card-title= event.name
     .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
     %p.card-text= event.description
-  %ul.list-group.list-group-flush
-    - unless event_purchase.nil?
-      %li.list-group-item
-        = render 'event_purchases/event_purchase', event_purchase: event_purchase
+  - unless event_purchase.nil?
+    = render 'event_purchases/event_purchase', event_purchase: event_purchase
   .card-footer.text-xs-center
     - unless event_purchase.nil?
       = link_to 'Details', event_purchase_path(event_purchase), class: 'btn btn-secondary'

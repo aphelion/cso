@@ -2,3 +2,4 @@ crystals_event_purchase:
   event: salsa_party
   user: crystal
   ticket_purchase: crystals_ticket_purchase
+  addon_purchases: [crystals_water_bottle_purchase, crystals_special_purchase]

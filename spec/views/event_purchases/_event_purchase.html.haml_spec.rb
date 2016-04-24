@@ -17,4 +17,10 @@ describe 'event_purchases/_event_purchase.html.haml' do
   it "renders the Event Purchase's User's name" do
     expect(rendered).to have_text("#{event_purchase.user.first_name} #{event_purchase.user.last_name}")
   end
+
+  it "renders the Event Purchase's Addons" do
+    event_purchase.addon_purchases.each do |addon_purchase|
+      expect(rendered).to have_text(addon_purchase.product.name)
+    end
+  end
 end
