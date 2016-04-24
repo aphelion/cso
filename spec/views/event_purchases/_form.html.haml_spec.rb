@@ -52,7 +52,7 @@ describe 'event_purchases/_form.html.haml' do
 
     describe 'Addons section' do
       it 'instructs the User to choose Addons' do
-        expect(rendered).to have_text('Choose Extras')
+        expect(rendered).to have_text('Optional Extras')
       end
 
       it 'lists each Addon option' do
