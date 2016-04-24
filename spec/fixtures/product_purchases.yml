@@ -1,9 +1,12 @@
 crystals_ticket_purchase:
   charge: crystals_event_purchase_charge
   product: salsa_party_vip_pass
+  quantity: 1
 crystals_water_bottle_purchase:
   charge: crystals_event_purchase_charge
   product: water_bottle
+  quantity: 1
 crystals_special_purchase:
   charge: crystals_event_purchase_charge
   product: private_lapdance
+  quantity: 1
