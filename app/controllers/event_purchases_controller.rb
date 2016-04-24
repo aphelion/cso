@@ -9,7 +9,7 @@ class EventPurchasesController < ApplicationController
     @event_purchase.event = event
     @event_purchase.ticket_purchase = ProductPurchase.new
     event.addons.each do |addon|
-      @event_purchase.addon_purchases << ProductPurchase.new(product: addon)
+      @event_purchase.addon_purchases << ProductPurchase.new(product: addon, quantity: 0)
     end
   end
 
@@ -69,8 +69,8 @@ class EventPurchasesController < ApplicationController
   private
   def event_purchase_params
     params.require(:event_purchase).permit(
-        ticket_purchase_attributes: [:product_id],
-        addon_purchases_attributes: [[:purchase, :product_id]]
+        ticket_purchase_attributes: [:quantity, :product_id],
+        addon_purchases_attributes: [[:quantity, :product_id]]
     )
   end
 end

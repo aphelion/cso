@@ -2,5 +2,5 @@ class ProductPurchase < ActiveRecord::Base
   belongs_to :charge
   belongs_to :product
 
-  attr_accessor :purchase
+  validates :quantity, numericality: {greater_than_or_equal_to: 1}
 end

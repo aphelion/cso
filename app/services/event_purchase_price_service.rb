@@ -3,12 +3,12 @@ module EventPurchasePriceService
 
   def event_purchase_base_price(event_purchase)
     ticket_price = event_purchase.ticket_purchase.product ? event_purchase.ticket_purchase.product.price : Money.new(0)
+
     addons_price = Money.new(0)
     event_purchase.addon_purchases.each do |addon_purchase|
-      if product_purchase_requested(addon_purchase) or product_purchased(addon_purchase)
-        addons_price += addon_purchase.product.price
-      end
+      addons_price += product_purchase_cost(addon_purchase)
     end
+
     ticket_price + addons_price
   end
 
@@ -22,11 +22,7 @@ module EventPurchasePriceService
   end
 
   private
-  def product_purchase_requested(product_purchase)
-    ActiveRecord::Type::Boolean.new.type_cast_from_database(product_purchase.purchase)
-  end
-
-  def product_purchased(product_purchase)
-    product_purchase.persisted?
+  def product_purchase_cost(product_purchase)
+    product_purchase.quantity.to_i * product_purchase.product.price
   end
 end

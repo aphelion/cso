@@ -2,7 +2,7 @@
 App.stripe ||= {}
 
 App.setupFormUpdateOnInputChange = ->
-  $('form[data-ticket-form] :input').change ->
+  $('form[data-ticket-form] :input').on 'input change', ->
     form = $(this).closest('[data-ticket-form]')
     $.ajax
       type: 'post',
