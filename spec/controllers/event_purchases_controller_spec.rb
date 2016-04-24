@@ -87,6 +87,46 @@ describe EventPurchasesController do
       end
     end
 
+    describe 'GET .show' do
+      let(:event_purchase) { double(:event_purchase) }
+      let(:hacker) { double(:user) }
+
+      before do
+        allow(event_purchase_model).to receive(:find).with('1').and_return(event_purchase)
+        allow(event_purchase).to receive(:user).and_return(user)
+      end
+
+      context 'when the current User is the User of the Ticket' do
+        before do
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        it 'renders its template' do
+          get :show, id: '1'
+
+          expect(response).to render_template('event_purchases/show')
+        end
+
+        it 'provides the Ticket to the view' do
+          get :show, id: '1'
+
+          expect(assigns(:event_purchase)).to eq(event_purchase)
+        end
+      end
+
+      context 'when the current User is not the User of the Ticket' do
+        before do
+          allow(controller).to receive(:current_user).and_return(hacker)
+        end
+
+        it 'throws the request in their FACE' do
+          get :show, id: '1'
+
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
     describe 'POST .calculate' do
       context 'when there is not an authenticated User' do
         it 'redirects to the login page' do

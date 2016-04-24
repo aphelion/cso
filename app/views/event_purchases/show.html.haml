@@ -1,0 +1,23 @@
+.content
+  %h1 #{@event_purchase.event.name} Confirmation
+  .card.card-block
+    %p Thanks #{@event_purchase.user.first_name}, you have a #{@event_purchase.ticket_purchase.product.name}!
+    %p= render 'event_purchases/event_purchase', event_purchase: @event_purchase
+    %p= render partial: 'event_purchases/price_breakdown', locals: {event_purchase: @event_purchase}
+    %p
+      = link_to 'Back', my_tickets_path, class: 'btn btn-primary-outline'
+      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'modal', 'data-target': '#refund-modal'} Refund Ticket
+
+#refund-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
+  .modal-dialog{role: 'document'}
+    .modal-content
+      .modal-header
+        %button.close{type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close'}
+          %span.fa.fa-times{'aria-hidden': 'true'}
+        %h4#refund-modal-label.modal-title Confirm Ticket Refund
+      .modal-body
+        %p Are you sure you want to refund your ticket?
+        %p
+          %strong= @event_purchase.event.name
+          = render 'event_purchases/event_purchase', event_purchase: @event_purchase
+        %p= link_to 'Refund Ticket', event_purchase_path(@event_purchase), method: :delete, class: 'btn btn-danger', 'data-dismiss': 'modal'

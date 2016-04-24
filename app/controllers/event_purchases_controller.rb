@@ -13,6 +13,11 @@ class EventPurchasesController < ApplicationController
     end
   end
 
+  def show
+    @event_purchase = event_purchase_model.find(params[:id])
+    head :forbidden unless @event_purchase.user == current_user
+  end
+
   def calculate
     @user = current_user
     @event_purchase = event_purchase_model.new(event_purchase_params)
