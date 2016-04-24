@@ -27,6 +27,17 @@ cso_2016.tickets << Product.create(
     price_cents: 2200
 )
 
+cso_2016_shirt = Product.create(
+    name: 'CSO 2016 Shirt',
+    price_cents: 1200
+)
+
+cso_water_bottle = Product.create(
+    name: 'CSO Water Bottle',
+    price_cents: 900
+)
+
+cso_2016.addons << [cso_2016_shirt, cso_water_bottle]
 
 summer_2016 = Event.create(
     name: 'Summer 2016 LDA Party',
@@ -42,6 +53,8 @@ summer_2016.tickets << Product.create(
     name: 'Full Pass',
     price_cents: 1600
 )
+
+summer_2016.addons << [cso_2016_shirt, cso_water_bottle]
 
 cso_2015 = Event.create(
     name: '2015 Collegiate Salsa Open',
