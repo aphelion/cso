@@ -57,7 +57,6 @@ describe 'event_purchases/_form.html.haml' do
 
       it 'lists each Addon option' do
         event.addons.each do |addon|
-          puts rendered
           expect(rendered).to have_text("#{addon.name} #{humanized_money_with_symbol addon.price}")
         end
       end

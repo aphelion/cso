@@ -1,4 +1,4 @@
-module TicketPriceService
+module EventPurchasePriceService
   extend self
 
   def event_purchase_base_price(event_purchase)
