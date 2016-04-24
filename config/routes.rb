@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [] do
     resources :purchases, shallow: true, only: [:new, :create, :show], as: 'event_purchases', controller: 'event_purchases'
+    post 'purchases/calculate', to: 'event_purchases#calculate'
   end
 
   get '/tickets', to: 'tickets#my', as: :my_tickets

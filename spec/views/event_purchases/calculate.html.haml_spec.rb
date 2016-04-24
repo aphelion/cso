@@ -1,4 +1,4 @@
-describe 'event_purchases/new.html.haml' do
+describe 'event_purchases/calculate.html.haml' do
   fixtures(:events)
   fixtures(:users)
   let(:event) { events(:bachata_party) }
@@ -11,10 +11,6 @@ describe 'event_purchases/new.html.haml' do
     assign(:event_purchase, event_purchase)
     assign(:user, user)
     render
-  end
-
-  it 'renders the Event name' do
-    expect(rendered).to have_text(event.name)
   end
 
   it 'renders an Event Purchase form' do

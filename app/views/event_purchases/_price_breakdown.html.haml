@@ -1,0 +1,7 @@
+.row
+  %strong.col-xs-12.col-sm-4.col-lg-2 Base Price
+  .col-xs-12.col-sm-8.col-lg-10= humanized_money_with_symbol event_purchase_base_price(event_purchase)
+  %strong.col-xs-12.col-sm-4.col-lg-2  Processing Fees
+  .col-xs-12.col-sm-8.col-lg-10= humanized_money_with_symbol event_purchase_processing_fees(event_purchase)
+  %strong.col-xs-12.col-sm-4.col-lg-2 Total Price
+  .col-xs-12.col-sm-8.col-lg-10= humanized_money_with_symbol event_purchase_total_price(event_purchase)
