@@ -5,7 +5,7 @@ module EventPurchasePriceService
     ticket_price = event_purchase.ticket_purchase.product ? event_purchase.ticket_purchase.product.price : Money.new(0)
     addons_price = Money.new(0)
     event_purchase.addon_purchases.each do |addon_purchase|
-      if ActiveRecord::Type::Boolean.new.type_cast_from_database(addon_purchase.purchase)
+      if product_purchase_requested(addon_purchase) or product_purchased(addon_purchase)
         addons_price += addon_purchase.product.price
       end
     end
@@ -19,5 +19,14 @@ module EventPurchasePriceService
   def event_purchase_total_price(event_purchase)
     return Money.new(0) unless event_purchase_base_price(event_purchase).cents > 0
     (event_purchase_base_price(event_purchase) + Money.new(30)) / (1 - 0.029)
+  end
+
+  private
+  def product_purchase_requested(product_purchase)
+    ActiveRecord::Type::Boolean.new.type_cast_from_database(product_purchase.purchase)
+  end
+
+  def product_purchased(product_purchase)
+    product_purchase.persisted?
   end
 end
