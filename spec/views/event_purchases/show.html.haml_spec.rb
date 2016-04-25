@@ -28,8 +28,8 @@ describe 'event_purchases/show.html.haml' do
     expect(view).to have_rendered(partial: 'event_purchases/_event_purchase', locals: {event_purchase: event_purchase})
   end
 
-  it 'renders the Ticket price breakdown' do
-    expect(view).to have_rendered(partial: 'event_purchases/_price_breakdown', locals: {event_purchase: event_purchase})
+  it 'renders the Event Purchase breakdown' do
+    expect(view).to have_rendered(partial: 'event_purchases/_event_purchase_breakdown', locals: {event_purchase: event_purchase, user: event_purchase.user})
   end
 
   it 'renders a link back to the Tickets page' do

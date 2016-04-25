@@ -9,4 +9,4 @@ crystals_water_bottle_purchase:
 crystals_special_purchase:
   charge: crystals_event_purchase_charge
   product: private_lapdance
-  quantity: 1
+  quantity: 5

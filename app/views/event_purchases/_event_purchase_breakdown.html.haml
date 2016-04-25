@@ -1,0 +1,27 @@
+%table.table
+  %tr
+    %td
+      = event_purchase.ticket_purchase.product.name
+      for #{user.full_name}
+    %td
+    %td= humanized_money_with_symbol event_purchase.ticket_purchase.total_price
+  - event_purchase.addon_purchases.each do |addon_purchase|
+    %tr
+      %td= addon_purchase.product.name
+      %td #{addon_purchase.quantity}x
+      %td= humanized_money_with_symbol addon_purchase.total_price
+  %tr
+    %td
+    %td.text-xs-right
+      %strong Subtotal
+    %td= humanized_money_with_symbol event_purchase_base_price(event_purchase)
+  %tr
+    %td
+    %td.text-xs-right
+      %strong Processing Fees
+    %td= humanized_money_with_symbol event_purchase_processing_fees(event_purchase)
+  %tr
+    %td
+    %td.text-xs-right
+      %strong Total Price
+    %td= humanized_money_with_symbol event_purchase_total_price(event_purchase)

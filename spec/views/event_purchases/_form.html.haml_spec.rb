@@ -50,20 +50,12 @@ describe 'event_purchases/_form.html.haml' do
       render partial: 'event_purchases/form', locals: {event_purchase: event_purchase, user: user}
     end
 
-    describe 'Addons section' do
-      it 'instructs the User to choose Addons' do
-        expect(rendered).to have_text('Optional Extras')
-      end
-
-      it 'lists each Addon option' do
-        event.addons.each do |addon|
-          expect(rendered).to have_text("#{addon.name} #{humanized_money_with_symbol addon.price}")
-        end
-      end
+    it 'renders the Addon selection partial' do
+      expect(view).to have_rendered(partial: 'event_purchases/_addon_selection', locals: {event_purchase: event_purchase})
     end
 
-    it 'renders the Ticket price breakdown' do
-      expect(view).to have_rendered(partial: 'event_purchases/_price_breakdown', locals: {event_purchase: event_purchase})
+    it 'renders the Event Purchase Breakdown partial' do
+      expect(view).to have_rendered(partial: 'event_purchases/_event_purchase_breakdown', locals: {event_purchase: event_purchase})
     end
 
     it 'renders a Stripe Checkout button' do
@@ -84,8 +76,12 @@ describe 'event_purchases/_form.html.haml' do
       render partial: 'event_purchases/form', locals: {event_purchase: event_purchase, user: user}
     end
 
-    it 'does not render the Ticket price breakdown' do
-      expect(view).to_not have_rendered(partial: 'event_purchase/_ticket_price_breakdown')
+    it 'does not render the Addon selection partial' do
+      expect(view).to_not have_rendered(partial: 'event_purchase/_addon_selection')
+    end
+
+    it 'does not render the Event Purchase Breakdown partial' do
+      expect(view).to_not have_rendered(partial: 'event_purchases/_event_purchase_breakdown', locals: {event_purchase: event_purchase})
     end
 
     it 'does not render a Stripe Checkout button' do

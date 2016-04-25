@@ -3,7 +3,7 @@
   .card.card-block
     %p Thanks #{@event_purchase.user.first_name}, you have a #{@event_purchase.ticket_purchase.product.name}!
     %p= render 'event_purchases/event_purchase', event_purchase: @event_purchase
-    %p= render partial: 'event_purchases/price_breakdown', locals: {event_purchase: @event_purchase}
+    %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: @event_purchase, user: @event_purchase.user}
     %p
       = link_to 'Back', my_tickets_path, class: 'btn btn-primary-outline'
       %button.btn.btn-secondary{type: 'button', 'data-toggle': 'modal', 'data-target': '#refund-modal'} Refund Ticket

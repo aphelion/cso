@@ -90,8 +90,7 @@ describe UsersService do
 
       context 'when User does not have a customer' do
         before do
-          allow(user).to receive(:first_name).and_return('FIRST')
-          allow(user).to receive(:last_name).and_return('LAST')
+          allow(user).to receive(:full_name).and_return('FIRST LAST')
           allow(user).to receive(:email).and_return('EMAIL')
           allow(user).to receive(:customer).and_return(nil)
           allow(stripe_customer_service).to receive(:create).with(

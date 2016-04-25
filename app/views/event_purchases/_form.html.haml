@@ -1,6 +1,6 @@
 - ticket_selected = !event_purchase.ticket_purchase.product.nil?
 = form_for [event_purchase.event, event_purchase], html: {'data-ticket-form': ''} do |f|
-  %h4 Choose a Ticket Option
+  %h3 Choose a Ticket Option
   = f.fields_for :ticket_purchase do |ticket_purchase_form|
     = ticket_purchase_form.hidden_field(:quantity, value: '1')
     .form-group
@@ -10,15 +10,20 @@
             = b.radio_button
             %span.c-indicator
             #{b.text} #{humanized_money_with_symbol b.object.price}
-  %div{class: ('hidden' unless ticket_selected)}
-    %h4 Optional Extras
-    = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|
-      %h5 #{addon_purchases_form.object.product.name} #{humanized_money_with_symbol addon_purchases_form.object.product.price}
-      = addon_purchases_form.hidden_field(:product_id)
-      %fieldset.form-group.form-inline
-        = addon_purchases_form.label(:quantity)
-        = addon_purchases_form.number_field(:quantity, class: 'form-control product-quantity', min: 0)
+  -#%div{class: ('hidden' unless ticket_selected)}
+  -#  %h3 Optional Extras
+  -#  = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|
+  -#    %h4 #{addon_purchases_form.object.product.name} #{humanized_money_with_symbol addon_purchases_form.object.product.price}
+  -#    = addon_purchases_form.hidden_field(:product_id)
+  -#    %fieldset.form-group.form-inline
+  -#      = addon_purchases_form.label(:quantity)
+  -#      = addon_purchases_form.number_field(:quantity, class: 'form-control product-quantity', min: 0)
   - if ticket_selected
-    %p= render partial: 'event_purchases/price_breakdown', locals: {event_purchase: event_purchase}
+    %p= render partial: 'event_purchases/addon_selection', locals: {event_purchase: event_purchase}
+    %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: user}
     .form-group
-      = render partial: 'event_purchases/checkout_button', locals: {email: user.email, name: event_purchase.event.name, description: event_purchase.ticket_purchase.product.name, amount: event_purchase_total_price(event_purchase).cents}
+      = render partial: 'event_purchases/checkout_button',
+               locals: {email: user.email,
+               name: event_purchase.event.name,
+               description: event_purchase.ticket_purchase.product.name,
+               amount: event_purchase_total_price(event_purchase).cents}

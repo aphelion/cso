@@ -32,7 +32,7 @@ class EventPurchasesController < ApplicationController
     event_purchase.user = user
     price = event_purchase_price_service.event_purchase_total_price(event_purchase)
     customer = users_service.find_or_create_customer(user, params[:stripeToken])
-    description = "#{event_purchase.event.name} #{event_purchase.ticket_purchase.product.name} for #{user.first_name} #{user.last_name}"
+    description = "#{event_purchase.event.name} #{event_purchase.ticket_purchase.product.name} for #{user.full_name}"
     charge = charges_service.charge_customer(customer, price.cents, description)
 
     event_purchase.ticket_purchase.charge = charge

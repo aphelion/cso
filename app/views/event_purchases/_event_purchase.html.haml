@@ -2,7 +2,7 @@
   %li.list-group-item
     .fa.fa-ticket
     #{event_purchase.ticket_purchase.product.name}
-    for #{event_purchase.user.first_name} #{event_purchase.user.last_name}
+    for #{event_purchase.user.full_name}
   - event_purchase.addon_purchases.each do |addon_purchase|
     %li.list-group-item
       .fa.fa-star

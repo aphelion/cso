@@ -18,7 +18,7 @@ module UsersService
     return user.customer unless user.customer.nil?
 
     stripe_customer = stripe_customer_service.create(
-        description: "#{user.first_name} #{user.last_name}",
+        description: user.full_name,
         email: user.email,
         source: processor_token
     )

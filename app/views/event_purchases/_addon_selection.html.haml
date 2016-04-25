@@ -1,0 +1,18 @@
+.row
+  - event_purchase.event.addons.each do |addon|
+    .col-md-4.text-md-center
+      %h5= addon.name
+      %p description
+      %p
+        %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
+          Add #{addon.name}
+- event_purchase.event.addons.each do |addon|
+  .modal.fade{id: "addon-modal-#{addon.id}",tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
+    .modal-dialog{role: 'document'}
+      .modal-content
+        .modal-header
+          %button.close{type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close'}
+            %span.fa.fa-times{'aria-hidden': 'true'}
+          %h4#refund-modal-label.modal-title SUPER MAGIC!
+        .modal-body
+          %p MAGIC! #{addon.name}
