@@ -3,7 +3,7 @@ App.stripe ||= {}
 
 App.setupFormUpdateOnInputChange = ->
   $('form[data-ticket-form] :input').on 'input change', ->
-    form = $(this).closest('[data-ticket-form]')
+    form = $('body').find('[data-ticket-form]')
     $.ajax
       type: 'post',
       url: form.attr('action') + '/calculate',

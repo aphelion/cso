@@ -163,6 +163,15 @@ describe EventPurchasesController do
 
           expect(assigns(:event_purchase)).to be(event_purchase)
         end
+
+        it 'uses the new_addon params to append a new addon' do
+          post :calculate, event_id: '1', event_purchase: valid_attributes, new_addon: {quantity: '2', product_id: '4'}
+
+          appended_addon = assigns(:event_purchase).addon_purchases.last
+
+          expect(appended_addon.quantity).to be(2)
+          expect(appended_addon.product_id).to be(4)
+        end
       end
     end
 

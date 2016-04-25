@@ -13,6 +13,13 @@
         .modal-header
           %button.close{type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close'}
             %span.fa.fa-times{'aria-hidden': 'true'}
-          %h4#refund-modal-label.modal-title SUPER MAGIC!
+          %h4#refund-modal-label.modal-title Add #{addon.name}
         .modal-body
-          %p MAGIC! #{addon.name}
+          %div description
+          %div select quantity: 1
+        .modal-footer
+          %button{type: 'button', class: 'btn btn-secondary', 'data-dismiss': 'modal'} Cancel
+          %button{type: 'button',
+                  onclick: "$('#addon-modal-#{addon.id}').one('hidden.bs.modal', function() {App.addAddon(#{addon.id}, 1)})",
+                  class: 'btn btn-primary',
+                  'data-dismiss': 'modal'} Add to Ticket

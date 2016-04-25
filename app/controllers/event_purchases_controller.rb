@@ -8,9 +8,6 @@ class EventPurchasesController < ApplicationController
     event = event_model.find(params[:event_id])
     @event_purchase.event = event
     @event_purchase.ticket_purchase = ProductPurchase.new
-    event.addons.each do |addon|
-      @event_purchase.addon_purchases << ProductPurchase.new(product: addon, quantity: 0)
-    end
   end
 
   def show
@@ -23,6 +20,13 @@ class EventPurchasesController < ApplicationController
     @event_purchase = event_purchase_model.new(event_purchase_params)
     event = event_model.find(params[:event_id])
     @event_purchase.event = event
+
+    if new_addon_params
+      @event_purchase.addon_purchases << ProductPurchase.new(
+          product_id: new_addon_params[:product_id],
+          quantity: new_addon_params[:quantity]
+      )
+    end
   end
 
   def create
@@ -72,5 +76,9 @@ class EventPurchasesController < ApplicationController
         ticket_purchase_attributes: [:quantity, :product_id],
         addon_purchases_attributes: [[:quantity, :product_id]]
     )
+  end
+
+  def new_addon_params
+    params.require(:new_addon).permit(:quantity, :product_id) if params[:new_addon]
   end
 end

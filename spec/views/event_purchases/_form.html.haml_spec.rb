@@ -27,15 +27,20 @@ describe 'event_purchases/_form.html.haml' do
       assert_select 'form[action=?][method=?]', event_event_purchases_path(event), 'post'
     end
 
-    describe 'Ticket section' do
-      it 'instructs the User to choose a Ticket' do
-        expect(rendered).to have_text('Choose a Ticket Option')
-      end
+    it 'instructs the User to choose a Ticket' do
+      expect(rendered).to have_text('Choose a Ticket Option')
+    end
 
-      it 'lists each Ticket option' do
-        event.tickets.each do |ticket|
-          expect(rendered).to have_text("#{ticket.name} #{humanized_money_with_symbol ticket.price}")
-        end
+    it 'lists each Ticket option' do
+      event.tickets.each do |ticket|
+        expect(rendered).to have_text("#{ticket.name} #{humanized_money_with_symbol ticket.price}")
+      end
+    end
+
+    it 'adds Addon Purchases as hidden form elements' do
+      event_purchase.addon_purchases.each_with_index do |addon_purchase, index|
+        assert_select "input[type=hidden][value=?][name=?]", addon_purchase.product_id.to_s, "event_purchase[addon_purchases_attributes][#{index}][product_id]"
+        assert_select "input[type=hidden][value=?][name=?]", addon_purchase.quantity.to_s, "event_purchase[addon_purchases_attributes][#{index}][quantity]"
       end
     end
   end

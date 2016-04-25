@@ -10,6 +10,9 @@
             = b.radio_button
             %span.c-indicator
             #{b.text} #{humanized_money_with_symbol b.object.price}
+  = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|
+    = addon_purchases_form.hidden_field(:product_id)
+    = addon_purchases_form.hidden_field(:quantity)
   -#%div{class: ('hidden' unless ticket_selected)}
   -#  %h3 Optional Extras
   -#  = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|
