@@ -17,10 +17,12 @@ cso_2016.tickets << Product.create(
     price_cents: 2900
 )
 
-cso_2016.tickets << Product.create(
+spectator_ticket = Product.create(
     name: 'Spectator Pass',
     price_cents: 800
 )
+
+cso_2016.tickets << spectator_ticket
 
 cso_2016.tickets << Product.create(
     name: 'Evening Pass',
@@ -37,7 +39,7 @@ cso_water_bottle = Product.create(
     price_cents: 900
 )
 
-cso_2016.addons << [cso_2016_shirt, cso_water_bottle]
+cso_2016.addons << [cso_2016_shirt, cso_water_bottle, spectator_ticket]
 
 summer_2016 = Event.create(
     name: 'Summer 2016 LDA Party',
