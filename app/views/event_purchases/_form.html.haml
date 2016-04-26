@@ -7,7 +7,7 @@
       .c-inputs-stacked
         = ticket_purchase_form.collection_radio_buttons(:product_id, event_purchase.event.tickets, :id, :name) do |b|
           = b.label(class: 'c-input c-radio') do
-            = b.radio_button
+            = b.radio_button({'data-ticket-form-update': ''})
             %span.c-indicator
             #{b.text} #{humanized_money_with_symbol b.object.price}
   = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|

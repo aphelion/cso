@@ -16,4 +16,12 @@ describe 'event_purchases/_addon_selection.html.haml' do
       expect(rendered).to have_text(addon.name)
     end
   end
+
+  describe 'the Addon modal' do
+    it 'renders a quantity dropdown menu' do
+      event.addons.each do |addon|
+        expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[quantity]']")
+      end
+    end
+  end
 end

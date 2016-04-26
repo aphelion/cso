@@ -15,11 +15,15 @@
             %span.fa.fa-times{'aria-hidden': 'true'}
           %h4#refund-modal-label.modal-title Add #{addon.name}
         .modal-body
-          %div description
-          %div select quantity: 1
+          %p description
+          %p
+            = fields_for :"addon_#{addon.id}" do |addon_fields|
+              %fieldset.form-group.form-inline
+                %strong= addon_fields.label(:quantity)
+                = addon_fields.select(:quantity, options_for_select((1..10)), {}, {class: 'form-control'})
         .modal-footer
           %button{type: 'button', class: 'btn btn-secondary', 'data-dismiss': 'modal'} Cancel
           %button{type: 'button',
-                  onclick: "$('#addon-modal-#{addon.id}').one('hidden.bs.modal', function() {App.addAddon(#{addon.id}, 1)})",
+                  onclick: "$('#addon-modal-#{addon.id}').one('hidden.bs.modal', function() {App.addAddon(#{addon.id}, $('#addon_#{addon.id}_quantity').val())})",
                   class: 'btn btn-primary',
                   'data-dismiss': 'modal'} Add to Ticket

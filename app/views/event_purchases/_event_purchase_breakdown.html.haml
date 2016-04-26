@@ -5,23 +5,30 @@
       for #{user.full_name}
     %td
     %td= humanized_money_with_symbol event_purchase.ticket_purchase.total_price
-  - event_purchase.addon_purchases.each do |addon_purchase|
+    %td
+  - event_purchase.addon_purchases.each_with_index do |addon_purchase, index|
     %tr
       %td= addon_purchase.product.name
       %td #{addon_purchase.quantity}x
       %td= humanized_money_with_symbol addon_purchase.total_price
+      %td.table-button-cell
+        %button.btn.btn-link-icon{type: 'button', onclick: "App.removeAddon(#{index})"}
+          %span.fa.fa-times
   %tr
     %td
     %td.text-xs-right
       %strong Subtotal
     %td= humanized_money_with_symbol event_purchase_base_price(event_purchase)
+    %td
   %tr
     %td
     %td.text-xs-right
       %strong Processing Fees
     %td= humanized_money_with_symbol event_purchase_processing_fees(event_purchase)
+    %td
   %tr
     %td
     %td.text-xs-right
       %strong Total Price
     %td= humanized_money_with_symbol event_purchase_total_price(event_purchase)
+    %td

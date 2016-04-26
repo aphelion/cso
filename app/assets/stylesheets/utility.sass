@@ -1,5 +1,18 @@
+@import variables
+@import bootstrap/mixins
+
 .hidden
   display: none
   visibility: hidden
 input[type='number'].product-quantity
   width: 4rem
+
+.btn-link-icon
+  @extend .btn-link
+  color: $body-color
+
+  @include hover-focus
+    color: darken($body-color, 15%)
+
+td.table-button-cell
+  width: 1px
