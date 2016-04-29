@@ -55,4 +55,14 @@ describe 'event_purchases/_event_purchase_breakdown.html.haml' do
       end
     end
   end
+
+  context 'when editable not true' do
+    before do
+      render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: event_purchase.user}
+    end
+
+    it 'does not render a remove buttons for Addons' do
+      expect(rendered).to_not have_selector '.fa-times'
+    end
+  end
 end

@@ -12,8 +12,9 @@
       %td #{addon_purchase.quantity}x
       %td= humanized_money_with_symbol addon_purchase.total_price
       %td.table-button-cell
-        %button.btn.btn-link-icon{type: 'button', onclick: "App.removeAddon(#{index})"}
-          %span.fa.fa-times
+        - if defined? editable
+          %button.btn.btn-link-icon{type: 'button', onclick: "App.removeAddon(#{index})"}
+            %span.fa.fa-times
   %tr
     %td
     %td.text-xs-right
