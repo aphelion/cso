@@ -17,6 +17,12 @@ describe 'event_purchases/_addon_selection.html.haml' do
     end
   end
 
+  it 'renders the description for each Addon' do
+    event.addons.each do |addon|
+      expect(rendered).to have_text(addon.description)
+    end
+  end
+
   describe 'the Addon modal' do
     it 'renders a quantity dropdown menu' do
       event.addons.each do |addon|

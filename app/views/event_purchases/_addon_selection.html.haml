@@ -2,7 +2,7 @@
   - event_purchase.event.addons.each do |addon|
     .col-md-4.text-md-center
       %h5= addon.name
-      %p description
+      %p= addon.description
       %p
         %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
           Add #{addon.name}
@@ -15,7 +15,7 @@
             %span.fa.fa-times{'aria-hidden': 'true'}
           %h4#refund-modal-label.modal-title Add #{addon.name}
         .modal-body
-          %p description
+          %p= addon.description
           %p
             = fields_for :"addon_#{addon.id}" do |addon_fields|
               %fieldset.form-group.form-inline

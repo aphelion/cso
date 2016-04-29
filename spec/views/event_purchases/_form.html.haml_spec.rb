@@ -37,6 +37,12 @@ describe 'event_purchases/_form.html.haml' do
       end
     end
 
+    it 'renders each Ticket option description' do
+      event.tickets.each do |ticket|
+        expect(rendered).to have_text(ticket.description)
+      end
+    end
+
     it 'adds Addon Purchases as hidden form elements' do
       event_purchase.addon_purchases.each_with_index do |addon_purchase, index|
         assert_select "input[type=hidden][value=?][name=?]", addon_purchase.product_id.to_s, "event_purchase[addon_purchases_attributes][#{index}][product_id]"

@@ -1,21 +1,28 @@
 bachata_party_full_pass:
   name: Full Pass
   price_cents: 3000
+  description: The best Full Pass you'll ever have.
 bachata_party_night_pass:
   name: Night Pass
   price_cents: 3000
+  description: The best Night Pass you'll ever have.
 salsa_party_full_pass:
   name: Full Pass
   price_cents: 3000
+  description: The best Full Pass you'll ever have.
 salsa_party_vip_pass:
   name: VIP Pass
   price_cents: 3000
+  description: The best VIP Pass you'll ever have.
 salsa_party_performer_pass:
   name: Performer Pass
   price_cents: 3000
+  description: The best Performer Pass you'll ever have.
 private_lapdance:
   name: Lapdance
   price_cents: 10000
+  description: The best Lapdance you'll ever have.
 water_bottle:
   name: CSO Hydration Bottle
   price_cents: 700
+  description: The best CSO Hydration Bottle you'll ever have.

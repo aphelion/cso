@@ -14,29 +14,34 @@ cso_2016 = Event.create(
 
 cso_2016.tickets << Product.create(
     name: 'Full Pass',
-    price_cents: 2900
+    price_cents: 2900,
+    description: 'A Full Pass entitles you to everything your heart has ever wanted. Get this one.'
 )
 
 spectator_ticket = Product.create(
     name: 'Spectator Pass',
-    price_cents: 800
+    price_cents: 800,
+    description: "Get a Spectator Pass if you can't dance but need to see your kid do this salsa thing."
 )
 
 cso_2016.tickets << spectator_ticket
 
 cso_2016.tickets << Product.create(
     name: 'Evening Pass',
-    price_cents: 2200
+    price_cents: 2200,
+    description: "You're older, finished (or never went to) college, and want to come to hit on the college chicks--this one's for you."
 )
 
 cso_2016_shirt = Product.create(
     name: 'CSO 2016 Shirt',
-    price_cents: 1200
+    price_cents: 1200,
+    description: 'Rep the CSO! Give us money! Swag!'
 )
 
 cso_water_bottle = Product.create(
     name: 'CSO Water Bottle',
-    price_cents: 900
+    price_cents: 900,
+    description: "Stay hydrated, fill it with Redbull vodka, we don't care. Just buy it."
 )
 
 cso_2016.addons << [cso_2016_shirt, cso_water_bottle, spectator_ticket]
@@ -53,7 +58,8 @@ summer_2016 = Event.create(
 
 summer_2016.tickets << Product.create(
     name: 'Full Pass',
-    price_cents: 1600
+    price_cents: 1600,
+    description: "Dancin' all summer long."
 )
 
 summer_2016.addons << [cso_2016_shirt, cso_water_bottle]
@@ -70,5 +76,6 @@ cso_2015 = Event.create(
 
 cso_2015.tickets << Product.create(
     name: 'Full Pass',
-    price_cents: 2800
+    price_cents: 2800,
+    description: "You're OG CSO. Thanks for the love."
 )
