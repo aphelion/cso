@@ -23,7 +23,7 @@
   -#      = addon_purchases_form.number_field(:quantity, class: 'form-control product-quantity', min: 0)
   - if ticket_selected
     %p= render partial: 'event_purchases/addon_selection', locals: {event_purchase: event_purchase}
-    %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: user}
+    %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: user, editable: true}
     .form-group
       = render partial: 'event_purchases/checkout_button',
                locals: {email: user.email,

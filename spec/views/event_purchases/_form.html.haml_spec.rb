@@ -60,7 +60,7 @@ describe 'event_purchases/_form.html.haml' do
     end
 
     it 'renders the Event Purchase Breakdown partial' do
-      expect(view).to have_rendered(partial: 'event_purchases/_event_purchase_breakdown', locals: {event_purchase: event_purchase})
+      expect(view).to have_rendered(partial: 'event_purchases/_event_purchase_breakdown', locals: {event_purchase: event_purchase, editable: true})
     end
 
     it 'renders a Stripe Checkout button' do
