@@ -1,11 +1,13 @@
 .row
   - event_purchase.event.addons.each do |addon|
-    .col-md-4.text-md-center
-      %h5= addon.name
-      %p= addon.description
-      %p
-        %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
-          Add #{addon.name}
+    - unless event_purchase.addon_purchases.any?{|addon_purchase| addon_purchase.product.id == addon.id}
+      .col-md-4.text-md-center
+        %h5= addon.name
+        %p
+          %em= addon.description
+        %p
+          %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
+            Add #{addon.name}
 - event_purchase.event.addons.each do |addon|
   .modal.fade{id: "addon-modal-#{addon.id}",tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
     .modal-dialog{role: 'document'}
