@@ -12,20 +12,8 @@ describe 'event_purchases/show.html.haml' do
     render
   end
 
-  it 'greets the User by name' do
-    expect(rendered).to have_text(event_purchase.user.first_name)
-  end
-
-  it 'reminds the User which Ticket Option they purchased' do
-    expect(rendered).to have_text(event_purchase.ticket_purchase.product.name)
-  end
-
   it 'indicates which Event this Ticket is for' do
     expect(rendered).to have_text(event_purchase.event.name)
-  end
-
-  it 'renders the Ticket partial' do
-    expect(view).to have_rendered(partial: 'event_purchases/_event_purchase', locals: {event_purchase: event_purchase})
   end
 
   it 'renders the Event Purchase breakdown' do

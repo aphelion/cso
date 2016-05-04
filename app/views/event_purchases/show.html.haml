@@ -1,8 +1,6 @@
 .content
-  %h1 #{@event_purchase.event.name} Confirmation
+  %h1 #{@event_purchase.event.name} Purchase Confirmation
   .card.card-block
-    %p Thanks #{@event_purchase.user.first_name}, you have a #{@event_purchase.ticket_purchase.product.name}!
-    %p= render 'event_purchases/event_purchase', event_purchase: @event_purchase
     %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: @event_purchase, user: @event_purchase.user}
     %p
       = link_to 'Back', my_tickets_path, class: 'btn btn-primary-outline'
