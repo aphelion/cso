@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :events, only: [] do
-    resources :purchases, shallow: true, only: [:new, :create, :show], as: 'event_purchases', controller: 'event_purchases'
+    resources :purchases, shallow: true, only: [:new, :create, :show, :edit], as: 'event_purchases', controller: 'event_purchases'
     post 'purchases/calculate', to: 'event_purchases#calculate'
   end
 

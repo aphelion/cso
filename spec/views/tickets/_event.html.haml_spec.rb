@@ -35,7 +35,11 @@ describe 'users/_event.html.haml' do
         expect(view).to have_rendered(partial: 'event_purchases/_event_purchase', locals: {event_purchase: event_purchase})
       end
 
-      it 'renders a link the Ticket details' do
+      it 'renders a link to modify the Ticket' do
+        expect(rendered).to have_link 'Modify', edit_event_purchase_path(event_purchase)
+      end
+
+      it 'renders a link to the Ticket details' do
         expect(rendered).to have_link 'Details', event_purchase_path(event_purchase)
       end
     end
