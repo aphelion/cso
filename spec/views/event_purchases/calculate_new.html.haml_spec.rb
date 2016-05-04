@@ -1,4 +1,4 @@
-describe 'event_purchases/calculate.html.haml' do
+describe 'event_purchases/calculate_new.html.haml' do
   fixtures(:events)
   fixtures(:users)
   let(:event) { events(:bachata_party) }
@@ -14,6 +14,6 @@ describe 'event_purchases/calculate.html.haml' do
   end
 
   it 'renders an Event Purchase form' do
-    expect(view).to have_rendered(partial: 'event_purchases/_form', locals: {event_purchase: event_purchase, user: user})
+    expect(view).to have_rendered(partial: 'event_purchases/_form_new', locals: {event_purchase: event_purchase, user: user})
   end
 end

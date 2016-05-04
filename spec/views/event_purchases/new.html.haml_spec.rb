@@ -18,6 +18,6 @@ describe 'event_purchases/new.html.haml' do
   end
 
   it 'renders an Event Purchase form' do
-    expect(view).to have_rendered(partial: 'event_purchases/_form', locals: {event_purchase: event_purchase, user: user})
+    expect(view).to have_rendered(partial: 'event_purchases/_form_new', locals: {event_purchase: event_purchase, user: user})
   end
 end

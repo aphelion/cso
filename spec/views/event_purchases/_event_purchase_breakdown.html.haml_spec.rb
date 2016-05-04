@@ -10,9 +10,9 @@ describe 'event_purchases/_event_purchase_breakdown.html.haml' do
   let(:event_purchase_total_price_value) { Money.new(300) }
 
   before do
-    allow(view).to receive(:event_purchase_base_price).with(event_purchase).and_return(event_purchase_base_price_value)
-    allow(view).to receive(:event_purchase_processing_fees).with(event_purchase).and_return(event_purchase_processing_fees_value)
-    allow(view).to receive(:event_purchase_total_price).with(event_purchase).and_return(event_purchase_total_price_value)
+    allow(view).to receive(:purchased_event_purchase_base_price).with(event_purchase).and_return(event_purchase_base_price_value)
+    allow(view).to receive(:purchased_event_purchase_processing_fees).with(event_purchase).and_return(event_purchase_processing_fees_value)
+    allow(view).to receive(:purchased_event_purchase_total_price).with(event_purchase).and_return(event_purchase_total_price_value)
   end
 
   context 'basic structure' do

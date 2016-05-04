@@ -1,6 +1,6 @@
 .row
   - event_purchase.event.addons.each do |addon|
-    - unless event_purchase.addon_purchases.any?{|addon_purchase| addon_purchase.product.id == addon.id}
+    - unless event_purchase.addon_purchases.any?{|addon_purchase| addon_purchase.product.id == addon.id} && ! event_purchase.persisted?
       .col-md-4.text-md-center
         %h5= addon.name
         %p

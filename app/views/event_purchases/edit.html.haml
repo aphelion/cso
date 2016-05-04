@@ -5,3 +5,4 @@
     %p= render partial: 'event_purchases/event_purchase', locals: {event_purchase: @event_purchase}
     %h3 Make Changes
     %p= render partial: 'event_purchases/addon_selection', locals: {event_purchase: @event_purchase}
+    = render 'event_purchases/form_edit', event_purchase: @event_purchase, user: @user

@@ -187,25 +187,25 @@ describe EventPurchasesController do
         end
 
         it 'renders its template' do
-          post :calculate, event_id: '1', event_purchase: valid_attributes
+          post :calculate_new, event_id: '1', event_purchase: valid_attributes
 
-          expect(response).to render_template('event_purchases/calculate')
+          expect(response).to render_template('event_purchases/calculate_new')
         end
 
         it 'assigns the current user as @user' do
-          post :calculate, event_id: '1', event_purchase: valid_attributes
+          post :calculate_new, event_id: '1', event_purchase: valid_attributes
 
           expect(assigns(:user)).to be(user)
         end
 
         it 'assigns a new Event Purchase with the posted attributes' do
-          post :calculate, event_id: '1', event_purchase: valid_attributes
+          post :calculate_new, event_id: '1', event_purchase: valid_attributes
 
           expect(assigns(:event_purchase)).to be(event_purchase)
         end
 
         it 'uses the new_addon params to append a new addon' do
-          post :calculate, event_id: '1', event_purchase: valid_attributes, new_addon: {quantity: '2', product_id: '4'}
+          post :calculate_new, event_id: '1', event_purchase: valid_attributes, new_addon: {quantity: '2', product_id: '4'}
 
           appended_addon = assigns(:event_purchase).addon_purchases.last
 

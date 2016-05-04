@@ -1,6 +1,6 @@
 include MoneyRails::ActionViewExtension
 
-describe 'event_purchases/_form.html.haml' do
+describe 'event_purchases/_form_new.html.haml' do
   fixtures(:events)
   fixtures(:products)
   fixtures(:users)
@@ -20,7 +20,7 @@ describe 'event_purchases/_form.html.haml' do
   describe 'the form' do
 
     before do
-      render partial: 'event_purchases/form', locals: {event_purchase: event_purchase}
+      render partial: 'event_purchases/form_new', locals: {event_purchase: event_purchase}
     end
 
     it 'submits POST to builds' do
@@ -58,7 +58,7 @@ describe 'event_purchases/_form.html.haml' do
 
       allow(view).to receive(:event_purchase_total_price).with(event_purchase).and_return(Money.new(500))
 
-      render partial: 'event_purchases/form', locals: {event_purchase: event_purchase, user: user}
+      render partial: 'event_purchases/form_new', locals: {event_purchase: event_purchase, user: user}
     end
 
     it 'renders the Addon selection partial' do
@@ -84,7 +84,7 @@ describe 'event_purchases/_form.html.haml' do
       event_purchase.event = event
       event_purchase.ticket_purchase = ticket_purchase
 
-      render partial: 'event_purchases/form', locals: {event_purchase: event_purchase, user: user}
+      render partial: 'event_purchases/form_new', locals: {event_purchase: event_purchase, user: user}
     end
 
     it 'does not render the Addon selection partial' do

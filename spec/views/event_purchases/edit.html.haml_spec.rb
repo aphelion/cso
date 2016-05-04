@@ -1,10 +1,13 @@
 describe 'event_purchases/edit.html.haml' do
   fixtures(:event_purchases)
   fixtures(:events)
+  fixtures(:users)
   let(:event_purchase) { event_purchases(:crystals_event_purchase) }
+  let(:user) { users(:crystal) }
 
   before do
     assign(:event_purchase, event_purchase)
+    assign(:user, user)
     render
   end
 
