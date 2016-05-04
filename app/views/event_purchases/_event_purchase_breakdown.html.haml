@@ -9,7 +9,7 @@
   - event_purchase.addon_purchases.each_with_index do |addon_purchase, index|
     %tr
       %td= addon_purchase.product.name
-      %td #{addon_purchase.quantity}x
+      %td #{addon_purchase.quantity} × #{humanized_money_with_symbol addon_purchase.product.price}
       %td= humanized_money_with_symbol addon_purchase.total_price
       %td.table-button-cell
         - if defined? editable

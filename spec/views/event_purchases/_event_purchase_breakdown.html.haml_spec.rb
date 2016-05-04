@@ -27,7 +27,7 @@ describe 'event_purchases/_event_purchase_breakdown.html.haml' do
 
     it 'lists each Addon, its quantity, and its price' do
       event_purchase.addon_purchases.each do |addon_purchase|
-        expect(rendered).to have_text("#{addon_purchase.product.name} #{addon_purchase.quantity}x #{humanized_money_with_symbol addon_purchase.total_price}")
+        expect(rendered).to have_text("#{addon_purchase.product.name} #{addon_purchase.quantity} × #{humanized_money_with_symbol addon_purchase.product.price} #{humanized_money_with_symbol addon_purchase.total_price}")
       end
     end
 
@@ -47,12 +47,6 @@ describe 'event_purchases/_event_purchase_breakdown.html.haml' do
   context 'when editable is true' do
     before do
       render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: event_purchase.user, editable: true}
-    end
-
-    it 'renders a remove button for each Addon' do
-      event_purchase.addon_purchases.each do |addon_purchase|
-        expect(rendered).to have_text("#{addon_purchase.product.name} #{addon_purchase.quantity}x #{humanized_money_with_symbol addon_purchase.total_price}")
-      end
     end
   end
 
