@@ -10,13 +10,13 @@
             Add #{addon.name}
 - event_purchase.event.addons.each do |addon|
   - options_array = []
-  .modal.fade{id: "addon-modal-#{addon.id}",tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
+  .modal.fade{id: "addon-modal-#{addon.id}",tabindex: '-1', role: 'dialog', 'aria-labelledby': "addon-#{addon.id}-modal-label", 'aria-hidden': 'true'}
     .modal-dialog{role: 'document'}
       .modal-content
         .modal-header
           %button.close{type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close'}
             %span.fa.fa-times{'aria-hidden': 'true'}
-          %h4#refund-modal-label.modal-title Add #{addon.name}
+          %h4{id: "addon-#{addon.id}-modal-label.modal-title"} Add #{addon.name}
         .modal-body
           %p= addon.description
           %p.form-group
