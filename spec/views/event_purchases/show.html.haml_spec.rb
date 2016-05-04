@@ -35,8 +35,4 @@ describe 'event_purchases/show.html.haml' do
   it 'renders a link back to the Tickets page' do
     assert_select 'a[href=?]', my_tickets_path, text: 'Back'
   end
-
-  it 'renders a link to refund the Ticket' do
-    assert_select 'a[href=?][data-method=?]', event_purchase_path(event_purchase), 'delete', text: 'Refund Ticket'
-  end
 end
