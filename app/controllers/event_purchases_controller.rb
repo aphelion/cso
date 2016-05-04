@@ -44,6 +44,11 @@ class EventPurchasesController < ApplicationController
     redirect_to my_tickets_path
   end
 
+  def edit
+    @event_purchase = event_purchase_model.find(params[:id])
+    head :forbidden unless @event_purchase.user == current_user
+  end
+
   def event_model
     Event
   end

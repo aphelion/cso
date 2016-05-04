@@ -1,0 +1,7 @@
+.content
+  %h1 Modify Your #{@event_purchase.event.name} Ticket
+  .card.card-block
+    %h3 Existing Ticket
+    %p= render partial: 'event_purchases/event_purchase', locals: {event_purchase: @event_purchase}
+    %h3 Make Changes
+    %p= render partial: 'event_purchases/addon_selection', locals: {event_purchase: @event_purchase}
