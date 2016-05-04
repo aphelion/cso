@@ -10,8 +10,8 @@
             = b.radio_button({'data-ticket-form-update': ''})
             %span.c-indicator
             #{b.text} #{humanized_money_with_symbol b.object.price}
-            %p
-              %em.p-l-2= b.object.description
+            %p.p-l-2
+              %em= b.object.description
   = f.fields_for :addon_purchases do |addon_purchases_fields|
     = addon_purchases_fields.hidden_field(:product_id)
     = addon_purchases_fields.hidden_field(:quantity)
