@@ -1,0 +1,20 @@
+lapdance_gender:
+  product: private_lapdance
+  name: Gender
+  choices:
+    - Female
+    - Male
+lapdance_theme:
+  product: private_lapdance
+  name: Theme
+  choices:
+    - Cowboys and Indians
+    - Enchantment Under the Sea
+    - Lingerie
+    - Demasiado Bachata
+water_bottle_color:
+  product: water_bottle
+  name: Color
+  choices:
+    - Red
+    - Black

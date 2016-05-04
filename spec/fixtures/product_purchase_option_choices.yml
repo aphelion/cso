@@ -1,0 +1,12 @@
+crystals_water_bottle_purchase_color:
+  product_purchase: crystals_water_bottle_purchase
+  name: Color
+  choice: Red
+crystals_special_purchase_theme:
+  product_purchase: crystals_special_purchase
+  name: Theme
+  choice: Enchantment Under the Sea
+crystals_special_purchase_gender:
+  product_purchase: crystals_special_purchase
+  name: Gender
+  choice: Male

@@ -38,11 +38,17 @@ cso_2016_shirt = Product.create(
     description: 'Rep the CSO! Give us money! Swag!'
 )
 
+ProductOption.create(product: cso_2016_shirt, name: 'Gender', choices: ['Male', 'Female'])
+ProductOption.create(product: cso_2016_shirt, name: 'Size', choices: ['XS', 'S', 'M', 'L', 'XL'])
+ProductOption.create(product: cso_2016_shirt, name: 'Color', choices: ['Tiedie', 'See-Through', 'Black'])
+
 cso_water_bottle = Product.create(
     name: 'CSO Water Bottle',
     price_cents: 900,
     description: "Stay hydrated, fill it with Redbull vodka, we don't care. Just buy it."
 )
+
+ProductOption.create(product: cso_water_bottle, name: 'Color', choices: ['Red', 'Black'])
 
 cso_2016.addons << [cso_2016_shirt, cso_water_bottle, spectator_ticket]
 

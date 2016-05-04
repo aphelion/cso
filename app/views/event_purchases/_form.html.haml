@@ -12,9 +12,12 @@
             #{b.text} #{humanized_money_with_symbol b.object.price}
             %p
               %em.p-l-2= b.object.description
-  = f.fields_for :addon_purchases, event_purchase.addon_purchases do |addon_purchases_form|
-    = addon_purchases_form.hidden_field(:product_id)
-    = addon_purchases_form.hidden_field(:quantity)
+  = f.fields_for :addon_purchases do |addon_purchases_fields|
+    = addon_purchases_fields.hidden_field(:product_id)
+    = addon_purchases_fields.hidden_field(:quantity)
+    = addon_purchases_fields.fields_for :product_purchase_option_choices do |choices_fields|
+      = choices_fields.hidden_field(:option)
+      = choices_fields.hidden_field(:choice)
   - if ticket_selected
     %p= render partial: 'event_purchases/addon_selection', locals: {event_purchase: event_purchase}
     %p= render partial: 'event_purchases/event_purchase_breakdown', locals: {event_purchase: event_purchase, user: user, editable: true}

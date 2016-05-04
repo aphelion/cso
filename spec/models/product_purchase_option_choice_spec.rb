@@ -1,0 +1,2 @@
+describe ProductPurchaseOptionChoice do
+end

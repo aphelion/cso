@@ -9,6 +9,7 @@
           %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
             Add #{addon.name}
 - event_purchase.event.addons.each do |addon|
+  - options_array = []
   .modal.fade{id: "addon-modal-#{addon.id}",tabindex: '-1', role: 'dialog', 'aria-labelledby': 'refund-modal-label', 'aria-hidden': 'true'}
     .modal-dialog{role: 'document'}
       .modal-content
@@ -18,14 +19,20 @@
           %h4#refund-modal-label.modal-title Add #{addon.name}
         .modal-body
           %p= addon.description
-          %p
+          %p.form-group
+            - addon.options.each do |option|
+              - options_array.push("{option: '#{option.name}', choice: $('#addon_#{addon.id}_#{option.name}').val()}")
+              = fields_for :"addon_#{addon.id}" do |option_fields|
+                %fieldset.form-inline
+                  %strong= option_fields.label(option.name)
+                  = option_fields.select(option.name, options_for_select(option.choices), {}, {class: 'form-control'})
             = fields_for :"addon_#{addon.id}" do |addon_fields|
-              %fieldset.form-group.form-inline
+              %fieldset.form-inline
                 %strong= addon_fields.label(:quantity)
                 = addon_fields.select(:quantity, options_for_select((1..10)), {}, {class: 'form-control'})
         .modal-footer
           %button{type: 'button', class: 'btn btn-secondary', 'data-dismiss': 'modal'} Cancel
           %button{type: 'button',
-                  onclick: "$('#addon-modal-#{addon.id}').one('hidden.bs.modal', function() {App.addAddon(#{addon.id}, $('#addon_#{addon.id}_quantity').val())})",
+                  onclick: "$('#addon-modal-#{addon.id}').one('hidden.bs.modal', function() {App.addAddon(#{addon.id}, $('#addon_#{addon.id}_quantity').val(), [#{options_array.join(', ')}])})",
                   class: 'btn btn-primary',
                   'data-dismiss': 'modal'} Add to Ticket

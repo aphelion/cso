@@ -20,13 +20,7 @@ class EventPurchasesController < ApplicationController
     @event_purchase = event_purchase_model.new(event_purchase_params)
     event = event_model.find(params[:event_id])
     @event_purchase.event = event
-
-    if new_addon_params
-      @event_purchase.addon_purchases << ProductPurchase.new(
-          product_id: new_addon_params[:product_id],
-          quantity: new_addon_params[:quantity]
-      )
-    end
+    @event_purchase.addon_purchases << ProductPurchase.new(new_addon_params) if new_addon_params
   end
 
   def create
@@ -74,11 +68,25 @@ class EventPurchasesController < ApplicationController
   def event_purchase_params
     params.require(:event_purchase).permit(
         ticket_purchase_attributes: [:quantity, :product_id],
-        addon_purchases_attributes: [[:quantity, :product_id]]
+        addon_purchases_attributes: [
+            :quantity,
+            :product_id,
+            product_purchase_option_choices_attributes: [
+                :option,
+                :choice
+            ]
+        ]
     )
   end
 
   def new_addon_params
-    params.require(:new_addon).permit(:quantity, :product_id) if params[:new_addon]
+    params.require(:new_addon).permit(
+        :quantity,
+        :product_id,
+        product_purchase_option_choices_attributes: [
+            :option,
+            :choice
+        ]
+    ) if params[:new_addon]
   end
 end

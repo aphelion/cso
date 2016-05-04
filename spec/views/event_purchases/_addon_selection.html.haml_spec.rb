@@ -1,6 +1,7 @@
 describe 'event_purchases/_addon_selection.html.haml' do
   fixtures(:events)
   fixtures(:products)
+  fixtures(:product_options)
   let(:event) { events(:bachata_party) }
   let(:event_purchase) { EventPurchase.new }
 
@@ -42,7 +43,15 @@ describe 'event_purchases/_addon_selection.html.haml' do
     describe 'the Addon modal' do
       it 'renders a quantity dropdown menu' do
         event.addons.each do |addon|
-          expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[quantity]']")
+          expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[quantity]']")        end
+      end
+
+      it 'renders product options dropdown menus' do
+        event.addons.each do |addon|
+          addon.options.each_with_index do |option, index|
+            expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[#{index}][option_id]'][value='#{option.id}']")
+            expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[#{index}][choice]']")
+          end
         end
       end
     end

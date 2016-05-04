@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429015855) do
+ActiveRecord::Schema.define(version: 20160429034815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,26 @@ ActiveRecord::Schema.define(version: 20160429015855) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
+  create_table "product_options", force: :cascade do |t|
+    t.integer  "product_id",              null: false
+    t.string   "name",                    null: false
+    t.string   "choices",    default: [], null: false, array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "product_options", ["product_id"], name: "index_product_options_on_product_id", using: :btree
+
+  create_table "product_purchase_option_choices", force: :cascade do |t|
+    t.integer  "product_purchase_id", null: false
+    t.string   "option",              null: false
+    t.string   "choice",              null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "product_purchase_option_choices", ["product_purchase_id"], name: "index_product_purchase_option_choices_on_product_purchase_id", using: :btree
+
   create_table "product_purchases", force: :cascade do |t|
     t.integer  "charge_id",              null: false
     t.integer  "product_id",             null: false
@@ -123,6 +143,8 @@ ActiveRecord::Schema.define(version: 20160429015855) do
   add_foreign_key "event_purchases", "events"
   add_foreign_key "event_purchases", "users"
   add_foreign_key "identities", "users"
+  add_foreign_key "product_options", "products"
+  add_foreign_key "product_purchase_option_choices", "product_purchases"
   add_foreign_key "product_purchases", "charges"
   add_foreign_key "product_purchases", "products"
 end
