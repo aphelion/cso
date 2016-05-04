@@ -5,4 +5,4 @@
       %h3= event.name
       %ul
         - (event.tickets | event.addons).uniq do |product|
-          %li #{product.name}: #{product.product_purchases.count}
+          %li #{product.name}: #{product.product_purchases.sum(:quantity)}
