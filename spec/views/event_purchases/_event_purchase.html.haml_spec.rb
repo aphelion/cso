@@ -1,6 +1,7 @@
 describe 'event_purchases/_event_purchase.html.haml' do
   fixtures(:event_purchases)
   fixtures(:product_purchases)
+  fixtures(:product_purchase_option_choices)
   fixtures(:products)
   fixtures(:users)
 
@@ -22,6 +23,15 @@ describe 'event_purchases/_event_purchase.html.haml' do
     it "renders the Event Purchase's Addons" do
       event_purchase.addon_purchases.each do |addon_purchase|
         expect(rendered).to have_text(addon_purchase.product.name)
+      end
+    end
+
+    it "renders the Event Purchase's Addons' choices" do
+      event_purchase.addon_purchases.each do |addon_purchase|
+        addon_purchase.product_purchase_option_choices.each do |choice|
+          expect(rendered).to have_text(choice.option)
+          expect(rendered).to have_text(choice.choice)
+        end
       end
     end
   end

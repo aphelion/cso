@@ -43,14 +43,14 @@ describe 'event_purchases/_addon_selection.html.haml' do
     describe 'the Addon modal' do
       it 'renders a quantity dropdown menu' do
         event.addons.each do |addon|
-          expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[quantity]']")        end
+          expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[quantity]']")
+        end
       end
 
       it 'renders product options dropdown menus' do
         event.addons.each do |addon|
-          addon.options.each_with_index do |option, index|
-            expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[#{index}][option_id]'][value='#{option.id}']")
-            expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[#{index}][choice]']")
+          addon.options.each do |option|
+            expect(rendered).to have_selector("#addon-modal-#{addon.id} [name='addon_#{addon.id}[#{option.name}]']")
           end
         end
       end
