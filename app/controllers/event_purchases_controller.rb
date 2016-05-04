@@ -1,6 +1,7 @@
 class EventPurchasesController < ApplicationController
   include SessionsConcern
   before_action :must_be_authenticated
+  layout false, only: [:calculate]
 
   def new
     @user = current_user
