@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'purchases/:id/calculate', to: 'event_purchases#calculate_edit'
 
   get '/tickets', to: 'tickets#my', as: :my_tickets
+  get '/admin', to: 'admin#home', as: :admin_home
 
   get '/sessions/new', to: 'sessions#new', as: :new_session
   delete '/sessions', to: 'sessions#destroy', as: :destroy_session
