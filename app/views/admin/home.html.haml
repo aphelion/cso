@@ -1,8 +1,37 @@
 .content
   %h1 Administration
   .card.card-block
-    - @upcoming_events.each do |event|
-      %h3= event.name
-      %ul
-        - (event.tickets | event.addons).uniq do |product|
-          %li #{product.name}: #{product.product_purchases.sum(:quantity)}
+    %ul.nav.nav-pills{role: 'tablist'}
+      %li.nav-item
+        = link_to 'Tickets', '#tickets', class: 'nav-link active', data: {toggle: 'tab'}, role: 'tab'
+      %li.nav-item
+        = link_to 'Sales Totals', '#totals', class: 'nav-link', data: {toggle: 'tab'}, role: 'tab'
+    .tab-content
+      .tab-pane.active#tickets{role: 'tabpanel'}
+        %p
+          - event_purchases = EventPurchase.includes(:user).order('users.last_name asc')
+          %table.table.sortable
+            %thead
+              %tr
+                %th Last Name
+                %th First Name
+                %th Email
+                %th Purchase Date
+                %th{data: {defaultsort: 'disabled'}} Ticket
+            %tbody
+              - event_purchases.each do |event_purchase|
+                %tr
+                  %td= event_purchase.user.last_name
+                  %td= event_purchase.user.first_name
+                  %td= event_purchase.user.email
+                  - event_purchase_date = event_purchase.created_at.in_time_zone(event_purchase.event.time_zone)
+                  %td{data: {value: event_purchase_date.utc.to_s(:number)}}= event_purchase_date.to_s(:long_ordinal)
+                  %td= render partial: 'event_purchases/event_purchase', locals: {event_purchase: event_purchase}
+
+      .tab-pane#totals{role: 'tabpanel'}
+        %p
+          - @upcoming_events.each do |event|
+            %h3= event.name
+            %ul
+              - (event.tickets | event.addons).uniq do |product|
+                %li #{product.name}: #{product.product_purchases.sum(:quantity)}

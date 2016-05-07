@@ -30,6 +30,7 @@ gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'autoprefixer-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
+  gem 'rails-assets-bootstrap-sortable'
 end
 gem 'font-awesome-sass'
 

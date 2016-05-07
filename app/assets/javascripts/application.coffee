@@ -15,5 +15,6 @@
 #= require tether
 #= require turbolinks
 #= require bootstrap
+#= require bootstrap-sortable
 #= require shared
 #= require_tree .
