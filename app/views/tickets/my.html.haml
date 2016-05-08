@@ -5,3 +5,6 @@
       - @upcoming_events.each do |event|
         .col-sm-6.col-md-4
           = render 'tickets/event', event: event
+  - else
+    .card.card-block
+      %p Online sales are now closed. Any available tickets may be purchased at the registration desk. Come and dance!
