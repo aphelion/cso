@@ -1,0 +1,14 @@
+.media
+  .media-left.media-middle
+    .media-object.fa.fa-3x{class: "fa-#{icon}"}
+  .media-body
+    %h5= title
+    %div= subtitle
+    - if defined? pictures_link
+      %span.fa.fa-camera
+      = link_to 'Pictures',
+            pictures_link, target: '_blank'
+    - if defined? video_link
+      %span.fa.fa-video-camera
+      = link_to 'Video',
+            video_link, target: '_blank'

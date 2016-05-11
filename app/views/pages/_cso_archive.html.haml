@@ -1,0 +1,10 @@
+%section.home-section#cso-archive
+  %div
+    %ul.nav.nav-pills.center-pills{role: 'tablist'}
+      %li.nav-item
+        = link_to '2016', '#cso-2016', class: 'nav-link active', data: {toggle: 'tab'}, role: 'tab'
+      %li.nav-item
+        = link_to '2015', '#cso-2015', class: 'nav-link', data: {toggle: 'tab'}, role: 'tab'
+    .tab-content
+      .tab-pane.fade.in.active#cso-2016{role: 'tabpanel'}= render partial: 'pages/archive/cso_2016'
+      .tab-pane.fade#cso-2015{role: 'tabpanel'}= render partial: 'pages/archive/cso_2015'

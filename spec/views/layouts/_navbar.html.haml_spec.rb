@@ -7,12 +7,8 @@ describe 'layouts/_navbar.html.haml' do
     expect(rendered).to have_link 'Collegiate Salsa Open', href: '/'
   end
 
-  it 'links to the Event Information section' do
-    expect(rendered).to have_link 'Event Information', href: '/#event-information'
-  end
-
   it 'links to the CSO 2015 section' do
-    expect(rendered).to have_link 'CSO 2015', href: '/#cso-2015'
+    expect(rendered).to have_link 'Past Events', href: '/#cso-archive'
   end
 
   it 'links to the About section' do

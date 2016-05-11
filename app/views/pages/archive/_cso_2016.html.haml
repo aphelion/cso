@@ -1,0 +1,16 @@
+%div
+  %h1.display-4.text-md-center The 2016 Collegiate Salsa Open
+  %p.lead.text-md-center May 7th, 2016: Second Annual
+  %h2 Competition Champions
+  = render partial: 'pages/archive/participation',
+           locals: {title: '1st Place: San Jose State University',
+                    subtitle: 'Spartan Mambo',
+                    icon: 'trophy'}
+  = render partial: 'pages/archive/participation',
+           locals: {title: '2nd Place: University of Southern California',
+                    subtitle: 'Break On 2',
+                    icon: 'trophy'}
+  = render partial: 'pages/archive/participation',
+           locals: {title: '3rd Place: California State University, Long Beach',
+                    subtitle: 'CSULB Salsa',
+                    icon: 'trophy'}

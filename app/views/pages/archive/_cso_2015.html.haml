@@ -1,0 +1,111 @@
+%div
+  %h1.display-4.text-md-center The 2015 Collegiate Salsa Open
+  %p.lead.text-md-center April 25th, 2015: First Annual
+  .row
+    .col-lg-4.col-md-6
+      %h2 Competition Champions
+      = render partial: 'pages/archive/participation',
+               locals: {title: '1st Place: San Jose State University',
+                        subtitle: 'Spartan Mambo',
+                        icon: 'trophy',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895932667119974.1073741888.230041713709076',
+                        video_link: 'https://vimeo.com/126286968'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: '2nd Place: California State University, Northridge',
+                        subtitle: 'Salsa Libre',
+                        icon: 'trophy',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895969630449611.1073741890.230041713709076',
+                        video_link: 'https://vimeo.com/126410441'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: '3rd Place: University of Southern California',
+                        subtitle: 'Break On 2',
+                        icon: 'trophy',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.1051822868197619.1073741920.230041713709076'}
+      %h2 Honorable Mentions
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Los Angeles',
+                        subtitle: 'Salsa Society at UCLA',
+                        icon: 'star',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895963523783555.1073741889.230041713709076',
+                        video_link: 'https://vimeo.com/126300209'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Riverside',
+                        subtitle: 'The Salsa Club at UCR',
+                        icon: 'star',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895617247151516.1073741887.230041713709076'}
+    .col-lg-4.col-md-6
+      %h2 Performances
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'California State University, Long Beach',
+                        subtitle: 'CSULB Salsa',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895309843848923.1073741885.230041713709076'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'California State University, Northridge',
+                        subtitle: 'CSUN Salsa Libre',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.893902180656356.1073741883.230041713709076',
+                        video_link: 'https://vimeo.com/126309361'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'El Camino College',
+                        subtitle: 'El Co Salseros',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895267207186520.1073741884.230041713709076'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'San Diego State University',
+                        subtitle: 'SDSU Salsa Club',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.893885420658032.1073741881.230041713709076',
+                        video_link: 'https://vimeo.com/126454507'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Los Angeles',
+                        subtitle: 'Salsa Society at UCLA',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.893893120657262.1073741882.230041713709076',
+                        video_link: 'https://vimeo.com/126279233'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Riverside',
+                        subtitle: 'Salsiente Performance Team',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.892813004098607.1073741880.230041713709076',
+                        video_link: 'https://vimeo.com/126272053'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Santa Cruz',
+                        subtitle: 'Sabrosura',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.892787790767795.1073741879.230041713709076',
+                        video_link: 'https://vimeo.com/126639580'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of Southern California',
+                        subtitle: 'Break On 2',
+                        icon: 'star-o',
+                        pictures_link: 'https://www.facebook.com/media/set/?set=a.895585290488045.1073741886.230041713709076'}
+    .col-lg-4.col-md-12
+      %h3 Memories
+      %p
+        %span.fa.fa-camera
+        = link_to 'Workshops and Social Dancing Pictures',
+                  'https://www.facebook.com/media/set/?set=a.896759017037339.1073741892.230041713709076', target: '_blank'
+      %h3 21 Colleges in Attendance
+      %ul.list-unstyled
+        %li Cal Poly Pomona (Cal Poly Pomona Salsa Dance Team)
+        %li Cal Poly San Luis Obispo (CPSalsa)
+        %li California State University, Fullerton (Cal State Fullerton Salsa Club)
+        %li California State University, Long Beach (CSULB Salsa)
+        %li California State University, Northridge (CSUN Salsa Libre)
+        %li California State University, Sacramento (Salsa Loca)
+        %li California State University, San Bernardino (CSUSB Salchata Club)
+        %li Claremont Colleges (Salsa Addicts)
+        %li El Camino College (El Co Salseros)
+        %li Loyola Marymount University (LMU Salsa Club)
+        %li Pasadena City College (Candela Salsa Club)
+        %li San Diego State University (SDSU Salsa Club)
+        %li San Jose State University (Spartan Mambo)
+        %li Santa Clara University (Salsa Clara)
+        %li University of California, Irvine (UCI Salseros)
+        %li University of California, Los Angeles (Salsa Society at UCLA)
+        %li University of California, Riverside (The Salsa Club at UCR & Salsiente Performance Team)
+        %li University of California, Santa Barbara (Cotillion Dance Club: Strictly Social)
+        %li University of California, Santa Cruz (Sabrosura)
+        %li University of Southern California (Break On 2)
+        %li Whittier College (Latin Dance at Whittier College)
