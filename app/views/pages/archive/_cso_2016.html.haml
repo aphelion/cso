@@ -1,16 +1,73 @@
 %div
   %h1.display-4.text-md-center The 2016 Collegiate Salsa Open
   %p.lead.text-md-center May 7th, 2016: Second Annual
-  %h2 Competition Champions
-  = render partial: 'pages/archive/participation',
-           locals: {title: '1st Place: San Jose State University',
-                    subtitle: 'Spartan Mambo',
-                    icon: 'trophy'}
-  = render partial: 'pages/archive/participation',
-           locals: {title: '2nd Place: University of Southern California',
-                    subtitle: 'Break On 2',
-                    icon: 'trophy'}
-  = render partial: 'pages/archive/participation',
-           locals: {title: '3rd Place: California State University, Long Beach',
-                    subtitle: 'CSULB Salsa',
-                    icon: 'trophy'}
+  .row
+    .col-md-6
+      %h2 Competition Champions
+      = render partial: 'pages/archive/participation',
+               locals: {title: '1st Place: San Jose State University',
+                        subtitle: 'Spartan Mambo',
+                        icon: 'trophy'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: '2nd Place: University of Southern California',
+                        subtitle: 'Break On 2',
+                        icon: 'trophy'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: '3rd Place: California State University, Long Beach',
+                        subtitle: 'CSULB Salsa',
+                        icon: 'trophy'}
+      %h2 Honorable Mentions
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'California State University, Northridge',
+                        subtitle: 'Salsa Libre',
+                        icon: 'star'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'San Diego State University',
+                        subtitle: 'SDSU Salsa Club',
+                        icon: 'star'}
+    .col-md-6
+      %h2 Performances
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'California State University, Long Beach',
+                        subtitle: 'CSULB Salsa',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'California State University, Northridge',
+                        subtitle: 'CSUN Salsa Libre',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'El Camino College',
+                        subtitle: 'El Co Salseros',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'Loyola Marymount University',
+                        subtitle: 'LMU Salsa Club',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'San Diego State University',
+                        subtitle: 'SDSU Salsa Club',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'San Jose State University',
+                        subtitle: 'Spartan Mambo',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'Southwestern College',
+                        subtitle: 'Southwestern Bachata',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'Southwestern College',
+                        subtitle: 'Southwestern Salsa',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Los Angeles',
+                        subtitle: 'Salsa Society at UCLA',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Riverside',
+                        subtitle: 'Salsiente Performance Team',
+                        icon: 'star-o'}
+      = render partial: 'pages/archive/participation',
+               locals: {title: 'University of California, Santa Cruz',
+                        subtitle: 'Sabrosura',
+                        icon: 'star-o'}
