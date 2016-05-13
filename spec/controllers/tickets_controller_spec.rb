@@ -2,6 +2,7 @@ describe TicketsController do
   let(:events_service) { double(:EventsService) }
   let(:upcoming_events) { double(:upcoming_events) }
   let(:event) { double(:event) }
+  let(:user) { double(:user) }
 
   describe 'object seams' do
     it { expect(controller.events_service).to be(EventsService) }

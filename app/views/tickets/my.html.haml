@@ -1,6 +1,8 @@
 .content
   %h1 Tickets
-  - unless @upcoming_events.empty?
+  - if @upcoming_events.empty?
+    .card.card-block There are no upcoming events.
+  - else
     .row
       - @upcoming_events.each do |event|
         .col-sm-6.col-md-4
