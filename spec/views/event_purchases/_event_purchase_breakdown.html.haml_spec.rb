@@ -3,7 +3,7 @@ include MoneyRails::ActionViewExtension
 describe 'event_purchases/_event_purchase_breakdown.html.haml' do
   fixtures(:event_purchases)
   fixtures(:product_purchases)
-  let(:event_purchase) { event_purchases(:crystals_event_purchase)}
+  let(:event_purchase) { event_purchases(:crystals_salsa_party_purchase)}
 
   let(:event_purchase_base_price_value) { Money.new(100) }
   let(:event_purchase_processing_fees_value) { Money.new(200) }

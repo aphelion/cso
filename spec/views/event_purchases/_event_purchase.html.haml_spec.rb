@@ -5,7 +5,7 @@ describe 'event_purchases/_event_purchase.html.haml' do
   fixtures(:products)
   fixtures(:users)
 
-  let(:event_purchase) { event_purchases(:crystals_event_purchase) }
+  let(:event_purchase) { event_purchases(:crystals_salsa_party_purchase) }
 
   describe 'composition' do
     before do

@@ -7,3 +7,8 @@
       - @upcoming_events.each do |event|
         .col-sm-6.col-md-4
           = render 'tickets/event', event: event
+  - unless @past_event_event_purchases.empty?
+    .card
+      .card-block
+        %h4.card-title Your Past Events
+      = render 'event_purchases/event_purchase_table', event_purchases: @past_event_event_purchases

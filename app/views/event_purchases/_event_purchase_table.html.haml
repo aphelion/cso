@@ -1,0 +1,9 @@
+%table.table
+  %tbody
+    - event_purchases.each do |event_purchase|
+      %tr
+        %td
+          .fa.fa-fw.fa-ticket
+          = event_purchase.event.name
+        %td= event_purchase.event.event_start.strftime('%B %e, %Y')
+        %td= link_to 'Details', event_purchase_path(event_purchase), class: 'btn btn-secondary'

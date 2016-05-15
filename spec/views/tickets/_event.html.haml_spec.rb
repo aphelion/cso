@@ -4,7 +4,7 @@ describe 'users/_event.html.haml' do
 
   describe 'basic form composition' do
     let(:event) { events(:salsa_party) }
-    let(:event_purchase) { event_purchases(:crystals_event_purchase) }
+    let(:event_purchase) { event_purchases(:crystals_salsa_party_purchase) }
 
     describe 'basic layout' do
       before do

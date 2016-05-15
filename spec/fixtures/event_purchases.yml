@@ -1,5 +1,13 @@
-crystals_event_purchase:
+crystals_salsa_party_purchase:
   event: salsa_party
   user: crystal
-  ticket_purchase: crystals_ticket_purchase
+  ticket_purchase: crystals_salsa_party_ticket_purchase
   addon_purchases: [crystals_water_bottle_purchase, crystals_special_purchase]
+crystals_winter_zouk_purchase:
+  event: winter_zouk_social
+  user: crystal
+  ticket_purchase: crystals_winter_zouk_ticket_purchase
+crystals_bachata_party_purchase:
+  event: bachata_party
+  user: crystal
+  ticket_purchase: crystals_bachata_party_ticket_purchase

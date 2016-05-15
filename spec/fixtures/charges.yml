@@ -1,3 +1,9 @@
-crystals_event_purchase_charge:
+crystals_salsa_party_purchase_charge:
   charge_id: 'abc123'
+  processor: 'stripe'
+crystals_bachata_party_purchase_charge:
+  charge_id: 'def123'
+  processor: 'stripe'
+crystals_salsa_party_purchase_charge:
+  charge_id: 'ghi123'
   processor: 'stripe'

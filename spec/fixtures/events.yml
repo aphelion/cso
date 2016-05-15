@@ -16,3 +16,11 @@ salsa_party:
   event_end: <%= (1.month + 1.day).from_now.to_s(:db) %>
   sale_start: <%= (1.day).ago.to_s(:db) %>
   sale_end: <%= (1.month - 1.day).from_now.to_s(:db) %>
+winter_zouk_social:
+  name: 'Zouk in the Snow'
+  description: 'Dancing Zouk to all your favorite holiday songs, set to a Zouk beat.'
+  tickets: winter_zouk_social_pass
+  event_start: <%= (Date.new(1.year.ago.year, 12).beginning_of_month + Time.parse('20:00').seconds_since_midnight.seconds).to_datetime %>
+  event_end: <%= (Date.new(1.year.ago.year, 12).beginning_of_month + 1 + Time.parse('01:00').seconds_since_midnight.seconds).to_datetime %>
+  sale_start: <%= (Date.new(1.year.ago.year, 12).beginning_of_month - 7).to_datetime %>
+  sale_end: <%= (Date.new(1.year.ago.year, 12).beginning_of_month + 1 + Time.parse('01:00').seconds_since_midnight.seconds).to_datetime %>

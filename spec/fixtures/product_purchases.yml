@@ -1,12 +1,20 @@
-crystals_ticket_purchase:
-  charge: crystals_event_purchase_charge
+crystals_salsa_party_ticket_purchase:
+  charge: crystals_salsa_party_purchase_charge
   product: salsa_party_vip_pass
   quantity: 1
 crystals_water_bottle_purchase:
-  charge: crystals_event_purchase_charge
+  charge: crystals_salsa_party_purchase_charge
   product: water_bottle
   quantity: 1
 crystals_special_purchase:
-  charge: crystals_event_purchase_charge
+  charge: crystals_salsa_party_purchase_charge
   product: private_lapdance
   quantity: 5
+crystals_winter_zouk_ticket_purchase:
+  charge: crystals_salsa_party_purchase_charge
+  product: winter_zouk_social_ticket
+  quantity: 1
+crystals_bachata_party_ticket_purchase:
+  charge: crystals_bachata_party_purchase_charge
+  product: winter_bachata_party_ticket
+  quantity: 1
