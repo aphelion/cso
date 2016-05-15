@@ -25,6 +25,15 @@
                locals: {title: 'San Diego State University',
                         subtitle: 'SDSU Salsa Club',
                         icon: 'star'}
+      %h2 Memories
+      %p
+        %span.fa.fa-camera
+        = link_to 'Workshops',
+                  'https://www.facebook.com/media/set/?set=a.1089749414404964.1073741938.230041713709076', target: '_blank'
+      %p
+        %span.fa.fa-camera
+        = link_to 'Social Dancing',
+                  'https://www.facebook.com/media/set/?set=a.1091838074196098.1073741939.230041713709076', target: '_blank'
     .col-md-6
       %h2 Performances
       = render partial: 'pages/archive/participation',
