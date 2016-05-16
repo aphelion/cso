@@ -12,3 +12,7 @@
       %span.fa.fa-video-camera
       = link_to 'Video',
             video_link, target: '_blank'
+    - if defined? facebook_link
+      %span.fa.fa-facebook-square
+      = link_to 'Facebook',
+            facebook_link, target: '_blank'
