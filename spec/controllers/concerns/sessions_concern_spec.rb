@@ -3,7 +3,7 @@ describe SessionsConcern, type: :controller do
   let(:user) { double(:user) }
 
   describe 'object seams' do
-    controller(ApplicationController) do
+    controller(ActionController::Base) do
       include SessionsConcern
     end
 
@@ -13,7 +13,7 @@ describe SessionsConcern, type: :controller do
   describe 'OTHER THINGS' do
     describe '.logged_in_user' do
 
-      controller(ApplicationController) do
+      controller(ActionController::Base) do
         include SessionsConcern
         before_action :must_be_authenticated
 
@@ -49,7 +49,7 @@ describe SessionsConcern, type: :controller do
 
     describe '.must_be_admin' do
 
-      controller(ApplicationController) do
+      controller(ActionController::Base) do
         include SessionsConcern
         before_action :must_be_admin
 
@@ -85,7 +85,7 @@ describe SessionsConcern, type: :controller do
   end
 
   describe 'concern methods' do
-    controller(ApplicationController) do
+    controller(ActionController::Base) do
       include SessionsConcern
     end
 
