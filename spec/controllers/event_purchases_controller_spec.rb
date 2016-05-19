@@ -21,6 +21,8 @@ describe EventPurchasesController do
   end
 
   describe 'actions' do
+    let(:event) { Event.new }
+    let(:event_purchase) { EventPurchase.new }
 
     let(:valid_attributes) { {
         ticket_purchase_attributes: {
@@ -36,58 +38,65 @@ describe EventPurchasesController do
       allow(controller).to receive(:users_service).and_return(users_service)
     end
 
-    describe '.new' do
+    describe 'GET #new' do
+      before do
+        allow(event_purchase_model).to receive(:new).and_return(event_purchase)
+        allow(event_model).to receive(:find).with('1').and_return(event)
+      end
+
+      def do_request
+        get :new, event_id: '1'
+      end
+
+      it_behaves_like 'an authenticated endpoint'
+
       context 'when there is not an authenticated User' do
         it 'redirects to the login page' do
-          get :new, event_id: '1'
+          do_request
 
           expect(response).to redirect_to(new_session_path)
         end
       end
 
       context 'when there is an authenticated User' do
-        let(:event) { Event.new }
-        let(:event_purchase) { EventPurchase.new }
-
         before do
           allow(controller).to receive(:current_user).and_return(user)
-          allow(event_purchase_model).to receive(:new).and_return(event_purchase)
-          allow(event_model).to receive(:find).with('1').and_return(event)
         end
 
         it 'renders its template' do
-          get :new, event_id: '1'
+          do_request
 
           expect(response).to render_template('event_purchases/new')
         end
 
         it 'assigns a new Event Purchase as @event_purchase' do
-          get :new, event_id: '1'
+          do_request
 
           expect(assigns(:event_purchase)).to be(event_purchase)
         end
 
         it 'assigns the current user as @user' do
-          get :new, event_id: '1'
+          do_request
 
           expect(assigns(:user)).to be(user)
         end
 
         it "sets the new Event Purchase's Event as to the Event for the given id" do
-          get :new, event_id: '1'
+          do_request
 
           expect(assigns(:event_purchase).event).to be(event)
         end
 
         it "sets the new Event Purchase's Ticket Purchase as a new Product Purchase" do
-          get :new, event_id: '1'
+          do_request
 
           expect(assigns(:event_purchase).ticket_purchase).to be_a_new(ProductPurchase)
         end
       end
+
     end
 
-    describe 'GET .show' do
+    describe 'GET #show' do
       let(:event_purchase) { double(:event_purchase) }
       let(:hacker) { double(:user) }
 
@@ -96,19 +105,23 @@ describe EventPurchasesController do
         allow(event_purchase).to receive(:user).and_return(user)
       end
 
+      def do_request
+        get :show, id: '1'
+      end
+
       context 'when the current User is the User of the Ticket' do
         before do
           allow(controller).to receive(:current_user).and_return(user)
         end
 
         it 'renders its template' do
-          get :show, id: '1'
+          do_request
 
           expect(response).to render_template('event_purchases/show')
         end
 
         it 'provides the Event Purchase to the view' do
-          get :show, id: '1'
+          do_request
 
           expect(assigns(:event_purchase)).to eq(event_purchase)
         end
@@ -120,14 +133,14 @@ describe EventPurchasesController do
         end
 
         it 'throws the request in their FACE' do
-          get :show, id: '1'
+          do_request
 
           expect(response).to have_http_status(:forbidden)
         end
       end
     end
 
-    describe 'GET .edit' do
+    describe 'GET #edit' do
       let(:event_purchase) { double(:event_purchase) }
       let(:hacker) { double(:user) }
 
@@ -167,15 +180,7 @@ describe EventPurchasesController do
       end
     end
 
-    describe 'POST .calculate' do
-      context 'when there is not an authenticated User' do
-        it 'redirects to the login page' do
-          get :new, event_id: '1'
-
-          expect(response).to redirect_to(new_session_path)
-        end
-      end
-
+    describe 'POST #calculate_new' do
       context 'when there is an authenticated User' do
         let(:event) { Event.new }
         let(:event_purchase) { EventPurchase.new }
@@ -215,7 +220,7 @@ describe EventPurchasesController do
       end
     end
 
-    describe 'POST .create' do
+    describe 'POST #create' do
       context 'when there is not an authenticated User' do
         it 'redirects to the login page' do
           get :new, event_id: '1'

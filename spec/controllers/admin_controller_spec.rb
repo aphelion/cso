@@ -11,32 +11,30 @@ describe AdminController do
       allow(controller).to receive(:events_service).and_return(events_service)
     end
 
-    describe 'GET .home' do
-      context 'when the user is an admin' do
-        before do
-          allow(controller).to receive(:must_be_admin)
-          allow(events_service).to receive(:upcoming_events).and_return(upcoming_events)
-        end
+    describe 'GET #home' do
+      it_behaves_like 'an admin endpoint'
+      let(:user) { double(:user) }
 
-        it 'renders its template' do
-          get :home
-
-          expect(response).to render_template('admin/home')
-        end
-
-        it 'provides a list of upcoming Events to the view' do
-          get :home
-
-          expect(assigns(:upcoming_events)).to be(upcoming_events)
-        end
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(user).to receive(:admin).and_return(true)
+        allow(events_service).to receive(:upcoming_events).and_return(upcoming_events)
       end
 
-      context 'when the user is an admin' do
-        it 'returns forbidden' do
-          get :home
+      def do_request
+        get :home
+      end
 
-          expect(response).to have_http_status(:forbidden)
-        end
+      it 'renders its template' do
+        do_request
+
+        expect(response).to render_template('admin/home')
+      end
+
+      it 'provides a list of upcoming Events to the view' do
+        do_request
+
+        expect(assigns(:upcoming_events)).to be(upcoming_events)
       end
     end
   end
