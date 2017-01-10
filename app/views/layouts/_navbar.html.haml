@@ -3,6 +3,7 @@
   %button.navbar-toggler.hidden-md-up.pull-xs-right{data: {toggle: 'collapse', target: '#navbar-menu'}, role: 'button'} ☰
   #navbar-menu.collapse.navbar-toggleable-sm
     %ul.nav.navbar-nav
+      %li.nav-item= link_to 'Event Information', root_path(anchor: 'event-information'), class: 'nav-link page-scroll'
       %li.nav-item= link_to 'Past Events', root_path(anchor: 'cso-archive'), class: 'nav-link page-scroll'
       %li.nav-item= link_to 'About', root_path(anchor: 'about'), class: 'nav-link page-scroll'
       %li.nav-item= link_to 'Tickets', my_tickets_path, class: 'nav-link'
