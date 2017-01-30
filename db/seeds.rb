@@ -45,6 +45,18 @@ cso_2017_shirt = Product.create(
     description: 'Rep the CSO! Give us money! Swag!'
 )
 
+cso_2017_shirt_special_womens = Product.create(
+    name: 'CSO 2017 Shirt',
+    price_cents: 1200,
+    description: 'Rep the CSO! Give us money! Swag!'
+)
+
+cso_2017_shirt_mo_money = Product.create(
+    name: 'Women Fancy Flowy CSO Shirt',
+    price_cents: 1400,
+    description: "It's sensitive. Just like you. And shows more skin. Just like you. Women's fancy flowy CSO shirt. Just for you."
+)
+
 ProductOption.create(product: cso_2017_shirt, name: 'Gender', choices: ['Male', 'Female'])
 ProductOption.create(product: cso_2017_shirt, name: 'Size', choices: ['XS', 'S', 'M', 'L', 'XL'])
 ProductOption.create(product: cso_2017_shirt, name: 'Color', choices: ['Tiedie', 'See-Through', 'Black'])
@@ -57,7 +69,7 @@ cso_water_bottle = Product.create(
 
 ProductOption.create(product: cso_water_bottle, name: 'Color', choices: ['Red', 'Black'])
 
-cso_2017.addons << [cso_2017_shirt, cso_water_bottle, spectator_ticket]
+cso_2017.addons << [cso_2017_shirt, cso_2017_shirt_special_womens, cso_2017_shirt_mo_money, cso_water_bottle, spectator_ticket]
 
 cso_2016 = Event.create(
     name: '2016 Collegiate Salsa Open',

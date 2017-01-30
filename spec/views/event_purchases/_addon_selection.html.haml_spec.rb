@@ -1,3 +1,5 @@
+include MoneyRails::ActionViewExtension
+
 describe 'event_purchases/_addon_selection.html.haml' do
   fixtures(:events)
   fixtures(:products)
@@ -37,6 +39,12 @@ describe 'event_purchases/_addon_selection.html.haml' do
     it 'renders the description for each Addon' do
       event.addons.each do |addon|
         expect(rendered).to have_text(addon.description)
+      end
+    end
+
+    it 'renders the description for each Addon' do
+      event.addons.each do |addon|
+        expect(rendered).to have_text(humanized_money_with_symbol addon.price)
       end
     end
 

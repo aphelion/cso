@@ -2,9 +2,12 @@
   - event_purchase.event.addons.each do |addon|
     - unless event_purchase.addon_purchases.any?{|addon_purchase| addon_purchase.product.id == addon.id} && ! event_purchase.persisted?
       .col-md-4.text-md-center
-        %h5= addon.name
         %p
-          %em= addon.description
+          %h5= addon.name
+          %div
+            %strong= humanized_money_with_symbol addon.price
+          %div
+            %em.two-lines-max= addon.description
         %p
           %button.btn.btn-primary{type: 'button', 'data-toggle': 'modal', 'data-target': "#addon-modal-#{addon.id}"}
             Add #{addon.name}
@@ -18,6 +21,8 @@
             %span.fa.fa-times{'aria-hidden': 'true'}
           %h4{id: "addon-#{addon.id}-modal-label.modal-title"} Add #{addon.name}
         .modal-body
+          %p
+            %strong= humanized_money_with_symbol addon.price
           %p= addon.description
           %p.form-group
             - addon.options.each do |option|
