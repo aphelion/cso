@@ -5,7 +5,7 @@
   - else
     .row
       - @upcoming_events.each do |event|
-        .col-sm-6.col-md-4
+        .col-sm-8.col-centered
           = render 'tickets/event', event: event
   - unless @past_event_event_purchases.empty?
     .card

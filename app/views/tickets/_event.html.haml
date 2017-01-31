@@ -1,14 +1,35 @@
 - event_purchase = event_purchase_for_event_for_current_user(event)
-.card
-  .card-block
-    %h4.card-title= event.name
-    .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
-    %p.card-text= event.description
-  - unless event_purchase.nil?
-    = render 'event_purchases/event_purchase', event_purchase: event_purchase
-  .card-footer.text-xs-center
-    - unless event_purchase.nil?
-      = link_to 'Modify', edit_event_purchase_path(event_purchase), class: 'btn btn-primary'
-      = link_to 'Details', event_purchase_path(event_purchase), class: 'btn btn-secondary'
-    - else
-      = link_to 'Buy Ticket', new_event_event_purchase_path(event), class: 'btn btn-primary-outline'
+-#.card
+-#  .card-block
+-#    %h4.card-title= event.name
+-#    .lead.card-subtitle.text-muted= event.event_start.strftime('%A, %B %e, %Y')
+-#    %p.card-text= event.description
+-#  - unless event_purchase.nil?
+-#    = render 'event_purchases/event_purchase', event_purchase: event_purchase
+-#  .card-footer.text-xs-center
+-#    - unless event_purchase.nil?
+-#      = link_to 'Modify', edit_event_purchase_path(event_purchase), class: 'btn btn-primary'
+-#      = link_to 'Details', event_purchase_path(event_purchase), class: 'btn btn-secondary'
+-#    - else
+-#      = link_to 'Buy Ticket', new_event_event_purchase_path(event), class: 'btn btn-primary-outline'
+
+.event-card.text-xs-center
+  .event-card-body
+    %img{src: 'http://placehold.it/80x80'}
+    .event-title= event.name
+    .event-start= event.event_start.strftime('%A, %B %e, %Y')
+  %hr
+  .description-card-body
+    .row
+      .col-md-8.col-centered
+        %p.card-text= event.description
+        %p.card-text
+          - unless event_purchase.nil?
+            = render 'event_purchases/event_purchase', event_purchase: event_purchase
+        %p.event-cta
+          - unless event_purchase.nil?
+            = link_to 'Modify', edit_event_purchase_path(event_purchase), class: 'btn btn-primary-outline'
+            = link_to 'Details', event_purchase_path(event_purchase), class: 'btn btn-secondary'
+          - else
+            = link_to 'Buy Ticket', new_event_event_purchase_path(event), class: 'btn btn-primary'
+
