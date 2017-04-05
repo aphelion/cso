@@ -31,6 +31,7 @@ gem 'autoprefixer-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
   gem 'rails-assets-bootstrap-sortable'
+  gem 'rails-assets-jquery', '< 3.0.0'
 end
 gem 'font-awesome-sass'
 
