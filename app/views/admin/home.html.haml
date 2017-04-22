@@ -3,7 +3,7 @@
   .card.card-block
     %ul.nav.nav-pills{role: 'tablist'}
       %li.nav-item
-        = link_to "Tickets (#{EventPurchase.count})", '#tickets', class: 'nav-link active', data: {toggle: 'tab'}, role: 'tab'
+        = link_to "Tickets (#{EventPurchase.where(event_id: 5).count})", '#tickets', class: 'nav-link active', data: {toggle: 'tab'}, role: 'tab'
       %li.nav-item
         = link_to 'Sales Totals', '#totals', class: 'nav-link', data: {toggle: 'tab'}, role: 'tab'
     .tab-content
@@ -18,7 +18,7 @@
                 %th Purchase Date
                 %th{data: {defaultsort: 'disabled'}} Ticket
             %tbody
-              - EventPurchase.find_each do |event_purchase|
+              - EventPurchase.where(event_id: 5).each do |event_purchase|
                 %tr
                   %td= event_purchase.user.last_name
                   %td= event_purchase.user.first_name
